@@ -1,0 +1,111 @@
+from selenium import webdriver
+from selenium.webdriver.support.ui import Select
+from webscraper_utils import GeneralUtils
+from tqdm import tqdm
+
+import time, os, json
+import logging
+
+
+class CarFaxScraper:
+    def __init__(self):
+        self.data = []
+        self.carfax_link = "https://www.carfax.com/"
+        self.carfax = webdriver.Chrome()
+        self.carfax.get(self.carfax_link)
+        self.carfax.get(self.carfax_link)
+        btn = self.carfax.find_elements_by_class_name("button--green")
+        btn[0].click()
+        time.sleep(2)
+    
+    def search(self, make, model, zip_code):
+        select_make = Select(self.carfax.find_elements_by_class_name("search-make")[0])
+        if not select_make:
+            raise Exception("Selecting Make Box wasn't found!")
+        select_make.select_by_value("Tesla")
+        time.sleep(1)
+
+        select_model = Select(self.carfax.find_elements_by_class_name("search-model")[0])
+        if not select_model:
+            raise Exception("Selecting Model Box wasn't found!")
+        select_model.select_by_value("Model 3")
+
+        zip_code_input = self.carfax.find_elements_by_class_name("search-zip")[0]
+        if not zip_code_input:
+            raise Exception("ZIP Code Input Box wasn't found!")
+        zip_code_input.send_keys(zip_code)
+
+        start_searching_btn = self.carfax.find_elements_by_class_name("search-submit")[0]
+        if not start_searching_btn:
+            raise Exception("Search Button after selecting model and make is not found")
+        start_searching_btn.click()
+
+        time.sleep(5)
+        start_show_me_btn = self.carfax.find_elements_by_class_name("button.large.primary-green")[0]
+        start_show_me_btn.click()
+        time.sleep(2)
+    
+    def check_search_range_miles_value(self, value):
+        range_values = ["10", "25", "50", "75", "100", "150", "200", "250", "500", "3000"]
+        if value not in range_values:
+            raise Exception("The value you chose {} for search range miles is not part of the list: {}".format(value, range_values))
+    
+    def get_miles_and_prices(self, search_range_miles="3000", apply_search_range=True):
+        self.check_search_range_miles_value(
+            value=search_range_miles)
+        if apply_search_range:
+            search_radius_box = Select(self.carfax.find_elements_by_class_name("form-control.search-radius")[0])
+            search_radius_box.select_by_value(search_range_miles)
+            search_button = self.carfax.find_elements_by_class_name("button.expanded.searchForm-submit-btn")[0]
+            self.carfax.execute_script("arguments[0].click();", search_button)
+            time.sleep(2)
+
+        while(True):
+            next_btn = self.carfax.find_elements_by_class_name("pagination__button--right")
+            disabled_btn = self.carfax.find_elements_by_class_name("pagination__button--right.pagination__button--disabled")
+
+            #getting the price and miles
+            prices = self.carfax.find_elements_by_xpath("//span[contains(text(), '$')][contains(@class, 'srp-list-item-price')]")
+            miles = self.carfax.find_elements_by_xpath("//span[contains(text(), 'miles')][contains(@class, 'srp-list-item-basic-info')]")
+            if len(prices) != len(miles):
+                #TODO: Currently there is miss match in prices andn miles in some of the pages-
+                print("The length of prices: {} and miles: {}".format(
+                    len(prices), len(miles))
+                )
+                for each_mile in miles:
+                    print(each_mile)
+                raise Exception("Both data in prices and miles length does not match")
+
+            for each_price, each_mile in zip(prices, miles):
+                tmp_dict = {}
+                price = GeneralUtils.getonly_numbers(each_price.get_attribute("innerHTML"))
+                mile = GeneralUtils.getonly_numbers(each_mile.get_attribute("innerHTML"))
+                tmp_dict['Price'] = price
+                tmp_dict['Miles'] = mile
+                self.data.append(tmp_dict)
+            
+            if not len(disabled_btn):
+                next_btn[0].click()
+                time.sleep(2)
+            else:
+                self.carfax.quit()
+                break
+    
+    def produce_data(self, filename, output_type="json"):
+        if output_type == "json":
+            pretty_json_content = json.dumps(self.data, indent=4)
+            with open(filename, 'w') as fp:
+                fp.write(pretty_json_content)
+
+    
+if __name__ == "__main__":
+    carfax_obj = CarFaxScraper()
+    carfax_obj.search(
+        make="Tesla",
+        model="Model 3",
+        zip_code="95116"
+    )
+    carfax_obj.get_miles_and_prices()
+    carfax_obj.produce_data(
+        filename="data.json"
+    )
