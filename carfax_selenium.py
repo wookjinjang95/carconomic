@@ -50,25 +50,30 @@ class CarFaxScraper:
         if value not in range_values:
             raise Exception("The value you chose {} for search range miles is not part of the list: {}".format(value, range_values))
     
-    def get_miles_and_prices(self, search_range_miles="3000", apply_search_range=True):
-        self.check_search_range_miles_value(
-            value=search_range_miles)
-        if apply_search_range:
-            search_radius_box = Select(self.carfax.find_elements_by_class_name("form-control.search-radius")[0])
-            search_radius_box.select_by_value(search_range_miles)
-            search_button = self.carfax.find_elements_by_class_name("button.expanded.searchForm-submit-btn")[0]
-            self.carfax.execute_script("arguments[0].click();", search_button)
-            time.sleep(2)
-
-        while(True):
-            next_btn = self.carfax.find_elements_by_class_name("pagination__button--right")
-            disabled_btn = self.carfax.find_elements_by_class_name("pagination__button--right.pagination__button--disabled")
+    def get_total_pages(self):
+        pages = self.carfax.find_elements_by_class_name("pagination__list-item")
+        last_page = pages[len(pages) - 1]
+        last_page = GeneralUtils.getonly_numbers(last_page.text)
+        logging.debug("Total Pages: {}".format(last_page))
+        return int(last_page)
+    
+    def apply_search_range(self, search_range_miles):
+        search_radius_box = Select(self.carfax.find_elements_by_class_name("form-control.search-radius")[0])
+        search_radius_box.select_by_value(search_range_miles)
+        search_button = self.carfax.find_elements_by_class_name("button.expanded.searchForm-submit-btn")[0]
+        self.carfax.execute_script("arguments[0].click();", search_button)
+        time.sleep(2)
+    
+    def get_miles_and_prices(self):
+        #TODO: Currently the miles are not grepping well. Requires miles to grep well that's consider N/A
+            #next_btn = self.carfax.find_elements_by_class_name("pagination__button--right")
+            #disabled_btn = self.carfax.find_elements_by_class_name("pagination__button--right.pagination__button--disabled")
 
             #getting the price objects
             prices = self.carfax.find_elements_by_xpath(
                 "//span[contains(text(), '$')][contains(@class, 'srp-list-item-price')] | \
-                 //span[contains(text(), 'Call for Price')][contains(@class, 'srp-list-item-price')] | \
-                 //span[contains(text(), 'Request Quote')][contains(@class, 'srp-list-item-price')]")
+                //span[contains(text(), 'Call for Price')][contains(@class, 'srp-list-item-price')] | \
+                //span[contains(text(), 'Request Quote')][contains(@class, 'srp-list-item-price')]")
 
             #getting the mile objects
             miles = self.carfax.find_elements_by_xpath("//span[contains(text(), 'miles')][contains(@class, 'srp-list-item-basic-info')]")
@@ -81,19 +86,41 @@ class CarFaxScraper:
 
             for each_price, each_mile in zip(prices, miles):
                 tmp_dict = {}
-                price = GeneralUtils.getonly_numbers(each_price.get_attribute("innerHTML"))
-                mile = GeneralUtils.getonly_numbers(each_mile.get_attribute("innerHTML"))
+                price = GeneralUtils.getonly_numbers(each_price.text)
+                mile = GeneralUtils.getonly_numbers(each_mile.text)
                 tmp_dict['Price'] = price
                 tmp_dict['Miles'] = mile
                 self.data.append(tmp_dict)
             
-            if not len(disabled_btn):
-                next_btn[0].click()
-                time.sleep(2)
-            else:
-                self.carfax.quit()
-                break
+            # if not len(disabled_btn):
+            #     next_btn[0].click()
+            #     time.sleep(2)
+            # else:
+            #     self.carfax.quit()
+            #     break
     
+    def show_progress(self, search_range_miles="3000", apply_search_range=True):
+        if apply_search_range:
+            self.apply_search_range(
+                search_range_miles=search_range_miles
+            )
+        
+        total_page_to_flip = self.get_total_pages()
+        count_pages = 0
+        with tqdm(total=total_page_to_flip-1) as pbar:
+            for i in range(total_page_to_flip-1):
+                self.get_miles_and_prices()
+                next_btn = self.carfax.find_elements_by_class_name("pagination__button--right")
+                next_btn[0].click()
+                pbar.update(1)
+                count_pages += 1
+                time.sleep(2)
+            
+        if count_pages != total_page_to_flip-1:
+            raise Exception("Failed to run all pages. Count Page: {}, Total Page: {}".format(
+                count_pages, total_page_to_flip
+            ))
+
     def produce_data(self, filename, output_type="json"):
         if output_type == "json":
             pretty_json_content = json.dumps(self.data, indent=4)
@@ -108,7 +135,7 @@ if __name__ == "__main__":
         model="Model 3",
         zip_code="95116"
     )
-    carfax_obj.get_miles_and_prices()
+    carfax_obj.show_progress()
     carfax_obj.produce_data(
         filename="data.json"
     )
