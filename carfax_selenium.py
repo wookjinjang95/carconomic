@@ -64,16 +64,19 @@ class CarFaxScraper:
             next_btn = self.carfax.find_elements_by_class_name("pagination__button--right")
             disabled_btn = self.carfax.find_elements_by_class_name("pagination__button--right.pagination__button--disabled")
 
-            #getting the price and miles
-            prices = self.carfax.find_elements_by_xpath("//span[contains(text(), '$')][contains(@class, 'srp-list-item-price')]")
+            #getting the price objects
+            prices = self.carfax.find_elements_by_xpath(
+                "//span[contains(text(), '$')][contains(@class, 'srp-list-item-price')] | \
+                 //span[contains(text(), 'Call for Price')][contains(@class, 'srp-list-item-price')] | \
+                 //span[contains(text(), 'Request Quote')][contains(@class, 'srp-list-item-price')]")
+
+            #getting the mile objects
             miles = self.carfax.find_elements_by_xpath("//span[contains(text(), 'miles')][contains(@class, 'srp-list-item-basic-info')]")
             if len(prices) != len(miles):
-                #TODO: Currently there is miss match in prices andn miles in some of the pages-
+                #Logging error that the length is not equal
                 print("The length of prices: {} and miles: {}".format(
                     len(prices), len(miles))
                 )
-                for each_mile in miles:
-                    print(each_mile)
                 raise Exception("Both data in prices and miles length does not match")
 
             for each_price, each_mile in zip(prices, miles):
