@@ -8,6 +8,13 @@ import logging
 
 
 class CarFaxScraper:
+    """
+        Order of Running CarFaxScraper
+        1. Initiate the object
+        2. Search
+        3. Show Progress
+        4. Produce Data
+    """
     def __init__(self):
         self.data = []
         self.carfax_link = "https://www.carfax.com/"
@@ -17,6 +24,10 @@ class CarFaxScraper:
         btn = self.carfax.find_elements_by_class_name("button--green")
         btn[0].click()
         time.sleep(2)
+    
+    def close_browser(self):
+        self.carfax.close()
+        self.carfax.quit()
     
     def search(self, make, model, zip_code):
         select_make = Select(self.carfax.find_elements_by_class_name("search-make")[0])
@@ -139,3 +150,4 @@ if __name__ == "__main__":
     carfax_obj.produce_data(
         filename="data.json"
     )
+    carfax.close_browser()
