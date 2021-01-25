@@ -5,6 +5,7 @@ from tqdm import tqdm
 
 import time, os, json
 import logging
+from data_cleaner import DataCleanerUtils
 
 
 class CarFaxScraper:
@@ -14,6 +15,8 @@ class CarFaxScraper:
         2. Search
         3. Show Progress
         4. Produce Data
+        5. Clean Data
+        6. Close the selenium browser
     """
     def __init__(self):
         self.data = []
@@ -102,13 +105,6 @@ class CarFaxScraper:
                 tmp_dict['Price'] = price
                 tmp_dict['Miles'] = mile
                 self.data.append(tmp_dict)
-            
-            # if not len(disabled_btn):
-            #     next_btn[0].click()
-            #     time.sleep(2)
-            # else:
-            #     self.carfax.quit()
-            #     break
     
     def show_progress(self, search_range_miles="3000", apply_search_range=True):
         if apply_search_range:
@@ -133,8 +129,9 @@ class CarFaxScraper:
             ))
 
     def produce_data(self, filename, output_type="json"):
+        filtered_data = DataCleanerUtils.only_get_prices(self.data)
         if output_type == "json":
-            pretty_json_content = json.dumps(self.data, indent=4)
+            pretty_json_content = json.dumps(filtered_data, indent=4)
             with open(filename, 'w') as fp:
                 fp.write(pretty_json_content)
 
@@ -150,4 +147,4 @@ if __name__ == "__main__":
     carfax_obj.produce_data(
         filename="data.json"
     )
-    carfax.close_browser()
+    carfax_obj.close_browser()

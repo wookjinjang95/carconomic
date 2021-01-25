@@ -1,6 +1,57 @@
-<!DOCTYPE html>
 <html>
+    <head>
+        <style>
+            body {
+                background-color: #666666;
+            }
+            h1 {
+                text-align: center;
+            }
+        </style>
+        <script src="https://d3js.org/d3.v6.min.js"></script>
+    </head>
     <body>
-        <h1>Tesla Price Depreciation</h1>
+        <h1>Tesla Model 3 Price Depreciation</h1>
+        <div id="model3_depreciation"></div>
+        <script>
+            var margin = {top: 10, right: 30, bottom: 30, left: 60},
+                width = 460 - margin.left - margin.right,
+                height = 400 - margin.top - margin.bottom
+
+            var svg = d3.select("#model3_depreciation")
+                .append("svg")
+                    .attr("width", width + margin.left + margin.right)
+                    .attr("height", height + margin.top + margin.bottom)
+                .append("g")
+                    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+            d3.json("data_scraper/data.json", function(data){
+                //Add X axis
+                var x = d3.scaleLinear()
+                    .domain([0, 100,000])
+                    .range([0, width]);
+                svg.append("g")
+                    .attr("transform", "translate(0," + height + ")")
+                    .call(d4.axisBottom(x));
+                
+                // Add Y axis
+                var y = d3.scaleLinear()
+                    .domain([0, 100,000])
+                    .range([height, 0]);
+                svg.append("g")
+                    .call(d3.axisLeft(y));
+
+                // Add dots
+                svg.append("g")
+                    .selectAll("dot")
+                    .data(data)
+                    .enter()
+                    .append("circle")
+                        .attr("cx", function(d) { return x(d.Miles)})
+                        .attr("cy", function(d) { return y(d.Price)})
+                        .attr("r", 1.5)
+                        .style("fill", "#cc0000")
+            });
+        </script>
     </body>
 </html>
