@@ -1,10 +1,12 @@
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
+from selenium.webdriver.common.action_chains import ActionChains
 from webscraper_utils import GeneralUtils
 from tqdm import tqdm
 
 import time, os, json
-import logging
+import logging, csv
+import argparse
 from data_cleaner import DataCleanerUtils
 
 
@@ -22,6 +24,8 @@ class CarFaxScraper:
         self.data = []
         self.carfax_link = "https://www.carfax.com/"
         self.carfax = webdriver.Chrome()
+        self.action = ActionChains(self.carfax)
+        #self.carfax.maximize_window()
         self.carfax.get(self.carfax_link)
         self.carfax.get(self.carfax_link)
         btn = self.carfax.find_elements_by_class_name("button--green")
@@ -36,13 +40,13 @@ class CarFaxScraper:
         select_make = Select(self.carfax.find_elements_by_class_name("search-make")[0])
         if not select_make:
             raise Exception("Selecting Make Box wasn't found!")
-        select_make.select_by_value("Tesla")
+        select_make.select_by_value(make)
         time.sleep(1)
 
         select_model = Select(self.carfax.find_elements_by_class_name("search-model")[0])
         if not select_model:
             raise Exception("Selecting Model Box wasn't found!")
-        select_model.select_by_value("Model 3")
+        select_model.select_by_value(model)
 
         zip_code_input = self.carfax.find_elements_by_class_name("search-zip")[0]
         if not zip_code_input:
@@ -72,6 +76,7 @@ class CarFaxScraper:
         return int(last_page)
     
     def apply_search_range(self, search_range_miles):
+        self.check_search_range_miles_value(value=search_range_miles)
         search_radius_box = Select(self.carfax.find_elements_by_class_name("form-control.search-radius")[0])
         search_radius_box.select_by_value(search_range_miles)
         search_button = self.carfax.find_elements_by_class_name("button.expanded.searchForm-submit-btn")[0]
@@ -118,7 +123,8 @@ class CarFaxScraper:
             for i in range(total_page_to_flip-1):
                 self.get_miles_and_prices()
                 next_btn = self.carfax.find_elements_by_class_name("pagination__button--right")
-                next_btn[0].click()
+                self.action.move_to_element(next_btn[0]).click().perform()
+                #next_btn[0].click()
                 pbar.update(1)
                 count_pages += 1
                 time.sleep(2)
@@ -134,17 +140,40 @@ class CarFaxScraper:
             pretty_json_content = json.dumps(filtered_data, indent=4)
             with open(filename, 'w') as fp:
                 fp.write(pretty_json_content)
+        elif output_type == "csv":
+            keys = filtered_data[0].keys()
+            with open(filename, 'w', newline='') as fp:
+                dict_writer = csv.DictWriter(fp, keys)
+                dict_writer.writeheader()
+                dict_writer.writerows(filtered_data)
 
+
+def get_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-z", "--zip", required=True, dest="zipcode")
+    parser.add_argument("-m", "--model", required=True, dest="model")
+    parser.add_argument("-ma", "--make", required=True, dest="make")
+    parser.add_argument('-f', "--outputfile", required=True, dest="outputfile")
+    parser.add_argument('-mi', "--miles", required=False, dest="miles")
+    options = parser.parse_args()
+    options = vars(options)
+    if not options['miles']:
+        options['miles'] = 3000
+    return options
     
 if __name__ == "__main__":
+    options = get_args()
     carfax_obj = CarFaxScraper()
     carfax_obj.search(
-        make="Tesla",
-        model="Model 3",
-        zip_code="95116"
+        make=options['make'],
+        model=options['model'],
+        zip_code=options['zipcode']
     )
-    carfax_obj.show_progress()
+    carfax_obj.show_progress(
+        search_range_miles=options['miles']
+    )
     carfax_obj.produce_data(
-        filename="data.json"
+        filename=options['outputfile'], 
+        output_type="csv"
     )
     carfax_obj.close_browser()
