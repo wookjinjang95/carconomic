@@ -1,25 +1,3 @@
-
-// const fs = require('fs')
-
-// function get_info(myfile){
-//     var full_file = 'data_scraper/' + myfile;
-//     var rawdata = fs.readFileSync(full_file);
-//     var json_data = JSON.parse(rawdata);
-//     //json_data = filter_out_correct_data(json_data);
-//     console.log(json_data);
-//     return json_data;
-// }
-
-// function filter_out_correct_data(data){
-//     var filtered_array = new Array();
-//     data.forEach(function(each_data, index, array){
-//         if(!isNaN(each_data['Price'])){
-//             filtered_array.push(each_data)
-//         }
-//     });
-//     return filtered_array
-// }
-
 // const model3_data = get_info('data.json');
 var margin = {top: 10, right: 30, bottom: 30, left: 60},
     width = 1000 - margin.left - margin.right,
@@ -41,8 +19,36 @@ svg.append("g")
     .call(d3.axisBottom(x));
 svg.append("g").call(d3.axisLeft(y));
 
+
 //note that when you are selectall, you have to pass the entire array
 const render = data => {
+    // const linearRegression = d3.regressionLinear()
+    //     .x(d => d.Miles)
+    //     .y(d => d.Price)
+    //     .domain([-1.7, 16]);
+
+    // var line = d3.line()
+    //     .x((d) => x(d.Miles))
+    //     .y((d) => y(d.Price));
+        
+    // var res = linearRegression(data);
+    var linearRegression = ss.linearRegression(data.map(d => [d.Miles, d.Price]));
+    var linearRegressionLine = ss.linearRegressionLine(linearRegression);
+    var regressionPoints = {
+        const firstX = data[0].Miles;
+        const lastX = data.slice(-1)[0].Price;
+        const xCoordinates = [firstX, lastX];
+
+        return xCoordinates.map(d => ({
+            x: d,
+            y: linearRegressionLine(d)
+        }));
+    }
+    var line = d3.line()
+            .x(d => xScale(d.Miles))
+            .y(d => yScale(d.Price));
+
+
     svg.selectAll("dot")
         .data(data)
         .enter()
@@ -50,14 +56,16 @@ const render = data => {
             .attr("r", 1.5)
             .attr("cx", function(d) { return x(d.Miles)})
             .attr("cy", function(d) { return y(d.Price)})
-            .attr("fill", "#9834eb")
-}
+            .attr("fill", "#9834eb");
 
-const linear_regression = data => {
+    svg.append("line")
+        .classed("regressionLine", true)
+        .datum(regressionPoints)
+        .attr('d', line)
+        .style("style-width", 5);
+};
 
-}
-
-var data = d3.csv("data.csv")
+var draw = d3.csv("tesla_model_3.csv")
     .then(data =>{
         render(data);
 });

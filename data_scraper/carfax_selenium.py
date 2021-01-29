@@ -24,8 +24,8 @@ class CarFaxScraper:
         self.data = []
         self.carfax_link = "https://www.carfax.com/"
         self.carfax = webdriver.Chrome()
-        self.action = ActionChains(self.carfax)
-        #self.carfax.maximize_window()
+        #self.action = ActionChains(self.carfax)
+        self.carfax.maximize_window()
         self.carfax.get(self.carfax_link)
         self.carfax.get(self.carfax_link)
         btn = self.carfax.find_elements_by_class_name("button--green")
@@ -65,7 +65,7 @@ class CarFaxScraper:
     
     def check_search_range_miles_value(self, value):
         range_values = ["10", "25", "50", "75", "100", "150", "200", "250", "500", "3000"]
-        if value not in range_values:
+        if str(value) not in range_values:
             raise Exception("The value you chose {} for search range miles is not part of the list: {}".format(value, range_values))
     
     def get_total_pages(self):
@@ -111,19 +111,23 @@ class CarFaxScraper:
                 tmp_dict['Miles'] = mile
                 self.data.append(tmp_dict)
     
-    def show_progress(self, search_range_miles="3000", apply_search_range=True):
+    def show_progress(self, no_accident, search_range_miles="3000", apply_search_range=True):
         if apply_search_range:
             self.apply_search_range(
                 search_range_miles=search_range_miles
             )
         
+        #applying filter
+        self.apply_filters(no_accident=no_accident)
+        
         total_page_to_flip = self.get_total_pages()
         count_pages = 0
         with tqdm(total=total_page_to_flip-1) as pbar:
             for i in range(total_page_to_flip-1):
+                action = ActionChains(self.carfax)
                 self.get_miles_and_prices()
                 next_btn = self.carfax.find_elements_by_class_name("pagination__button--right")
-                self.action.move_to_element(next_btn[0]).click().perform()
+                action.move_to_element(next_btn[0]).click().perform()
                 #next_btn[0].click()
                 pbar.update(1)
                 count_pages += 1
@@ -146,6 +150,19 @@ class CarFaxScraper:
                 dict_writer = csv.DictWriter(fp, keys)
                 dict_writer.writeheader()
                 dict_writer.writerows(filtered_data)
+  
+    def apply_filters(self, no_accident):
+        """
+        Later you can add more filters here.
+        """
+        action = ActionChains(self.carfax)
+        if no_accident:
+            no_acc_obj = self.carfax.find_elements_by_xpath("//span[contains(@class, 'srp-filter--text')][contains(text(), 'No Accidents or Damage')]")
+            if not no_acc_obj:
+                raise Exception("Couldn't find the no acccident or damage reported button on the carfax website")
+            action.move_to_element(no_acc_obj[0]).click().perform()
+            #no_acc_obj[0].click()
+        time.sleep(3)
 
 
 def get_args():
@@ -155,13 +172,17 @@ def get_args():
     parser.add_argument("-ma", "--make", required=True, dest="make")
     parser.add_argument('-f', "--outputfile", required=True, dest="outputfile")
     parser.add_argument('-mi', "--miles", required=False, dest="miles")
+    parser.add_argument('-na', "--no-accident", required=False, dest="no_accident")
     options = parser.parse_args()
     options = vars(options)
     if not options['miles']:
-        options['miles'] = 3000
+        options['miles'] = "3000"
+    if not options['no_accident']:
+        options['no_accident'] = True
     return options
     
 if __name__ == "__main__":
+    #Testing code: python carfax_selenium.py -z 95116 -m 'Model 3' -ma Tesla -f tesla_model_3.csv
     options = get_args()
     carfax_obj = CarFaxScraper()
     carfax_obj.search(
@@ -170,6 +191,7 @@ if __name__ == "__main__":
         zip_code=options['zipcode']
     )
     carfax_obj.show_progress(
+        no_accident=options['no_accident'],
         search_range_miles=options['miles']
     )
     carfax_obj.produce_data(
