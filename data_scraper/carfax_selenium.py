@@ -111,7 +111,13 @@ class CarFaxScraper:
                 tmp_dict['Miles'] = mile
                 self.data.append(tmp_dict)
     
-    def show_progress(self, no_accident, search_range_miles="3000", apply_search_range=True):
+    def show_progress(
+        self,
+        no_accident,
+        trim=None,
+        search_range_miles="3000",
+        apply_search_range=True
+        ):
         if apply_search_range:
             self.apply_search_range(
                 search_range_miles=search_range_miles
@@ -119,6 +125,9 @@ class CarFaxScraper:
         
         #applying filter
         self.apply_filters(no_accident=no_accident)
+
+        #apply trim
+        self.apply_trim(trim=trim)
         
         total_page_to_flip = self.get_total_pages()
         count_pages = 0
@@ -163,6 +172,16 @@ class CarFaxScraper:
             action.move_to_element(no_acc_obj[0]).click().perform()
             #no_acc_obj[0].click()
         time.sleep(3)
+    
+    def apply_trim(self, trim):
+        action = ActionChains(self.carfax)
+        if trim:
+            trim_obj = self.carfax.find_elements_by_xpath(
+                "//input[contains(@class, 'checkbox-input')][contains(@value, '{}')]".format(trim))
+            if not trim_obj:
+                raise Exception("Couldn't find the trim type: {}".format(trim))
+            action.move_to_element(trim_obj[0]).click().perform()
+        time.sleep(3)
 
 
 def get_args():
@@ -173,6 +192,7 @@ def get_args():
     parser.add_argument('-f', "--outputfile", required=True, dest="outputfile")
     parser.add_argument('-mi', "--miles", required=False, dest="miles")
     parser.add_argument('-na', "--no-accident", required=False, dest="no_accident")
+    parser.add_argument('-t', "--trim", required=False, dest="trim")
     options = parser.parse_args()
     options = vars(options)
     if not options['miles']:
@@ -192,7 +212,8 @@ if __name__ == "__main__":
     )
     carfax_obj.show_progress(
         no_accident=options['no_accident'],
-        search_range_miles=options['miles']
+        search_range_miles=options['miles'],
+        trim=options['trim']
     )
     carfax_obj.produce_data(
         filename=options['outputfile'], 
