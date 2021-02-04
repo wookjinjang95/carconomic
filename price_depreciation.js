@@ -1,14 +1,16 @@
 // const model3_data = get_info('data.json');
-var margin = {top: 40, right: 30, bottom: 60, left: 60},
-    width = 1000 - margin.left - margin.right,
-    height = 600 - margin.top - margin.bottom
+var margin = {top: 40, right: 30, bottom: 60, left: 40},
+    width = 1500 - margin.left - margin.right,
+    height = 800 - margin.top - margin.bottom
 
 var svg = d3.select("#model3_depreciation")
+    .attr("class", "graph")
+    .style("background-color", "grey")
     .append("svg")
-        .attr("width", width + margin.left + margin.right)
+        .attr("width", "100%")
         .attr("height", height + margin.top + margin.bottom)
-        .attr("position", "absolute")
-        .style("z-index", -1)
+        .attr("transform",
+            "translate(" + margin.left + "," + margin.top + ")")
     .append("g")
         .attr("transform", 
             "translate(" + margin.left + "," + margin.top + ")");
@@ -30,15 +32,14 @@ svg.append("text")
 
 svg.append("text")
     .attr("text-anchor", "end")
-    .attr("x", margin.left - 60)
+    .attr("x", margin.right)
     .attr("y", margin.top - 60)
     .text("Price($)");
 
-var tooltip = d3.select("#model3_depreciation").append("div")
+var tooltip = d3.select("body").append("div")
     .attr("class", "tooltip")
     .style("position", "absolute")
-    .style("visibility", "hidden")
-    .style("z-index", 10);
+    .style("visibility", "hidden");
 
 
 //note that when you are selectall, you have to pass the entire array
@@ -51,6 +52,7 @@ const render = data => {
             .attr("cx", function(d) { return x(d.Miles)})
             .attr("cy", function(d) { return y(d.Price)})
             .attr("fill", "#9834eb")
+            .attr("class", "dot")
         .on("mouseover", function() {
             tooltip
                 .transition()
@@ -59,8 +61,12 @@ const render = data => {
         .on("mousemove", function(event, d) {
             tooltip
                 .html("Price: " + d.Price + "<br/>" + "Miles: " + d.Miles)
-                .attr("left", (d3.pointer(event)[0] + 90) + "px")
-                .attr("top", (d3.pointer(event)[1]) + "px");
+                //don't use attr here, use style here.
+                .style("left", (event.clientX) + "px")
+                .style("top", (event.clientY) + "px")
+                .style("border", "2px solid red")
+                .style("background-color", "coral");
+
         })
         .on("mouseout", function(d) {
             tooltip
