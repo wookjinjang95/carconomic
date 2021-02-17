@@ -1,14 +1,13 @@
 .dot:hover {
-    fill: red;
+    fill: greenyellow;
 }
 .menu{
-    width: 25%;
+    width: 10%;
     height: 100%;
-    background-color: grey;
     position: absolute;
     float: left;
 }
 .graph{
-    width: 73%;
+    width: 90%;
     float: right;
 }

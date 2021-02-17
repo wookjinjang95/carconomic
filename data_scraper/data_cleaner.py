@@ -22,3 +22,11 @@ class DataCleanerUtils:
         with open(data_dir, 'r') as fp:
             data = json.load(fp)
         return DataCleanerUtils.only_get_prices(data)
+    
+    @staticmethod
+    def only_number(text):
+        number_only = ""
+        for char in text:
+            if char.isnumeric():
+                    number_only += char
+        return number_only
