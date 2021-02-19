@@ -42,3 +42,5 @@ if __name__ == "__main__":
         get_accident_report=True,
         service_history=True
     )
+    vin_numbers = carfax_obj.return_vin_numbers(filename=options['outputfile'])
+    print(vin_numbers)

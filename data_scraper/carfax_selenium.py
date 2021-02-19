@@ -27,6 +27,7 @@ class CarFaxScraper:
         self.carfax.maximize_window()
         self.carfax.get(self.carfax_link)
         self.vehicle_history_data = {}
+        self.vin_numbers = {}
   
         btn = self.carfax.find_elements_by_class_name("button--green")
         btn[0].click()
@@ -35,6 +36,13 @@ class CarFaxScraper:
     def close_browser(self):
         self.carfax.close()
         self.carfax.quit()
+    
+    def return_vin_numbers(self, filename=None):
+        if filename:
+            pretty_json_content = json.dumps(self.vin_numbers, indent=4)
+            with open(filename, 'w') as fp:
+                fp.write(pretty_json_content)
+        return self.vin_numbers
     
     def search(self, make, model, zip_code):
         select_make = Select(self.carfax.find_elements_by_class_name("search-make")[0])
@@ -162,7 +170,7 @@ class CarFaxScraper:
 
                 #check if get_accident_report
                 if get_accident_report and no_accident:
-                    self.get_vehicle_history_data()
+                    self.get_vehicle_history_data(trim=str_trim)
                 else:
                     self.perform_scraping_each_page(trim=str_trim)
 
@@ -242,6 +250,16 @@ class CarFaxScraper:
         #closing the current tab
         self.carfax.close()
     
+    def get_vin(self, trim):
+        #there should be 13 objects of vehicle details
+        self.carfax.switch_to.window(self.carfax.window_handles[1])
+        vin_obj = self.carfax.find_elements_by_class_name("vehicle-info-details")
+        vin_number = vin_obj[-3].text
+        if not trim in self.vin_numbers:
+            self.vin_numbers[trim] = [vin_number]
+        else:
+            self.vin_numbers[trim].append(vin_number)
+    
     def get_vehicle_service_info(self):
         self.carfax.switch_to.window(self.carfax.window_handles[1])
         data_report_rows = self.carfax.find_elements_by_xpath("//div[contains(@class, 'details-row evenrow')] | //div[contains(@class, 'details-row oddrow')]")
@@ -265,19 +283,43 @@ class CarFaxScraper:
             else:
                 self.vehicle_history_data[temp_dict['mileage']] += temp_dict['comments']
             prev_mile = miles
-        self.carfax.close()
     
-    def get_vehicle_history_data(self):
+    def get_vehicle_history_data(self, trim, history_data=False, vin=True):
         """
             1. Get objects to click for accidents only.
             2. Click the carfax report.
             3. Every Vehicle serviced, get the keyword for replaced.
         """
-        acc_objects = self.carfax.find_elements_by_xpath("//li[contains(@class, 'srp-accident-history-pillar')]")
-        for each_acc in acc_objects:
-            action = ActionChains(self.carfax)
-            action.move_to_element(each_acc).click().perform()
-            self.click_carfax_report()
-            self.get_vehicle_service_info()
-            self.carfax.switch_to.window(self.carfax.window_handles[0])
-        print(self.vehicle_history_data, indent=4)
+        total_page_to_flip = self.get_total_pages()
+        count_pages = 0
+        with tqdm(total=total_page_to_flip-1) as pbar:
+            for i in range(total_page_to_flip-1):
+                acc_objects = self.carfax.find_elements_by_xpath("//li[contains(@class, 'srp-accident-history-pillar')]")
+                for each_acc in acc_objects:
+                    action = ActionChains(self.carfax)
+                    action.move_to_element(each_acc).click().perform()
+                    time.sleep(2)
+
+                    if vin:
+                        self.get_vin(trim)
+                        
+                    elif history_data:
+                        self.click_carfax_report()
+                        self.get_vehicle_service_info()
+
+                    self.carfax.close()
+                    self.carfax.switch_to.window(self.carfax.window_handles[0])
+                print(json.dumps(self.vehicle_history_data, indent=4))
+
+                #update pbar
+                pbar.update(1)
+                count_pages += 1
+                if count_pages == total_page_to_flip-1:
+                    break
+                
+                next_btn = self.carfax.find_elements_by_class_name("pagination__button--right")
+                action = ActionChains(self.carfax)
+                action.move_to_element(next_btn[0]).click().perform()
+                time.sleep(2)
+        
+    
