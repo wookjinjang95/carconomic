@@ -1,7 +1,7 @@
 from carmd import CarMD
 import json
 import os
-
+import csv
 
 
 list_of_vin = [
@@ -55,7 +55,7 @@ def count_desc(desc_list):
     result = []
     for desc, total in count_dict.items():
         prob = float(total/len(desc_list))
-        result.append((desc, prob, len(desc_list)))
+        result.append((desc, prob, total, len(desc_list)))
 
     sorted_result = sorted(result, key=lambda d: d[1], reverse=True)
     return sorted_result
@@ -64,10 +64,77 @@ def calculate_prob_for_desc(data):
     result = {}
     for each_mileage, content in data.items():
         result[each_mileage] = count_desc(content['desc'])
-    return result   
+    return result
+
+def convert_data_to_csv(data, filename):
+    fields = ['miles', 'desc', 'unqiue_total', 'total', 'prob']
+    rows = []
+    for mile, services in data.items():
+        for service in services:
+            rows.append(
+                [mile, service[0], service[2], service[3], service[1]]
+            )
+        
+    with open(filename, 'w', newline='') as csvfile:
+        csv_writer = csv.writer(csvfile, quoting=csv.QUOTE_NONNUMERIC)
+        csv_writer.writerow(fields)
+        csv_writer.writerows(rows)
+        
+def csv_for_stacked_data(data, filename):
+    header = ['miles']
+    unique_services = []
+    dict_data_holder = {}
+    #getting unqiue description into list
+    for _mile, services in data.items():
+        for service in services:
+            if not service[0] in header:
+                new_service = service[0].replace(" ", "_")
+                new_service = new_service.replace(",", "_")
+                unique_services.append(service[0])
+                header.append(service[0])
+    
+    for service in unique_services:
+        dict_data_holder[service] = 0
+
+    formatted_dict = {}
+    
+    for mile, services in data.items():
+        if not mile in formatted_dict:
+            formatted_dict[mile] = dict_data_holder.copy()
+
+        for service in services:
+            new_service = service[0].replace(" ", "_")
+            new_service = new_service.replace(",", "_")
+            formatted_dict[mile][service[0]] = service[2]
+        
+    csv_format_dict = []
+
+    for mile, content in formatted_dict.items():
+        temp_dict = {'miles': mile}
+        for desc, value in content.items():
+            temp_dict[desc] = value
+        csv_format_dict.append(temp_dict)
+    
+    #start storing this format into csv.
+    with open(filename, 'w', newline='') as csvfile:
+        csv_writer = csv.DictWriter(csvfile, header, quoting=csv.QUOTE_NONNUMERIC)
+        csv_writer.writeheader()
+        csv_writer.writerows(csv_format_dict)
+
+        
 
 if __name__ == "__main__":
     data = get_data_from_files()
     data = prep_data_for_prob(data)
     sorted_data = calculate_prob_for_desc(data)
+    csv_for_stacked_data(
+        data=sorted_data,
+        filename="benz_cla_stat.csv"
+    )
+    # convert_data_to_csv(
+    #     data=sorted_data, filename="benz_cla_stat.csv"
+    # )
+    # with open("benz_cla_stat.json", "w") as fp:
+    #     pretty_format = json.dumps(sorted_data, indent=4)
+    #     fp.write(pretty_format)
     
