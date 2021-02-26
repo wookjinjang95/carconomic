@@ -1,0 +1,350 @@
+{
+    "10000": [
+        [
+            "Change Engine Oil and Filter",
+            0.055,
+            11,
+            200
+        ],
+        [
+            "Inspect Brake System, Friction Material and Hydraulic System.",
+            0.055,
+            11,
+            200
+        ],
+        [
+            "Inspect Cooling System",
+            0.055,
+            11,
+            200
+        ],
+        [
+            "Inspect Spare Tire",
+            0.055,
+            11,
+            200
+        ],
+        [
+            "Inspect Tire Sealant Expiration Date",
+            0.055,
+            11,
+            200
+        ],
+        [
+            "Inspect Wiper & Washer System",
+            0.055,
+            11,
+            200
+        ],
+        [
+            "Measure Brake Linings, Rotor Thickness and Runout",
+            0.055,
+            11,
+            200
+        ],
+        [
+            "Activate Tire Pressure Monitoring System",
+            0.05,
+            10,
+            200
+        ],
+        [
+            "Inspect Body & Paint for Damages/Corrosion",
+            0.05,
+            10,
+            200
+        ],
+        [
+            "Inspect Driving Aid System Operation (if Equipped)",
+            0.05,
+            10,
+            200
+        ],
+        [
+            "Inspect First Aid Kit Expiration Date",
+            0.05,
+            10,
+            200
+        ],
+        [
+            "Inspect Horn, Lights, A/C & Heater For Proper Operation",
+            0.05,
+            10,
+            200
+        ],
+        [
+            "Inspect Parking Brake Operation & Tension",
+            0.05,
+            10,
+            200
+        ],
+        [
+            "Inspect Tire Wear and Adjust Tire Pressure",
+            0.05,
+            10,
+            200
+        ],
+        [
+            "Inspect Warning System Operation",
+            0.05,
+            10,
+            200
+        ],
+        [
+            "Inspect Windshield",
+            0.05,
+            10,
+            200
+        ],
+        [
+            "Inspect Fluid Levels",
+            0.045,
+            9,
+            200
+        ],
+        [
+            "Inspect On-Board Diagnostic Memory",
+            0.045,
+            9,
+            200
+        ],
+        [
+            "Replace Smart Key Battery",
+            0.045,
+            9,
+            200
+        ],
+        [
+            "Inspect Interior/Exterior Lights & Electrical Components",
+            0.015,
+            3,
+            200
+        ],
+        [
+            "Inspect All Fluids and Correct Level",
+            0.005,
+            1,
+            200
+        ],
+        [
+            "Inspect Battery Condition & Charge",
+            0.005,
+            1,
+            200
+        ],
+        [
+            "Inspect Hood Latch, Hinges, and Fastening Bolts",
+            0.005,
+            1,
+            200
+        ]
+    ],
+    "20000": [
+        [
+            "Change Brake Fluid",
+            0.08029197080291971,
+            11,
+            137
+        ],
+        [
+            "Inspect Drive/Accessory Belt(s) and Tension.",
+            0.08029197080291971,
+            11,
+            137
+        ],
+        [
+            "Inspect Engine Compartment for Leaks or Damage",
+            0.08029197080291971,
+            11,
+            137
+        ],
+        [
+            "Inspect Front Axle & Ball Joints",
+            0.08029197080291971,
+            11,
+            137
+        ],
+        [
+            "Inspect Headlight Alignment",
+            0.08029197080291971,
+            11,
+            137
+        ],
+        [
+            "Inspect Undercarriage For Leaks, Damage, and Corrosion",
+            0.08029197080291971,
+            11,
+            137
+        ],
+        [
+            "Replace Cabin Filter",
+            0.08029197080291971,
+            11,
+            137
+        ],
+        [
+            "Inspect Rear Axle Ball Joints & Boots",
+            0.072992700729927,
+            10,
+            137
+        ],
+        [
+            "Inspect Suspension Components",
+            0.072992700729927,
+            10,
+            137
+        ],
+        [
+            "Inspect Tie-Rod Ends, Steering Gear & Boots",
+            0.072992700729927,
+            10,
+            137
+        ],
+        [
+            "Rotate Tires, Inspect Tire Wear, and Adjust Tire Pressure.",
+            0.072992700729927,
+            10,
+            137
+        ],
+        [
+            "Inspect Interior/Exterior Lights & Electrical Components",
+            0.058394160583941604,
+            8,
+            137
+        ],
+        [
+            "Inspect Seat Belts & Related Components",
+            0.014598540145985401,
+            2,
+            137
+        ],
+        [
+            "Inspect Driveshaft & Related Components",
+            0.014598540145985401,
+            2,
+            137
+        ],
+        [
+            "Inspect Body & Paint for Damages/Corrosion",
+            0.0072992700729927005,
+            1,
+            137
+        ],
+        [
+            "Inspect Chassis & Load Bearing Body Components for Damage",
+            0.0072992700729927005,
+            1,
+            137
+        ],
+        [
+            "Inspect Parking Brake Operation & Tension",
+            0.0072992700729927005,
+            1,
+            137
+        ],
+        [
+            "Inspect Steering & Suspension Components",
+            0.0072992700729927005,
+            1,
+            137
+        ],
+        [
+            "Inspect Sunroof Operation, Condition, and Clean Drain(s) (if Equipped)",
+            0.0072992700729927005,
+            1,
+            137
+        ],
+        [
+            "Lube Sunroof Guide Rails",
+            0.0072992700729927005,
+            1,
+            137
+        ],
+        [
+            "Inspect Active Body Control System",
+            0.0072992700729927005,
+            1,
+            137
+        ],
+        [
+            "Inspect Horn, Lights, A/C & Heater For Proper Operation",
+            0.0072992700729927005,
+            1,
+            137
+        ]
+    ],
+    "30000": [
+        [
+            "Lube Sunroof Guide Rails",
+            1.0,
+            10,
+            10
+        ]
+    ],
+    "50000": [
+        [
+            "Replace Engine Air Filter",
+            0.5,
+            9,
+            18
+        ],
+        [
+            "Replace Spark Plugs",
+            0.5,
+            9,
+            18
+        ]
+    ],
+    "60000": [
+        [
+            "Change Automatic Transmission Fluid and Filter",
+            0.8461538461538461,
+            11,
+            13
+        ],
+        [
+            "Replace Spark Plugs",
+            0.15384615384615385,
+            2,
+            13
+        ]
+    ],
+    "120000": [
+        [
+            "Change Engine Coolant",
+            0.5238095238095238,
+            11,
+            21
+        ],
+        [
+            "Replace Fuel Filter",
+            0.47619047619047616,
+            10,
+            21
+        ]
+    ],
+    "5000": [
+        [
+            "Rotate Tires, Inspect Tire Wear, and Adjust Tire Pressure.",
+            1.0,
+            1,
+            1
+        ]
+    ],
+    "40000": [
+        [
+            "Replace Engine Air Filter",
+            1.0,
+            1,
+            1
+        ]
+    ],
+    "45000": [
+        [
+            "Replace Engine Air Filter",
+            1.0,
+            1,
+            1
+        ]
+    ]
+}
