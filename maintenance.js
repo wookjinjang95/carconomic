@@ -25,9 +25,67 @@ function getColor(subgroups){
     return colorScale
 }
 
+var toggle_firstTime = true;
+var filter_categories = {};
+
+function shadeSelectedBoxes(key){
+    var str_key= key.replace(/ /g,"_")
+    //perform the all shading if first time
+    if(toggle_firstTime == true){
+        svg.selectAll(".legend_text")
+            .attr("opacity", 0.5);
+        toggle_firstTime = false;
+        keys = Object.keys(filter_categories);
+        for(var i = 0; i < keys.length; i++){
+            if(keys[i] != key){
+                //var tmp_key = keys[i].replace(/ /g, "_").replace(/,/g, "_").replace(/./g, "_")
+                svg.selectAll(".bar").filter(function(){
+                    return d3.select(this.parentNode).datum().key == keys[i]})
+                    .transition()
+                    .duration(1000)
+                    .attr("opacity", 0.2);
+            }
+        }
+    }
+
+    if(filter_categories[key] == "disabled"){
+        //enable it
+        filter_categories[key] = "enabled";
+        svg.selectAll(".legend_text").filter(function(){
+            return d3.select(this).datum().key == key;
+        })
+        .attr("opacity", 1);
+
+        svg.selectAll(".bar").filter(function(){
+            return d3.select(this.parentNode).datum().key == key})
+            .transition()
+            .duration(1000)
+            .attr("opacity", 1);
+    }else{
+        //disable it
+        filter_categories[key] = "disabled";
+        svg.selectAll(".legend_text").filter(function(){
+            return d3.select(this).datum().key == key;
+        })
+        .attr("opacity", 0.5);
+        svg.selectAll(".bar").filter(function(){
+            return d3.select(this.parentNode).datum().key == key;
+        })
+            .transition()
+            .duration(1000)
+            .attr("opacity", 0.2);
+    }
+}
+
+
+
 
 d3.csv("./data_scraper/benz_cla_stat.csv").then(function(data){
     var subgroups = data.columns.slice(1);
+
+    for(var i = 0; i < subgroups.length; i++){
+        filter_categories[subgroups[i]] = "disabled";
+    }
     var groups = data.map(function (d) { return d.miles});
 
     var xScale = d3.scaleBand()
@@ -71,6 +129,8 @@ d3.csv("./data_scraper/benz_cla_stat.csv").then(function(data){
             .enter()
             //creating the bar graph
             .append("rect")
+                .attr("class", "bar")
+                .attr("opacity", 1)
                 .attr("x", function(d) {
                     return xScale(d.data.miles) + margin.right})
                 .attr("y", function(d) { return yScale(d[1])})
@@ -93,6 +153,7 @@ d3.csv("./data_scraper/benz_cla_stat.csv").then(function(data){
         .data(stacked_data)
         .enter()
         .append("text")
+            .attr("class", "legend_text")
             .attr("fill", "black")
             .attr("x", function(d){
                 if(d.index > 31){
@@ -111,7 +172,13 @@ d3.csv("./data_scraper/benz_cla_stat.csv").then(function(data){
                 return 23 + (parseInt(index) * 25);
             })
             .text(function(d) { return d.key;})
-            .style("position", "absolute");
+            .style("position", "absolute")
+            .on("mouseover", function(){
+                d3.select(this).style("cursor", "pointer");
+            })
+            .on("click", function(event, d){
+                shadeSelectedBoxes(d.key);
+            });
     
     //creating legend rectangle
     svg.append("g")
@@ -119,6 +186,7 @@ d3.csv("./data_scraper/benz_cla_stat.csv").then(function(data){
         .data(stacked_data)
         .enter()
             .append("rect")
+                .attr("class", "legend_rect")
                 .attr("y", function(d){
                     var index;
                     if(d.index > 31){
@@ -139,5 +207,11 @@ d3.csv("./data_scraper/benz_cla_stat.csv").then(function(data){
                     return colorScale[d.key];
                 })
                 .attr("height", 20)
-                .attr("width", 20);
+                .attr("width", 20)
+                .on("mouseover", function(){
+                        d3.select(this).style("cursor", "pointer");
+                })
+                .on("click", function(event, d){
+                    shadeSelectedBoxes(d.key);
+                })
 });

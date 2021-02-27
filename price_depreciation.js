@@ -101,7 +101,7 @@ const render = data => {
         })
 };
 
-var draw = d3.csv("tesla_model_3.csv")
+var draw = d3.csv("cla_data.csv")
     .then(data =>{
         render(data);
 });
