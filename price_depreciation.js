@@ -3,8 +3,6 @@ var margin = {top: 40, right: 30, bottom: 60, left: 40},
     width = 1500 - margin.left - margin.right,
     height = 800 - margin.top - margin.bottom
 
-var color_arr = ['red', 'green', 'blue'];
-
 function map_trim_to_color(data){
     //remmeber that this doesn't count the length matching.
     var mapping = new Map();
@@ -15,11 +13,22 @@ function map_trim_to_color(data){
         }
     }
     for(var i = 0; i < trims.length; i++){
-        console.log(trims[i] + color_arr[i])
-        mapping.set(trims[i], color_arr[i])
+        r = Math.floor(Math.random() * Math.floor(256));
+        g = Math.floor(Math.random() * Math.floor(256));
+        b = Math.floor(Math.random() * Math.floor(256));
+        mapping.set(trims[i], 'rgb(' + r + ',' + g + ',' + b + ')');
     }
-    console.log(mapping)
     return mapping;
+}
+
+function get_x_max_value(data){
+    var max = d3.max(data.map(function (d) { return parseInt(d.Miles)}));
+    return max + 1000;
+}
+
+function get_y_max_value(data){
+    var max = d3.max(data.map(function (d) { return parseInt(d.Price)}));
+    return max + 1000;
 }
 
 var svg = d3.select("#model3_depreciation")
@@ -32,15 +41,6 @@ var svg = d3.select("#model3_depreciation")
     .append("g")
         .attr("transform", 
             "translate(" + margin.left + "," + margin.top + ")");
-
-var x = d3.scaleLinear().domain([0, 100000]).range([0, width]);
-var y = d3.scaleLinear().domain([0, 100000]).range([height, 0]);
-
-svg.append("g")
-    .attr("transform", "translate(0," + height + ")")
-    .call(d3.axisBottom(x))
-
-svg.append("g").call(d3.axisLeft(y))
 
 svg.append("text")
     .attr("text-anchor", "end")
@@ -63,6 +63,18 @@ var tooltip = d3.select("body").append("div")
 //note that when you are selectall, you have to pass the entire array
 const render = data => {
     var mapping = map_trim_to_color(data)
+    var max_y = get_y_max_value(data);
+    var max_x = get_x_max_value(data);
+    
+    var x = d3.scaleLinear().domain([0, max_x]).range([0, width]);
+    var y = d3.scaleLinear().domain([0, max_y]).range([height, 0]);
+
+    svg.append("g")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x))
+
+    svg.append("g").call(d3.axisLeft(y))
+
     svg.selectAll("dot")
         .data(data)
         .enter()
