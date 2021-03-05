@@ -1,3 +1,10 @@
+body{
+    margin: 0;
+    font-family: 'Titillium Web', sans-serif;
+}
+h2{
+    text-align: center;
+}
 .dot:hover {
     fill: greenyellow;
 }
@@ -13,29 +20,48 @@
 }
 .header_menu{
     width: 100%;
-    height: 50px;
-    background-color: #707070;
+    height: 70px;
+    background-color: rgb(255, 71, 71);
     display: block;
-    margin: 0;
+    position: fixed;
+    z-index: 1000;
 }
-h2{
-    text-align: center;
-}
-ul{
+.header_menu li{
     list-style-type: none;
-    margin: 5;
-    padding: 0;
-    overflow: hidden;
-    padding-top: 8px;
+    
 }
 li{
     float: left;
+    margin-right: 50px;
 }
 li a{
     display: block;
-    padding: 8px;
+    padding: 4px;
+    margin-left: 10px;
     color: whitesmoke;
 }
 .AIFA_sign{
-    background-color: black;
+    background-color: rgb(255, 71, 71);
+    margin-right: 30px;
+    text-decoration: 0;
+}
+.front_image{
+    width: 100%;
+    position: relative;
+    top: 50px;
+    z-index: 2;
+}
+.front_image img{
+    width: 100%;
+    height: 50%;
+}
+.content{
+    margin-left: 8%;
+    margin-right: 8%;
+}
+.content h1{
+    text-align: center;
+}
+.content p{
+    text-align: center;
 }
