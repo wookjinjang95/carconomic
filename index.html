@@ -1,57 +1,150 @@
 <html>
     <head>
+        <meta name="viewport" content="width = device-width, initial-scale=1">
+        <!-- Below is the google font-->
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Titillium+Web&display=swap" rel="stylesheet">
+        <!-- Below is the bootstrap tool-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
         <link rel="stylesheet" href="main.css">
-        <style>
-            h1 {
-                text-align: center;
-            }
-        </style>
         <script src="https://d3js.org/d3.v6.min.js"></script>
     </head>
     <body>
-        <div class=header_menu>
-            <ul>
-                <li><a class=AIFA_sign href="index.html">AIFA</a></li>
-                <li><a href="depreciation.html">Market</a></li>
-                <li><a href="maintenance.html">Maintenance</a></li>
-            </ul>
-        </div>
-        <div class=front_image>
-            <img src="photos/front-cover/intro_photo.png">
-            <h1 style="position: absolute; text-align: left; top:150px; left:50px; color:white">
-                Data should be </br>
-                available for everyone
-            </h1>
-        </div>
-        <div class=content>
-            <h1 style="margin-top: 70px">About AIFA</h1>
-            <p>
-                AIFA (Artificial Intelligence for All) is a software company that believes A.I world.
-                A world which is coming faster than we expected. THe main business goal of AIFA is to
-                provide easy and cheap access of A.I tools for everyone. To prove that, certain things
-                need to be confirmed.
-            </p>
-        </div>
-        <div class=content style="position: relative; margin-left:0; margin-right:0;">
-            <img src="photos/front-cover/insight_and_knowledge.jpg" style="width: 100%; height: 70%;">
-            <h1 style="position: absolute; color: white; text-align: center; top: 80px; left: 60%; right: 5%;">Insights for Everyone</h1>
-            <div style="position: absolute; color: white; text-align: left; top: 200px; left: 60%; right: 5%;">
-                <p>
-                    Currently, many big corporations or industries such as Facebook, Google, 
-                    and Amazon are moving towards artificial intelligence, short for A.I. 
-                    A.I is a tool that allows machines or computers to obtain massive amount of
-                    data and perform analysis or engineers call it, predictive analysis, 
-                    to predict the future. As said, A.I is not only developed to replicate neural 
-                    networks of our brain's process but also to predict stock market by using
-                    historical data from previous stock market behaviors. Google is also a great
-                    example that demonstrates the potentials of A.I.
-                </p>
-                <p>
-                    
-                </p>
+        <nav class="navbar navbar-expand-lg navbar-light bg-warning">
+            <a class="navbar-brand" href="index.html" style="margin-left:30">
+                <img src="photos/icon/AIFA_icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
+                AIFA
+            </a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                  <li class="nav-item active">
+                    <a class="nav-link" href="index.html">Home</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Product</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">About Us</a>
+                  </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="container-fluid">
+            <div class="row"
+                style="text-align: left; height: 100vh; background-image: url(photos/front-cover/pure_simple_white.png); 
+                        background-repeat: no-repeat; background-size: cover;">
+                <div style="padding-top:15%; padding-left: 5%;">
+                    <div class="display-1" style="color: black;">
+                        AIFA
+                    </div>
+                    <div class="display-3" style="color: black;">
+                        Make better decision </br>
+                        with data analytics
+                    </div>
+                    <div style="color: black; padding-top: 10%; font-size: 20px;">
+                        <a href="#learn_more" 
+                            style="border: 3px solid black; color: black; padding: 5px; padding-left: 15px; padding-right: 15px;
+                                    text-align: center; border-radius: 25px; text-decoration: none;">
+                           Learn More 
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm p-0">
+                    <img src="photos/gif_files/remove_junk_data.gif" style="width: 100%; height:100%">
+                </div>
+                <div class='col-md p-5' style="text-align: center; font-size: 30px; background-color: #7FFFD4">
+                    <p>
+                        Large amount of data is a mess! AIFA will clean the data, remove unnecessary information
+                        and provide only critical information to customers directly. This will make our product easier
+                        to use and more user-friendly.
+                    </p>
+                </div>
+            </div>
+           
+            <div class="row" style="height: 300px;">
+                <div class="col-sm" style="background-color: #ff9900; padding: 6%; font-size: 20px; text-align: center;">
+                    Consumers have right to use data analysis to make better decision when
+                    it comes to purchasing any products such as vehicles, properties, and etc. 
+                    Using AIFA, consumers can see what market they are getting into and predict
+                    or be aware of trend within the market. Consequently, we can make smarter
+                    decision of every penny that we spend.
+                </div>
+                <div class="col-md p-0">
+                    <img src="photos/gif_files/money_to_analysis.gif" style="width: 100%; height:100%">
+                </div>
+            </div>
+
+            <section id="learn_more"></section>
+            <div class="row">
+                <div class="display-1" style="text-align: center; padding-top: 150px">
+                    We can provide solutions in
+                </div>
+            </div>
+
+            <div class="row h-60" style="text-align: center;">
+                <div class="col-md-3">
+                    <img src="photos/gif_files/market_prediction.gif" style="width: 100%; height: 40%">
+                    <h3>Prediction/Awareness</h3>
+                    <div>
+                        We use data to predict our future.
+                        Data can provide good knowledge to bring self-awareness in a market.
+                        Know when to buy and exit within a certain market.
+                    </div>
+                    <div style="padding-top: 75px;">
+                        <a href="#">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <img src="photos/gif_files/data_analysis.gif" style="width: 100%; height: 40%">
+                    <h3>Data Analysis</h3>
+                    <div>
+                        Analysis should be simple and general.
+                        Easy for users to understand and must be self-explanatory.
+                        Through analysis, we can create our own plan.
+                    </div>
+                    <div style="padding-top: 75px;">
+                        <a href="#">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <img src="photos/gif_files/better_visualization.gif" style="width: 100%; height: 40%">
+                    <h3>Better Visualization</h3>
+                    <div>
+                        Better the visualiztion, easier to understand the data.
+                        It also brings critical information directly into our eyes.
+                        Without clear visualization, it will be harder to make clear decisions.
+                    </div>
+                    <div style="padding-top: 50px;">
+                        <a href="#">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <img src="photos/gif_files/lamp_animation.gif" style="width: 100%; height: 40%">
+                    <h3>Insight</h3>
+                    <div>
+                        AIFA only provides data to consumers. However, we don't create our own insight.
+                        Insight must be visualized by each indivudal consumer. Every different insight
+                        is unqiue and AIFA does not want to manipulate them.
+                    </div>
+                    <div style="padding-top: 50px;">
+                        <a href="#">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid bg-warning">
+            <div style="padding: 20px;">
+                <h1>Contact Us</h1>
+                <div style="padding-top: 50px;">
+                    <h2>Address</h2>
+                    Email: wookjinjang95@gmail.com
+                </div>
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
     </body>
 </html>
