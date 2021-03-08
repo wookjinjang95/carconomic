@@ -1,4 +1,3 @@
-// const model3_data = get_info('data.json');
 var margin = {top: 40, right: 30, bottom: 60, left: 40},
     width = 1500 - margin.left - margin.right,
     height = 800 - margin.top - margin.bottom
