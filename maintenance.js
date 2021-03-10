@@ -9,7 +9,7 @@ var svg = d3.select("#maintenance_graph")
                     "translate(" + margin.right + "," + margin.top + ")");
 
 
-var tooltip = d3.select("body").append("div")
+var tooltip = svg.append("g")
     .style("position", "absolute")
     .attr("class", "tooltip");
 

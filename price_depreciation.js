@@ -1,6 +1,6 @@
-var margin = {top: 40, right: 30, bottom: 60, left: 40},
-    width = 1500 - margin.left - margin.right,
-    height = 800 - margin.top - margin.bottom
+var margin = {top: 40, right: 30, bottom: 30, left: 40},
+    dep_width = parseInt(d3.select("#model3_depreciation").style("width")) - margin.left - margin.right,
+    dep_height = parseInt(d3.select("#model3_depreciation").style("height")) - margin.top - margin.bottom
 
 function map_trim_to_color(data){
     var trims = get_unique_trims(data);
@@ -34,30 +34,28 @@ function get_unique_trims(data){
     return trims;
 }
 
-var svg = d3.select("#model3_depreciation")
+var svg_depreciation = d3.select("#model3_depreciation")
     .attr("class", "graph")
     .append("svg")
-        .attr("width", "100%")
-        .attr("height", height + margin.top + margin.bottom)
-        .attr("transform",
-            "translate(" + margin.left + "," + margin.top + ")")
-    .append("g")
-        .attr("transform", 
-            "translate(" + margin.left + "," + margin.top + ")");
+        .attr("width", dep_width)
+        .attr("height", dep_height)
+        .append("g")
+            .attr("transform", 
+                "translate(" + margin.left + "," + margin.top + ")")
 
-svg.append("text")
+svg_depreciation.append("text")
     .attr("text-anchor", "end")
-    .attr("x", width)
-    .attr("y", height + margin.bottom - 20)
+    .attr("x", dep_width - 60)
+    .attr("y", dep_height - 60)
     .text("Miles")
 
-svg.append("text")
+svg_depreciation.append("text")
     .attr("text-anchor", "end")
     .attr("x", margin.right)
     .attr("y", margin.top - 60)
     .text("Price($)");
 
-var tooltip = d3.select("body").append("div")
+var tooltip = svg_depreciation.append("g")
     .attr("class", "tooltip")
     .style("position", "absolute")
     .style("visibility", "hidden");
@@ -70,16 +68,16 @@ const render = data => {
     var max_y = get_y_max_value(data);
     var max_x = get_x_max_value(data);
     
-    var x = d3.scaleLinear().domain([0, max_x]).range([0, width]);
-    var y = d3.scaleLinear().domain([0, max_y]).range([height, 0]);
+    var x = d3.scaleLinear().domain([0, max_x]).range([0, dep_width]);
+    var y = d3.scaleLinear().domain([0, max_y]).range([dep_height - margin.top - margin.bottom, 0]);
 
-    svg.append("g")
-        .attr("transform", "translate(0," + height + ")")
+    svg_depreciation.append("g")
+        .attr("transform", "translate(0," + (dep_height - margin.top - margin.bottom)  + ")")
         .call(d3.axisBottom(x))
 
-    svg.append("g").call(d3.axisLeft(y))
+    svg_depreciation.append("g").call(d3.axisLeft(y))
 
-    svg.selectAll("dot")
+    svg_depreciation.selectAll("dot")
         .data(data)
         .enter()
         .append("circle")
@@ -116,12 +114,12 @@ const render = data => {
         })
     
     //adding legend text
-    svg.selectAll("legend")
+    svg_depreciation.selectAll("legend")
         .data(trims)
         .enter()
         .append("text")
             .attr("class", "legend_text")
-            .attr("x", width)
+            .attr("x", 3*dep_width/4 + 120)
             .attr("y", function(d,i){
                 return (i+1) * margin.top;
             })
@@ -129,11 +127,11 @@ const render = data => {
                 return d;})
     
     //rectangle legend
-    svg.selectAll("rect-legend")
+    svg_depreciation.selectAll("rect-legend")
         .data(trims)
         .enter()
         .append("rect")
-            .attr("x", width - 40)
+            .attr("x", 3*dep_width/4 + 90)
             .attr("y", function(d,i){
                 return (i+1) * margin.top - 15;
             })
