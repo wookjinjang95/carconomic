@@ -9,9 +9,9 @@ var svg = d3.select("#maintenance_graph")
                     "translate(" + margin.right + "," + margin.top + ")");
 
 
-var tooltip = svg.append("g")
+var bar_tooltip = d3.select("body").append("div")
     .style("position", "absolute")
-    .attr("class", "tooltip");
+    .attr("class", "bar_tooltip");
 
 function getColor(subgroups){
     //TODO: Check if the color exists, if does, try again.
@@ -136,15 +136,17 @@ d3.csv("./data_scraper/benz_cla_stat.csv").then(function(data){
                 .attr("y", function(d) { return yScale(d[1])})
                 .attr("height", function(d) { return yScale(d[0]) - yScale(d[1])})
                 .attr("width", xScale.bandwidth())
-                .on("mouseout", function(d) { return tooltip.style("display", "none"); })
+                .on("mouseout", function(d) { return bar_tooltip.style("display", "none"); })
                 .on("mousemove", function(event, d){
                     var category = d3.select(this.parentNode).datum().key;
-                    var xPosition = event.clientX - 30
-                    var yPosition = event.clientY - 50
-                    tooltip.style("left", xPosition + "px")
-                    tooltip.style("top", yPosition + "px")
-                    tooltip.style("display", "inline-block")
-                    tooltip.html(category + "</br>" + "Cases:" + (d[1] - d[0]));
+                    // var xPosition = event.clientX - 30
+                    // var yPosition = event.clientY - 50
+                    var yPosition = window.scrollY + event.clientY - 100;
+                    var xPosition = event.clientX - 30;
+                    bar_tooltip.style("left", xPosition + "px")
+                    bar_tooltip.style("top", yPosition + "px")
+                    bar_tooltip.style("display", "inline-block")
+                    bar_tooltip.html(category + "</br>" + "Cases:" + (d[1] - d[0]));
                 })
 
     //creating legend text

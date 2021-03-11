@@ -33,8 +33,8 @@ function get_unique_trims(data){
     }
     return trims;
 }
-
-var svg_depreciation = d3.select("#model3_depreciation")
+var svgContainer = d3.select("#model3_depreciation")
+var svg_depreciation = svgContainer
     .attr("class", "graph")
     .append("svg")
         .attr("width", dep_width)
@@ -55,10 +55,9 @@ svg_depreciation.append("text")
     .attr("y", margin.top - 60)
     .text("Price($)");
 
-var tooltip = svg_depreciation.append("g")
-    .attr("class", "tooltip")
-    .style("position", "absolute")
-    .style("visibility", "hidden");
+var dot_tooltip = d3.select("body").append("div")
+    .attr("class", "dot_tooltip")
+    .style("position", "absolute");
 
 
 //note that when you are selectall, you have to pass the entire array
@@ -88,29 +87,33 @@ const render = data => {
                 return mapping.get(d.Trim);
             })
             .attr("class", "dot")
-        .on("mouseover", function() {
-            tooltip
-                .transition()
-                .style("visibility", "visible");
-        })
+        // .on("mouseover", function() {
+        //     tooltip
+        //         .transition()
+        //         .style("visibility", "visible");
+        // })
         .on("mousemove", function(event, d) {
             var border_color = mapping.get(d.Trim)
-            tooltip
+            var xPosition = event.clientX + 50;
+            var yPosition = window.scrollY + (event.clientY);
+            dot_tooltip
                 .html(
-                    "Trim:" + d.Trim + "<br/>" + 
-                    "Price: " + d.Price + "<br/>" + 
+                    "Trim:" + d.Trim + "</br>" + 
+                    "Price: " + d.Price + "</br>" + 
                     "Miles: " + d.Miles)
                 //don't use attr here, use style here.
-                .style("left", (event.clientX + 50) + "px")
-                .style("top", (event.clientY) + 5 + "px")
+                .style("display", "inline-block")
+                .style("left", xPosition + "px")
+                .style("top", yPosition + "px")
                 .style("border", "2px solid " + border_color)
                 .style("background-color", border_color);
 
         })
         .on("mouseout", function(d) {
-            tooltip
-                .transition()
-                .style("visibility", "hidden");
+            // tooltip
+            //     .transition()
+            //     .style("visibility", "hidden");
+            return dot_tooltip.style("display", "none");
         })
     
     //adding legend text
