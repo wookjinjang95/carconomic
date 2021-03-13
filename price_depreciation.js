@@ -87,11 +87,7 @@ const render = data => {
                 return mapping.get(d.Trim);
             })
             .attr("class", "dot")
-        // .on("mouseover", function() {
-        //     tooltip
-        //         .transition()
-        //         .style("visibility", "visible");
-        // })
+        
         .on("mousemove", function(event, d) {
             var border_color = mapping.get(d.Trim)
             var xPosition = event.clientX + 50;
@@ -106,13 +102,9 @@ const render = data => {
                 .style("left", xPosition + "px")
                 .style("top", yPosition + "px")
                 .style("border", "2px solid " + border_color)
-                .style("background-color", border_color);
 
         })
         .on("mouseout", function(d) {
-            // tooltip
-            //     .transition()
-            //     .style("visibility", "hidden");
             return dot_tooltip.style("display", "none");
         })
     

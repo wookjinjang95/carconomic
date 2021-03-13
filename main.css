@@ -2,3 +2,17 @@ body{
     margin: 0;
     font-family: 'Titillium Web', sans-serif;
 }
+.sidenav {
+    overflow-x: hidden;
+    width: 20%;
+    height: 100%;
+    position: fixed;
+    padding-top: 80px;
+    z-index: 1;
+    background-color: cadetblue;
+}
+.sidenav a{
+    display: block;
+    padding-left: 15px;
+    text-decoration: none;
+}
