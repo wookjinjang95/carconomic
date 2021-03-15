@@ -32,8 +32,10 @@ function get_unique_trims(data){
 
 
 //note that when you are selectall, you have to pass the entire array
-function render(data, id_name){
-    var margin = {top: 40, right: 30, bottom: 30, left: 40},
+function render(data, id_name, svg_left){
+    svg_left = (typeof svg_left !== 'undefined') ? svg_left : 40;
+    console.log(svg_left)
+    var margin = {top: 40, right: 30, bottom: 30, left: svg_left},
     dep_width = parseInt(d3.select(id_name).style("width")) - margin.left - margin.right,
     dep_height = parseInt(d3.select(id_name).style("height")) - margin.top - margin.bottom
 
@@ -137,6 +139,7 @@ function render(data, id_name){
             .attr("height", 20)
             .attr("width", 20);
 }
+
 var draw = d3.csv("cla_data.csv")
     .then(data =>{
         render(data, "#benz_depreciation");
