@@ -1,4 +1,3 @@
-from bs4 import BeautifulSoup
 import requests
 
 class CarFaxWebScraper:
@@ -10,11 +9,6 @@ class CarFaxWebScraper:
         else:
             return page
     
-    @staticmethod
-    def get_bs_of_page(raw_html):
-        soup = BeautifulSoup(raw_html.content, 'html.parser')
-        return soup
-
     @staticmethod
     def get_price_and_miles(soup):
         prices = soup.findAll("span", class_="srp-list-item-price")
@@ -45,5 +39,4 @@ class GeneralUtils:
 if __name__ == "__main__":
     html_link = "https://www.carfax.com/Used-Tesla-Model-3-San-Jose-CA_w9421_c1023"
     raw_html = CarFaxWebScraper.request_html_link(html_link)
-    soup = CarFaxWebScraper.get_bs_of_page(raw_html)
     CarFaxWebScraper.get_price_and_miles(soup)
