@@ -1,7 +1,3 @@
-var margin = {top: 40, right: 30, bottom: 30, left: 40},
-    dep_width = parseInt(d3.select("#model3_depreciation").style("width")) - margin.left - margin.right,
-    dep_height = parseInt(d3.select("#model3_depreciation").style("height")) - margin.top - margin.bottom
-
 function map_trim_to_color(data){
     var trims = get_unique_trims(data);
     var mapping = new Map();
@@ -33,35 +29,40 @@ function get_unique_trims(data){
     }
     return trims;
 }
-var svgContainer = d3.select("#model3_depreciation")
-var svg_depreciation = svgContainer
-    .attr("class", "graph")
-    .append("svg")
-        .attr("width", dep_width)
-        .attr("height", dep_height)
-        .append("g")
-            .attr("transform", 
-                "translate(" + margin.left + "," + margin.top + ")")
-
-svg_depreciation.append("text")
-    .attr("text-anchor", "end")
-    .attr("x", dep_width - 60)
-    .attr("y", dep_height - 60)
-    .text("Miles")
-
-svg_depreciation.append("text")
-    .attr("text-anchor", "end")
-    .attr("x", margin.right)
-    .attr("y", margin.top - 60)
-    .text("Price($)");
-
-var dot_tooltip = d3.select("body").append("div")
-    .attr("class", "dot_tooltip")
-    .style("position", "absolute");
 
 
 //note that when you are selectall, you have to pass the entire array
-const render = data => {
+function render(data, id_name){
+    var margin = {top: 40, right: 30, bottom: 30, left: 40},
+    dep_width = parseInt(d3.select(id_name).style("width")) - margin.left - margin.right,
+    dep_height = parseInt(d3.select(id_name).style("height")) - margin.top - margin.bottom
+
+    var svgContainer = d3.select(id_name)
+    var svg_depreciation = svgContainer
+        .attr("class", "graph")
+        .append("svg")
+            .attr("width", dep_width)
+            .attr("height", dep_height)
+            .append("g")
+                .attr("transform", 
+                    "translate(" + margin.left + "," + margin.top + ")")
+
+    svg_depreciation.append("text")
+        .attr("text-anchor", "end")
+        .attr("x", dep_width - 60)
+        .attr("y", dep_height - 60)
+        .text("Miles")
+
+    svg_depreciation.append("text")
+        .attr("text-anchor", "end")
+        .attr("x", margin.right)
+        .attr("y", margin.top - 60)
+        .text("Price($)");
+
+    var dot_tooltip = d3.select("body").append("div")
+        .attr("class", "dot_tooltip")
+        .style("position", "absolute");
+    
     var mapping = map_trim_to_color(data);
     var trims = get_unique_trims(data);
     var max_y = get_y_max_value(data);
@@ -135,12 +136,8 @@ const render = data => {
             })
             .attr("height", 20)
             .attr("width", 20);
-};
-
+}
 var draw = d3.csv("cla_data.csv")
     .then(data =>{
-        render(data);
+        render(data, "#benz_depreciation");
 });
-
-
-
