@@ -47,28 +47,37 @@ class CarFaxScraper:
     def search(self, make, model, zip_code):
         select_make = Select(self.carfax.find_elements_by_class_name("search-make")[0])
         if not select_make:
+            self.close_browser()
             raise Exception("Selecting Make Box wasn't found!")
         select_make.select_by_value(make)
         time.sleep(1)
 
         select_model = Select(self.carfax.find_elements_by_class_name("search-model")[0])
         if not select_model:
+            self.close_browser()
             raise Exception("Selecting Model Box wasn't found!")
         select_model.select_by_value(model)
 
         zip_code_input = self.carfax.find_elements_by_class_name("search-zip")[0]
         if not zip_code_input:
+            self.close_browser()
             raise Exception("ZIP Code Input Box wasn't found!")
         zip_code_input.send_keys(zip_code)
 
         start_searching_btn = self.carfax.find_elements_by_class_name("search-submit")[0]
         if not start_searching_btn:
+            self.close_browser()
             raise Exception("Search Button after selecting model and make is not found")
         start_searching_btn.click()
 
         time.sleep(5)
-        start_show_me_btn = self.carfax.find_elements_by_class_name("button.large.primary-green")[0]
-        start_show_me_btn.click()
+        
+        start_show_me_btn = self.carfax.find_elements_by_xpath("//button[contains(@class, 'button large primary-green')]")
+        #start_show_me_btn = self.carfax.find_elements_by_xpath(("primary-green")
+        if not start_show_me_btn:
+            self.close_browser()
+            raise Exception("Show me green button is not seeing through webscraping method.")
+        start_show_me_btn[0].click()
         time.sleep(2)
     
     def check_search_range_miles_value(self, value):
@@ -87,10 +96,13 @@ class CarFaxScraper:
         return int(last_page)
     
     def apply_search_range(self, search_range_miles):
+        import pdb; pdb.set_trace()
         self.check_search_range_miles_value(value=search_range_miles)
-        search_radius_box = Select(self.carfax.find_elements_by_class_name("form-control.search-radius")[0])
+        #search_radius_box = Select(self.carfax.find_elements_by_class_name("form-control.search-radius")[0])
+        search_radius_box = Select(self.carfax.find_elements_by_xpath("//*[contains(@class, 'form-control search-radius')]")[0])
         search_radius_box.select_by_value(search_range_miles)
-        search_button = self.carfax.find_elements_by_class_name("button.expanded.searchForm-submit-btn")[0]
+        #search_button = self.carfax.find_elements_by_class_name("button.expanded.searchForm-submit-btn")[0]
+        search_button  = self.carfax.find_elements_by_xpath("//*[contains(@class, 'button expanded searchForm-submit-btn')]")[0]
         self.carfax.execute_script("arguments[0].click();", search_button)
         time.sleep(2)
     
