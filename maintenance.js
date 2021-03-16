@@ -2,6 +2,7 @@ var width = 800, height = 800;
 var margin = {top: 20, right: 20, bottom: 40, left: 40}
 var svg = d3.select("#maintenance_graph")
             .append("svg")
+                .attr("overflow", "auto")
                 .attr("width", "100%")
                 .attr("height", height + margin.bottom)
             .append("g")
@@ -146,11 +147,16 @@ d3.csv("./data_scraper/benz_cla_stat.csv").then(function(data){
                     bar_tooltip.style("left", xPosition + "px")
                     bar_tooltip.style("top", yPosition + "px")
                     bar_tooltip.style("display", "inline-block")
+                    bar_tooltip.style("background-color", "#ffcc80")
+                    bar_tooltip.style("padding", "10px")
                     bar_tooltip.html(category + "</br>" + "Cases:" + (d[1] - d[0]));
                 })
+        
+    var menu_container = svg.append("g")
+        .style("overflow-x", "scroll")
 
     //creating legend text
-    svg.append("g")
+    menu_container.append("g")
         .selectAll("g")
         .data(stacked_data)
         .enter()
@@ -183,7 +189,7 @@ d3.csv("./data_scraper/benz_cla_stat.csv").then(function(data){
             });
     
     //creating legend rectangle
-    svg.append("g")
+    menu_container.append("g")
         .selectAll("g")
         .data(stacked_data)
         .enter()
