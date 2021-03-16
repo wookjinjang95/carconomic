@@ -19,7 +19,6 @@ function get_y_max_value(data){
     var max = d3.max(data.map(function (d) { return parseInt(d.Price)}));
     return max + 1000;
 }
-
 function get_unique_trims(data){
     var trims = [];
     for(var i = 0; i < data.length; i++){
@@ -30,11 +29,36 @@ function get_unique_trims(data){
     return trims;
 }
 
+function regression(data) {
+    var sum_x = 0, sum_y = 0
+      , sum_xy = 0, sum_xx = 0
+      , count = 0
+      , m, b;
+  
+    if (data.length === 0) {
+      throw new Error('Empty data');
+    }
+  
+    // calculate sums
+    for (var i = 0, len = data.length; i < len; i++) {
+      var point = data[i];
+      sum_x += point[0];
+      sum_y += point[1];
+      sum_xx += point[0] * point[0];
+      sum_xy += point[0] * point[1];
+      count++;
+    }
+  
+    // calculate slope (m) and y-intercept (b) for f(x) = m * x + b
+    m = (count * sum_xy - sum_x * sum_y) / (count * sum_xx - sum_x * sum_x);
+    b = (sum_y / count) - (m * sum_x) / count;
+    return [m,b];
+}
+
 
 //note that when you are selectall, you have to pass the entire array
 function render(data, id_name, svg_left){
     svg_left = (typeof svg_left !== 'undefined') ? svg_left : 40;
-    console.log(svg_left)
     var margin = {top: 40, right: 30, bottom: 30, left: svg_left},
     dep_width = parseInt(d3.select(id_name).style("width")) - margin.left - margin.right,
     dep_height = parseInt(d3.select(id_name).style("height")) - margin.top - margin.bottom
@@ -138,6 +162,20 @@ function render(data, id_name, svg_left){
             })
             .attr("height", 20)
             .attr("width", 20);
+        
+    //adding linear regression
+    new_data = data.map(d => [parseInt(d.Miles), parseInt(d.Price)])
+    var result = regression(new_data);
+    var m = result[0];
+    var b = result[1];
+
+    svg_depreciation.append("line")
+            .style("stroke", "black")
+            .style("stroke-width", 3)
+            .attr("x1", x(0))
+            .attr("y1", y(b))
+            .attr("x2", x((0 - b)/m))
+            .attr("y2", y(0));
 }
 
 var draw = d3.csv("cla_data.csv")
