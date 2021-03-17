@@ -128,7 +128,9 @@ function render(data, id_name, svg_left){
                 .style("display", "inline-block")
                 .style("left", xPosition + "px")
                 .style("top", yPosition + "px")
+                .style("padding", "10px")
                 .style("border", "2px solid " + border_color)
+                .style("background-color", "#ffcc80")
 
         })
         .on("mouseout", function(d) {
