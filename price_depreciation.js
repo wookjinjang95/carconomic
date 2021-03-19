@@ -63,6 +63,10 @@ function render(data, id_name, svg_left){
     dep_width = parseInt(d3.select(id_name).style("width")) - margin.left - margin.right,
     dep_height = parseInt(d3.select(id_name).style("height")) - margin.top - margin.bottom
 
+    var line = d3.line()
+        .x(function(d){ return d[0]; })
+        .y(function(d){ return d[1]; });
+
     var svgContainer = d3.select(id_name)
     var svg_depreciation = svgContainer
         .attr("class", "graph")
@@ -76,18 +80,32 @@ function render(data, id_name, svg_left){
     svg_depreciation.append("text")
         .attr("text-anchor", "end")
         .attr("x", dep_width - 60)
-        .attr("y", dep_height - 60)
+        .attr("y", dep_height - 40)
         .text("Miles")
 
     svg_depreciation.append("text")
         .attr("text-anchor", "end")
-        .attr("x", margin.right)
+        .attr("x", margin.right - 20)
         .attr("y", margin.top - 60)
         .text("Price($)");
 
     var dot_tooltip = d3.select("body").append("div")
         .attr("class", "dot_tooltip")
         .style("position", "absolute");
+    
+    var axis_hover_line = svg_depreciation.append("path")
+        .attr("class", "line-hover")
+        .style("stroke", "black")
+        .style("position", "absolute")
+        .style("stroke-width", "1px")
+        .style("opacity", "0");
+    
+    var yaxis_hover_line = svg_depreciation.append("path")
+        .attr("class", "line-hover")
+        .style("stroke", "black")
+        .style("position", "absolute")
+        .style("stroke-width", "1px")
+        .style("opacity", "0");
     
     var mapping = map_trim_to_color(data);
     var trims = get_unique_trims(data);
@@ -107,9 +125,9 @@ function render(data, id_name, svg_left){
         .data(data)
         .enter()
         .append("circle")
-            .attr("r", 5)
-            .attr("cx", function(d) { return x(d.Miles)})
-            .attr("cy", function(d) { return y(d.Price)})
+            .attr("r", 3)
+            .attr("cx", function(d) { return x(parseInt(d.Miles))})
+            .attr("cy", function(d) { return y(parseInt(d.Price))})
             .attr("fill", function(d) {
                 return mapping.get(d.Trim);
             })
@@ -131,11 +149,22 @@ function render(data, id_name, svg_left){
                 .style("padding", "10px")
                 .style("border", "2px solid " + border_color)
                 .style("background-color", "#ffcc80")
+            //make the color red when hover
+            d3.select(this).attr("fill", "red")
+            axis_hover_line
+                .style("opacity", "0.2")
+                .attr("d", d3.line()([[x(d.Miles), 0], [x(d.Miles), dep_height - margin.top - margin.bottom]]))
+            yaxis_hover_line
+                .style("opacity", "0.2")
+                .attr("d", d3.line()([[0, y(d.Price)], [dep_width, y(d.Price)]]))
+        })
+        .on("mouseout", function(event, d) {
+            axis_hover_line.style("opacity", "0")
+            yaxis_hover_line.style("opacity", "0")
+            d3.select(this).attr("fill", mapping.get(d.Trim))
+            dot_tooltip.style("display", "none");
+        })
 
-        })
-        .on("mouseout", function(d) {
-            return dot_tooltip.style("display", "none");
-        })
     
     //adding legend text
     svg_depreciation.selectAll("legend")
@@ -143,7 +172,7 @@ function render(data, id_name, svg_left){
         .enter()
         .append("text")
             .attr("class", "legend_text")
-            .attr("x", 3*dep_width/4 + 120)
+            .attr("x", 3*dep_width/4 + 100)
             .attr("y", function(d,i){
                 return (i+1) * margin.top;
             })
@@ -155,7 +184,7 @@ function render(data, id_name, svg_left){
         .data(trims)
         .enter()
         .append("rect")
-            .attr("x", 3*dep_width/4 + 90)
+            .attr("x", 3*dep_width/4 + 70)
             .attr("y", function(d,i){
                 return (i+1) * margin.top - 15;
             })
@@ -173,7 +202,7 @@ function render(data, id_name, svg_left){
 
     svg_depreciation.append("line")
             .style("stroke", "black")
-            .style("stroke-width", 3)
+            .style("stroke-width", "2px")
             .attr("x1", x(0))
             .attr("y1", y(b))
             .attr("x2", x((0 - b)/m))

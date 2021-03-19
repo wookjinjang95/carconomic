@@ -33,22 +33,23 @@
             </div>
         </nav>
         <div class="sidenav">
-            <a>Introduction</a>
+            <a>Vehicle Depreciation Analysis</a>
             <a href="#chapter_1">Chapter 1: How does depreciation work?</a>
             <a href="#chapter_2">Chapter 2: How to see depreciation in a better graph?</a>
-            <a href="#chapter_3">Chapter 3: </a>
+            <a href="#chapter_3">Chapter 3: What is straight line in the graph?</a>
+            <a href="#chapter_4">Chapter 4: What is a depreciation line?</a>
         </div>
         <div class="main" style="padding-left: 22%">
             <section id="chapter_1"></section>
             <div class="container-fluid" style="padding-top: 80px;">
-                <div class="display-3">How does depreciation work?</div>
-                    <p style="padding-top: 30px; font-size: 20px;">
-                        There is always a rule when it comes to buying a next car. <mark style="background-color: greenyellow">Do not ever buy a new car. Always
-                        buy a pre-owned car.</mark> The reason why people want to avoid purchasing new cars is to avoid
-                        the depreciation of the vehicle. However, it is hard to tell through words. What's wrong with a new car? Let's see one of the example
-                        to demonstrate how depreciation works on certain cars. As an example, we will be using M5 model from BMW.
-                    </p>
-                </div>
+                <div class="display-6">How does depreciation work?</div>
+                <p style="padding-top: 30px">
+                    There is always a rule when it comes to buying a next car. <mark style="background-color: greenyellow">Do not ever buy a new car. Always
+                    buy a pre-owned car.</mark> The reason why people want to avoid purchasing new cars is to avoid
+                    the depreciation of the vehicle. However, it is hard to tell through words. What's wrong with a new car? Let's see one of the example
+                    to demonstrate how depreciation works on certain cars. As an example, we will be using M5 model from BMW.
+                </p>
+                <!-- removing this because its disturbing
                 <div class="row">
                     <div class="col-sm-3">
                         <img src="photos/gif_files/web_scraping.gif" style="width: 100%; height:75%">
@@ -59,9 +60,12 @@
                         such as price, current miles, year, model, brand, VIN, vehicle history data, maintenance list, and more.
                         </p>
                     </div>
-                </div>
-                <div>
-                    After collecting the data, 
+                </div> -->
+                <p>
+                    After collecting the data, below are the data tables from BMW M5 model.
+                </p>
+                <div style="font-size: 20px;">
+                    BMW M5 - Price vs Miles
                 </div>
                 <table class="table">
                     <thead class="thead-dark">
@@ -93,15 +97,17 @@
                         </tr>
                     </tbody>
                 </table>
-                <div style="font-size: 20px;">
+                <p>
                     The above data table demonstrates how fast the BMW M5 model depreciate just for driving 10,000 miles. Within 10,000 miles, BMW M5
-                    lost its value <mark style="background-color: indianred">at least 20,000 dollars!</mark> If you ask around
+                    lost its value <mark style="background-color: rgb(204, 124, 124)">at least 20,000 dollars!</mark> If you ask around
                     why people don't really buy brand new BMW M5 from a dealership, that is the reason. People, as a consumer, don't want to
                     deal with the huge deprecation.
-                </div>
-                <div style="font-size: 20px; padding-top: 20px;">
-                    But not all cars always have depreciation rate like this. Instead of looking at BMW M5 model, we are going to look into 
-                <mark style="background-color: deepskyblue">BMW M3 model.</mark>
+                </p>
+                <p style="padding-top: 20px;">
+                    But not all cars always have depreciation rate like this. Instead of looking at BMW M5 model, we are going to look into BMW M3 model.
+                </p>
+                <div style="font-size: 20px;">
+                    BMW M3 - Price vs Miles
                 </div>
                 <table class="table">
                     <thead class="thead-dark">
@@ -133,20 +139,45 @@
                         </tr>
                     </tbody>
                 </table>
-                <div class="display-6">
+                <div>
+                    <section id="chapter_2"></section>
                     However, showing two tables like this does not really tell us the depreciation.
                     It is hard to capture depreciation using data tables also. So, let's display the data
                     in different ways.
                 </div>
-                <section id="chapter_2"></section>
                 <div class="display-6" style="padding-top: 20px;">
-                    BMW M3 Depreciation Graph
+                    BMW M3 Straight line Graph
                 </div>
                 <div id="bmw_m3_depreciation" style="height: 600px;"></div>
                 <div class="display-6">
-                    BMW M5 Depreciation Graph
+                    BMW M5 Straight line Graph
                 </div>
                 <div id="bmw_m5_depreciation" style="height: 600px;"></div>
+                <div style="font-size: 30px;">
+                    <section id="chapter_3"></section>
+                    What is the straight line in the graph?
+                </div>
+                <div>
+                    The straight line is called linear regression model. Basically, gathering all the data (dots)
+                    in the graph, linear regression model will draw a straight line that will show trend of the 
+                    graph. This trend is basically demonstrates how much will it cost per one mile. However, this 
+                    line itself is not useful. 
+                    <mark style="background-color: rgba(255, 145, 0, 0.822)6, 156)">
+                        This is just an ideal market where each mile will have fixed cost.
+                    </mark>
+                    As a consumer, we wish that there is no sudden depreciation and every car has a fixed depreciation rate per each mile.
+                    Life would have been so much easier. But that's not the case as we saw in previous data for BMW M3 and M5 depreciation
+                    data table. Now let's draw another line called depreciation line or logartihmic regression model.
+                </div>
+                <div style="font-size: 30px;">
+                    <section id="chapter_4"></section>
+                    What is the depreciation line?
+                </div>
+                <p>
+                    As mentioned in <a href="#chapter_1">chapter 1</a> about the depreciation, car value depreciate in faster rate in 
+                    the beginning of usage and slows in depreciation rate as you drive more. Let's draw this depreciation line along with 
+                    the straight line we drawn before in <a href="#chapter_3">chapter 3</a>.
+                </p>
                 <script src="price_depreciation.js"></script>
                 <script src="bmw_price_depreciation.js"></script>
             </div>
