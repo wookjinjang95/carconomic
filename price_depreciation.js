@@ -55,6 +55,31 @@ function regression(data) {
     return [m,b];
 }
 
+function logarithmic(data) {
+    var sum = [0, 0, 0, 0], n = 0, results = [];
+
+    for (len = data.length; n < len; n++) {
+      if (data[n][1] != null) {
+        sum[0] += Math.log(data[n][0]);
+        sum[1] += data[n][1] * Math.log(data[n][0]);
+        sum[2] += data[n][1];
+        sum[3] += Math.pow(Math.log(data[n][0]), 2);
+      }
+    }
+
+    var B = (n * sum[1] - sum[2] * sum[0]) / (n * sum[3] - sum[0] * sum[0]);
+    var A = (sum[2] - B * sum[0]) / n;
+
+    for (var i = 0, len = data.length; i < len; i++) {
+        var coordinate = [data[i][0], A + B * Math.log(data[i][0])];
+        results.push(coordinate);
+    }
+
+    var string = 'y = ' + Math.round(A*100) / 100 + ' + ' + Math.round(B*100) / 100 + ' ln(x)';
+
+    return {equation: [A, B], points: results, string: string};
+}
+
 
 //note that when you are selectall, you have to pass the entire array
 function render(data, id_name, svg_left){
@@ -62,10 +87,6 @@ function render(data, id_name, svg_left){
     var margin = {top: 40, right: 30, bottom: 30, left: svg_left},
     dep_width = parseInt(d3.select(id_name).style("width")) - margin.left - margin.right,
     dep_height = parseInt(d3.select(id_name).style("height")) - margin.top - margin.bottom
-
-    var line = d3.line()
-        .x(function(d){ return d[0]; })
-        .y(function(d){ return d[1]; });
 
     var svgContainer = d3.select(id_name)
     var svg_depreciation = svgContainer
@@ -200,13 +221,32 @@ function render(data, id_name, svg_left){
     var m = result[0];
     var b = result[1];
 
+    var log_result = logarithmic(new_data);
+    log_data_points = log_result.points;
+    log_data_points.sort( function( a, b )
+    {
+    // Sort by the 2nd value in each array
+    if ( a[0] == b[0] ) return 0;
+    return a[0] < b[0] ? -1 : 1;
+    });
+
     svg_depreciation.append("line")
-            .style("stroke", "black")
+            .style("stroke", "red")
             .style("stroke-width", "2px")
             .attr("x1", x(0))
             .attr("y1", y(b))
             .attr("x2", x((0 - b)/m))
             .attr("y2", y(0));
+    
+    svg_depreciation.append("path")
+        .datum(log_data_points)
+        .attr("fill", "none")
+        .style("stroke", "steelblue")
+        .style("stroke-width", "2px")
+        .attr("d", d3.line()
+            .x(function(d) { return x(d[0]);})
+            .y(function(d) { return y(d[1]);})
+        )
 }
 
 var draw = d3.csv("cla_data.csv")
