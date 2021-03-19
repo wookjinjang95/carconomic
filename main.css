@@ -9,10 +9,12 @@ body{
     position: fixed;
     padding-top: 80px;
     z-index: 1;
-    background-color: cadetblue;
+    background-color: rgb(201, 173, 148);
 }
 .sidenav a{
     display: block;
     padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 10px;
     text-decoration: none;
 }
