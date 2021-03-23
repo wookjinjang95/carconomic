@@ -160,7 +160,7 @@ function render(data, id_name, svg_left){
             var yPosition = window.scrollY + (event.clientY);
             dot_tooltip
                 .html(
-                    "Trim:" + d.Trim + "</br>" + 
+                    "Trim: " + d.Trim + "</br>" + 
                     "Price: " + d.Price + "</br>" + 
                     "Miles: " + d.Miles)
                 //don't use attr here, use style here.
