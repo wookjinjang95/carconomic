@@ -29,40 +29,33 @@
                   <li class="nav-item">
                     <a class="nav-link" href="#">About Us</a>
                   </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="#">Blog</a>
+                  </li>
                 </ul>
             </div>
         </nav>
         <div class="sidenav">
-            <a>Vehicle Depreciation Analysis</a>
-            <a href="#chapter_1">Chapter 1: How does depreciation work?</a>
-            <a href="#chapter_2">Chapter 2: How to see depreciation in a better graph?</a>
-            <a href="#chapter_3">Chapter 3: What is straight line in the graph?</a>
-            <a href="#chapter_4">Chapter 4: What is a depreciation line?</a>
-            <a href="#chapter_5">Chapter 5: What inisghts can we learn from these two lines?</a>
+            <a style="border-top: 1px solid black; border-bottom: 1px solid black; text-align: center;padding-top: 10px; padding-bottom: 10px;">
+                Vehicle Market Analysis</a>
+            <a href="#chapter_1">Ch 1: Depreciation</a>
+            <a href="#chapter_2">Ch 2: Depreciation in Graph</a>
+            <a href="#chapter_3">Ch 3: Linear Regression Line</a>
+            <a href="#chapter_4">Ch 4: Depreciation Line</a>
+            <a href="#chapter_5">Ch 5: Insights</a>
             <a href="#conclusion">Conclusion</a>
         </div>
         <div class="main" style="padding-left: 22%">
             <section id="chapter_1"></section>
             <div class="container-fluid" style="padding-top: 80px;">
+                <div id="chapter_1" class="display-2" style="text-align: center; padding-bottom: 2%;">Depreciation</div>
                 <div class="display-6">How does depreciation work?</div>
                 <p style="padding-top: 30px">
-                    There is always a rule when it comes to buying a next car. <mark style="background-color: greenyellow">Do not ever buy a new car. Always
-                    buy a pre-owned car.</mark> The reason why people want to avoid purchasing new cars is to avoid
+                    There is always a rule when it comes to buying a next car. Do not ever buy a new car. Always
+                    buy a pre-owned car. The reason why people want to avoid purchasing new cars is to avoid
                     the depreciation of the vehicle. However, it is hard to tell through words. What's wrong with a new car? Let's see one of the example
                     to demonstrate how depreciation works on certain cars. As an example, we will be using M5 model from BMW.
                 </p>
-                <!-- removing this because its disturbing
-                <div class="row">
-                    <div class="col-sm-3">
-                        <img src="photos/gif_files/web_scraping.gif" style="width: 100%; height:75%">
-                    </div>
-                    <div class="col-md">
-                        <p class="display-6" style="text-align: center;">
-                        In AIFA, we collect vehicle market data through web-scraping and other existing reliable sources to extract vehicle information
-                        such as price, current miles, year, model, brand, VIN, vehicle history data, maintenance list, and more.
-                        </p>
-                    </div>
-                </div> -->
                 <p>
                     After collecting the data, below are the data tables from BMW M5 model.
                 </p>
@@ -101,9 +94,8 @@
                 </table>
                 <p>
                     The above data table demonstrates how fast the BMW M5 model depreciate just for driving 10,000 miles. Within 10,000 miles, BMW M5
-                    lost its value <mark style="background-color: rgb(204, 124, 124)">at least 20,000 dollars!</mark> If you ask around
-                    why people don't really buy brand new BMW M5 from a dealership, that is the reason. People, as a consumer, don't want to
-                    deal with the huge deprecation.
+                    lost its value at least 20,000 dollars! If you ask around why people don't really buy brand new BMW M5 from a dealership, 
+                    that is the reason. People, as a consumer, don't want to deal with the huge deprecation.
                 </p>
                 <p style="padding-top: 20px;">
                     But not all cars always have depreciation rate like this. Instead of looking at BMW M5 model, we are going to look into BMW M3 model.
@@ -155,8 +147,8 @@
                     BMW M5 Straight line Graph
                 </div>
                 <div id="bmw_m5_depreciation" style="height: 600px;"></div>
+                <div id="chapter_3" class="display-2" style="text-align: center; padding-top: 5%; padding-bottom: 2%;">Every Mile for Every Dollar</div>
                 <div style="font-size: 30px;">
-                    <section id="chapter_3"></section>
                     What is the straight line in the graph?
                 </div>
                 <div>
@@ -171,9 +163,9 @@
                     Life would have been so much easier. But that's not the case as we saw in previous data for BMW M3 and M5 depreciation
                     data table. Now let's draw another line called depreciation line or logartihmic regression model.
                 </div>
-                <div id="chapter_4" style="font-size: 30px;">
-                    What is the depreciation line?
-                </div>
+                <div id="chapter_4" class="display-2" style="text-align: center; padding-top: 5%; padding-bottom: 2%;">
+                    Depreciation Line</div>
+                <div style="font-size: 30px;">What is the depreciation line?</div>
                 <p>
                     As mentioned in <a href="#chapter_1">chapter 1</a> about the depreciation, car value depreciate in faster rate in 
                     the beginning of usage and slows in depreciation rate as you drive more. Let's draw this depreciation line along with 
@@ -188,7 +180,8 @@
                     slope. This tells us that the depreciation rate slows down as the car gets driven in a long term period. So the real question
                     is how these two lines combined together in one graph can bring insight to us?
                 </p>
-                <div id="chapter_5" style="font-size: 30px;">
+                <div id="chapter_5" class="display-2" style="text-align: center; padding-top: 5%; padding-bottom: 2%;">Insights</div>
+                <div style="font-size: 30px;">
                     What inisghts can we learn from these two lines?
                 </div>
                 <p>
@@ -258,6 +251,7 @@
                         and it's pretty much up to the user to decide which sounds better for him or her.
                     </p>
                 </p>
+                <div id="chapter_6" class="display-2" style="text-align: center; padding-top: 5%; padding-bottom: 2%;">All data into one conclusion</div>
                 <div id=conclusion style="font-size: 30px;">To conclude</div>
                 <p>
                     AIFA doesn't force people to use our own analytic insights. AIFA can provide what we think its the best insight.
