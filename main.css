@@ -24,3 +24,35 @@ body{
 .sidenav a:hover {
     text-decoration: underline;
 }
+
+.front_btn {
+    border: 3px solid black;
+    color: black;
+    padding: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    text-align: center;
+    border-radius: 25px;
+    text-decoration: none;
+}
+
+.front_btn:hover {
+    color: white;
+    background-color: black;
+}
+
+.tutorial_btn {
+    border: 3px solid black; 
+    color: black; 
+    padding: 5px;
+    padding-left: 15px; 
+    padding-right: 15px;
+    text-align: center; 
+    border-radius: 25px; 
+    text-decoration: none;
+}
+
+.tutorial_btn:hover {
+    color: white;
+    background-color: black;
+}
