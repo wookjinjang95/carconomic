@@ -59,3 +59,14 @@ body{
     color: black;
     background-color: #ff9900;
 }
+
+.selection_menu {
+    display: inline-block;
+    z-index: 0;
+}
+
+.dashboard {
+    margin-left: 5%;
+    margin-top: 5%;
+    margin-right: 5%;
+}
