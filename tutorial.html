@@ -39,11 +39,8 @@
             <a style="border-top: 1px solid black; border-bottom: 1px solid black; text-align: center;padding-top: 10px; padding-bottom: 10px;">
                 Vehicle Market Analysis</a>
             <a href="#chapter_1">Ch 1: Depreciation</a>
-            <a href="#chapter_2">Ch 2: Depreciation in Graph</a>
-            <a href="#chapter_3">Ch 3: Linear Regression Line</a>
-            <a href="#chapter_4">Ch 4: Depreciation Line</a>
-            <a href="#chapter_5">Ch 5: Insights</a>
-            <a href="#conclusion">Ch 6: Conclusion</a>
+            <a href="#chapter_2">Ch 2: Depreciation Graph</a>
+            <a href="#chapter_3">Ch 3: Insights</a>
             <a style="margin-top: 5%; border-top: 1px solid black; border-bottom: 1px solid black; text-align: center;padding-top: 10px; padding-bottom: 10px;">
                 Maintenance Analysis (TBA)</a>
         </div>
@@ -64,80 +61,6 @@
                     that's currently available on the market. For example, some websites show miles and price for all BMW M3 and M5.
                     By collecting all the information, we can see how the market behaves for those specific vehicles.
                 </p>
-                <div style="font-size: 20px;">
-                    BMW M5 - Price vs Miles
-                </div>
-                <table class="table">
-                    <thead class="thead-dark">
-                        <tr>
-                        <th scope="col">Miles</th>
-                        <th scope="col">Price</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                        <th scope="row">1073</th>
-                        <td>$109,322</td>
-                        </tr>
-                        <tr>
-                        <th scope="row">1691</th>
-                        <td>$105,499</td>
-                        </tr>
-                        <tr>
-                        <th scope="row">5485</th>
-                        <td>$92,594</td>
-                        </tr>
-                        <tr>
-                        <th scope="row">7000</th>
-                        <td>$88,995</td>
-                        </tr>
-                        <tr>
-                        <th scope="row">10341</th>
-                        <td>$82,900</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <p>
-                    The above data table demonstrates how fast the BMW M5 model depreciate just for driving 10,000 miles. Within 10,000 miles, BMW M5
-                    lost its value at least 20,000 dollars! If you ask around why people don't really buy brand new BMW M5 from a dealership, 
-                    that is the reason. People, as a consumer, don't want to deal with the huge deprecation.
-                </p>
-                <p style="padding-top: 20px;">
-                    But not all cars always have depreciation rate like this. Instead of looking at BMW M5 model, we are going to look into BMW M3 model.
-                </p>
-                <div style="font-size: 20px;">
-                    BMW M3 - Price vs Miles
-                </div>
-                <table class="table">
-                    <thead class="thead-dark">
-                        <tr>
-                        <th scope="col">Miles</th>
-                        <th scope="col">Price</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                        <th scope="row">5572</th>
-                        <td>$59745</td>
-                        </tr>
-                        <tr>
-                        <th scope="row">7356</th>
-                        <td>$59477</td>
-                        </tr>
-                        <tr>
-                        <th scope="row">7926</th>
-                        <td>$58895</td>
-                        </tr>
-                        <tr>
-                        <th scope="row">11664</th>
-                        <td>$51990</td>
-                        </tr>
-                        <tr>
-                        <th scope="row">16844</th>
-                        <td>$51500</td>
-                        </tr>
-                    </tbody>
-                </table>
                 <div>
                     For BMW M3, we see that the price drop is different. For first 10,000 miles, BMW M3 loses value of $8,000 dollars.
                 </div>
@@ -204,7 +127,9 @@
                     more than BMW M3. Despite the depreciation for M3 and M5 might be similar from 5000 miles to 10,000 miles,
                     M5 loses value than M3. Consequently, we can conclude that each vehicle has its own depreciation.
                 </div>
-                <div class="display-6" id="chapter_2" style="padding-top: 10%;">
+                <div id="chapter_2" class="display-4" style="text-align: center; padding-top: 5%; padding-bottom: 2%;">
+                    Depreciation Line Vs Straight Line</div>
+                <div class="display-6" id="chapter_2" style="padding-top: 2%;">
                     BMW M3 Price Vs Miles
                 </div>
                 <p>
@@ -218,7 +143,6 @@
                     *Please move the cursor to circles to see more details
                 </p>
                 <div id="bmw_m5_depreciation" style="height: 600px;"></div>
-                <div id="chapter_3" class="display-2" style="text-align: center; padding-top: 5%; padding-bottom: 2%;">Every Mile for Every Dollar</div>
                 <div style="font-size: 30px;">
                     What is the straight line in the graph?
                 </div>
@@ -234,13 +158,11 @@
                     Life would have been so much easier. But that's not the case as we saw in previous data for BMW M3 and M5 depreciation
                     data table. Now let's draw another line called depreciation line or logartihmic regression model.
                 </div>
-                <div id="chapter_4" class="display-2" style="text-align: center; padding-top: 5%; padding-bottom: 2%;">
-                    Depreciation Line</div>
                 <div style="font-size: 30px;">What is the depreciation line?</div>
                 <p>
                     As mentioned in <a href="#chapter_1">chapter 1</a> about the depreciation, car value depreciate in faster rate in 
                     the beginning of usage and slows in depreciation rate as you drive more. Let's draw this depreciation line along with 
-                    the straight line we drawn before in <a href="#chapter_3">chapter 3</a>. If you check the graph above, there are two
+                    the straight line we drawn before in <a href="#chapter_2">chapter 2</a>. If you check the graph above, there are two
                     lines that's been drawn. <a style="color: red">Red line</a> is the straight line that we mentioned as a linear regression
                     model. The <a style="color: steelblue">blue line</a> is a depreciation line. If you look at the depreciation line,
                     we notices that, in the beginning, the line goes straight down. A lot more slope than any other miles. This shows
@@ -251,7 +173,7 @@
                     slope. This tells us that the depreciation rate slows down as the car gets driven in a long term period. So the real question
                     is how these two lines combined together in one graph can bring insight to us?
                 </p>
-                <div id="chapter_5" class="display-2" style="text-align: center; padding-top: 5%; padding-bottom: 2%;">Insights</div>
+                <div id="chapter_3" class="display-2" style="text-align: center; padding-top: 5%; padding-bottom: 2%;">Insights</div>
                 <div style="font-size: 30px;">
                     What insights can we learn from these two lines?
                 </div>
@@ -321,14 +243,6 @@
                         We see that there are different insights from different perspective from buyers and sellers. But one graph can bring multiple insights
                         and it's pretty much up to the user to decide which sounds better for him or her.
                     </p>
-                </p>
-                <div id="chapter_6" class="display-2" style="text-align: center; padding-top: 5%; padding-bottom: 2%;">All data into one conclusion</div>
-                <div id=conclusion style="font-size: 30px;">To conclude</div>
-                <p>
-                    AIFA doesn't force people to use our own analytic insights. AIFA can provide what we think its the best insight.
-                    However, every insight is neither always right or always wrong. Depending on situation or in the market, some insights can be applied
-                    in certain situation and some are not applicable. But at the end, we hope that people who use AIFA analysis, can create
-                    their own insights and be aware of the market that he or she getting into.
                 </p>
                 <script src="price_depreciation.js"></script>
                 <script src="bmw_price_depreciation.js"></script>
