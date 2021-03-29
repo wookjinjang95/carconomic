@@ -1,3 +1,9 @@
+function get_make_and_model(){
+    var make = document.getElementById('make').value;
+    var model = document.getElementById('model').value;
+    console.log(make, model);
+}
+
 function map_trim_to_color(data){
     var trims = get_unique_trims(data);
     var mapping = new Map();
@@ -82,11 +88,18 @@ function logarithmic(data) {
 
 
 //note that when you are selectall, you have to pass the entire array
-function render(data, id_name, svg_left){
+function render(data, id_name, width, height, svg_left){
+    //creating the object for return object.
+    var depreciation_graph_obj = {};
+
+    var element = d3.select(id_name).node();
+    width = (typeof width !== 'undefined') ? width : element.getBoundingClientRect().width;
+    height = (typeof height !== 'undefined') ? height : element.getBoundingClientRect().height;
+    
     svg_left = (typeof svg_left !== 'undefined') ? svg_left : 40;
     var margin = {top: 40, right: 30, bottom: 30, left: svg_left},
-    dep_width = parseInt(d3.select(id_name).style("width")) - margin.left - margin.right,
-    dep_height = parseInt(d3.select(id_name).style("height")) - margin.top - margin.bottom
+    dep_width = parseInt(width) - margin.left - margin.right,
+    dep_height = parseInt(height) - margin.top - margin.bottom
 
     var svgContainer = d3.select(id_name)
     var svg_depreciation = svgContainer
@@ -193,27 +206,28 @@ function render(data, id_name, svg_left){
         .enter()
         .append("text")
             .attr("class", "legend_text")
-            .attr("x", 3*dep_width/4 + 100)
+            .attr("x", 4*dep_width/5)
             .attr("y", function(d,i){
                 return (i+1) * margin.top;
             })
             .text(function(d){ 
                 return d;})
+            .attr("font-size", "15px")
     
     //rectangle legend
     svg_depreciation.selectAll("rect-legend")
         .data(trims)
         .enter()
         .append("rect")
-            .attr("x", 3*dep_width/4 + 70)
+            .attr("x", 3*dep_width/4)
             .attr("y", function(d,i){
                 return (i+1) * margin.top - 15;
             })
             .style("fill", function(d){
                 return mapping.get(d);
             })
-            .attr("height", 20)
-            .attr("width", 20);
+            .attr("height", 15)
+            .attr("width", 15);
         
     //adding linear regression
     new_data = data.map(d => [parseInt(d.Miles), parseInt(d.Price)])
@@ -247,9 +261,8 @@ function render(data, id_name, svg_left){
             .x(function(d) { return x(d[0]);})
             .y(function(d) { return y(d[1]);})
         )
+    
+    //creating return object
+    depreciation_graph_obj['svg'] = svg_depreciation;
+    return depreciation_graph_obj;
 }
-
-var draw = d3.csv("cla_data.csv")
-    .then(data =>{
-        render(data, "#benz_depreciation");
-});
