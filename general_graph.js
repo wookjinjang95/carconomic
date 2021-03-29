@@ -1,9 +1,9 @@
 function alert_no_data(){
     var make = document.getElementById('make').value;
     var model = document.getElementById('model').value;
-    var file_location = "data_scraper/"+make+"/"+model+".csv";
+    var file_location = github_url + make + "/" + model + ".csv";
 
-    fetch(file_location).then(response =>{
+    fetch(file_location).then(response => {
         if(!response.ok){
             alert("No data available for " + make + " " + model);
         }else{
@@ -186,7 +186,6 @@ function update(file_location){
 
 make = document.getElementById('make').value;
 model = document.getElementById('model').value;
-file_location = "data_scraper/"+make+"/"+model+".csv";
 
 var element = d3.select("#general_depreciation").node();
 width = (typeof width !== 'undefined') ? width : element.getBoundingClientRect().width;
@@ -220,6 +219,9 @@ svg_depreciation.append("text")
     .text("Price($)");
 
 var x, y;
+var github_url = "https://raw.githubusercontent.com/wookjinjang95/wookjinjang95.github.io/main/data_scraper/";
+var file_location = github_url + make + "/" + model + ".csv";
+console.log(file_location);
 
 update(file_location)
 
