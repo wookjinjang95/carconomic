@@ -87,16 +87,18 @@ class CarFaxScraper:
     
     def get_total_pages(self):
         pages = self.carfax.find_elements_by_class_name("pagination__list-item")
-        if not pages or len(pages) == 1:
-            #needs to fix this later on the way..
-            return 2
+        if not pages:
+            return 1
+
         last_page = pages[-1]
+        if not last_page.text:
+            return 1
+        
         last_page = GeneralUtils.getonly_numbers(last_page.text)
         print("Total Pages: {}".format(last_page))
         return int(last_page)
     
     def apply_search_range(self, search_range_miles):
-        import pdb; pdb.set_trace()
         self.check_search_range_miles_value(value=search_range_miles)
         #search_radius_box = Select(self.carfax.find_elements_by_class_name("form-control.search-radius")[0])
         search_radius_box = Select(self.carfax.find_elements_by_xpath("//*[contains(@class, 'form-control search-radius')]")[0])
@@ -135,13 +137,13 @@ class CarFaxScraper:
     def perform_scraping_each_page(self, trim=None):
         total_page_to_flip = self.get_total_pages()
         count_pages = 0
-        with tqdm(total=total_page_to_flip-1) as pbar:
+        with tqdm(total=total_page_to_flip) as pbar:
             for i in range(total_page_to_flip-1):
                 action = ActionChains(self.carfax)
                 self.get_miles_and_prices(trim=trim)
                 pbar.update(1)
                 count_pages += 1
-                if count_pages == total_page_to_flip-1:
+                if count_pages == total_page_to_flip:
                     break
 
                 next_btn = self.carfax.find_elements_by_class_name("pagination__button--right")
@@ -272,40 +274,17 @@ class CarFaxScraper:
         else:
             self.vin_numbers[trim].append(vin_number)
     
-    def get_vehicle_service_info(self):
-        self.carfax.switch_to.window(self.carfax.window_handles[1])
-        data_report_rows = self.carfax.find_elements_by_xpath("//div[contains(@class, 'details-row evenrow')] | //div[contains(@class, 'details-row oddrow')]")
-        prev_mile = "0"
-        for each_row in data_report_rows:
-            temp_dict = {}
-            mileage_obj = each_row.find_element_by_class_name("mileage")
-            miles = DataCleanerUtils.only_number(mileage_obj.text)
-            if not miles:
-                temp_dict['mileage'] = prev_mile
-            else:
-                temp_dict['mileage'] = miles
-
-            comments_obj = each_row.find_elements_by_class_name("detail-record-comments-group-inner-line")
-            list_of_comments = [each_comment.text for each_comment in comments_obj]
-            temp_dict['comments'] = list_of_comments
-
-            if not temp_dict['mileage'] in self.vehicle_history_data:
-                self.vehicle_history_data[temp_dict['mileage']] = []
-                self.vehicle_history_data[temp_dict['mileage']] = temp_dict['comments']
-            else:
-                self.vehicle_history_data[temp_dict['mileage']] += temp_dict['comments']
-            prev_mile = miles
-    
-    def get_vehicle_history_data(self, trim, history_data=False, vin=True):
+    def get_vehicle_history_data(self, trim, vin=True):
         """
             1. Get objects to click for accidents only.
             2. Click the carfax report.
             3. Every Vehicle serviced, get the keyword for replaced.
         """
+        import pdb; pdb.set_trace()
         total_page_to_flip = self.get_total_pages()
         count_pages = 0
-        with tqdm(total=total_page_to_flip-1) as pbar:
-            for i in range(total_page_to_flip-1):
+        with tqdm(total=total_page_to_flip) as pbar:
+            for i in range(total_page_to_flip):
                 acc_objects = self.carfax.find_elements_by_xpath("//li[contains(@class, 'srp-accident-history-pillar')]")
                 for each_acc in acc_objects:
                     action = ActionChains(self.carfax)
@@ -314,21 +293,16 @@ class CarFaxScraper:
 
                     if vin:
                         self.get_vin(trim)
-                        
-                    elif history_data:
-                        self.click_carfax_report()
-                        self.get_vehicle_service_info()
 
                     self.carfax.close()
                     self.carfax.switch_to.window(self.carfax.window_handles[0])
-                print(json.dumps(self.vehicle_history_data, indent=4))
 
                 #update pbar
                 pbar.update(1)
                 count_pages += 1
-                if count_pages == total_page_to_flip-1:
+                if count_pages == total_page_to_flip:
                     break
-                
+
                 next_btn = self.carfax.find_elements_by_class_name("pagination__button--right")
                 action = ActionChains(self.carfax)
                 action.move_to_element(next_btn[0]).click().perform()

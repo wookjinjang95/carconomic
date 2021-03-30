@@ -1,10 +1,6 @@
 from carfax_selenium import CarFaxScraper
 import argparse
 
-class VehicleHistoryScraper:
-    def __init__(self, carfax_obj):
-        self.carfax = carfax_obj
-    
 
 def get_args():
     parser = argparse.ArgumentParser()
@@ -26,7 +22,7 @@ def get_args():
 if __name__ == "__main__":
     """
         Example Command
-        python vehicle_history.py -z 95116 -mi 50 -m 'CLA' -ma Mercedes-Benz -f tesla_model_3.csv
+        python vehicle_history.py -z 95116 -mi 50 -m 'CLA' -ma Mercedes-Benz -f tesla_model_3_vin.csv
     """
     options = get_args()
     carfax_obj = CarFaxScraper()
@@ -44,3 +40,4 @@ if __name__ == "__main__":
     )
     vin_numbers = carfax_obj.return_vin_numbers(filename=options['outputfile'])
     print(vin_numbers)
+    carfax_obj.close_browser()
