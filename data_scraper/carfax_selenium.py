@@ -108,8 +108,9 @@ class CarFaxScraper:
         self.carfax.execute_script("arguments[0].click();", search_button)
         time.sleep(2)
     
-    def get_miles_and_prices(self, trim):
+    def get_miles_and_prices_and_year(self, trim):
         #TODO: Currently the miles are not grepping well. Requires miles to grep well that's consider N/A
+            import pdb; pdb.set_trace()
             #getting the price objects
             prices = self.carfax.find_elements_by_xpath(
                 "//span[contains(text(), '$')][contains(@class, 'srp-list-item-price')] | \
@@ -118,20 +119,26 @@ class CarFaxScraper:
 
             #getting the mile objects
             miles = self.carfax.find_elements_by_xpath("//span[contains(text(), 'miles')][contains(@class, 'srp-list-item-basic-info')]")
-            if len(prices) != len(miles):
+
+            #getting the year objects
+            years = self.carfax.find_elements_by_xpath("//h4[contains(@class, 'srp-list-item-basic-info-model')]")
+
+            if len(prices) != len(miles) != len(years):
                 #Logging error that the length is not equal
-                print("The length of prices: {} and miles: {}".format(
-                    len(prices), len(miles))
+                print("The length of prices: {} and miles: {} and years {}".format(
+                    len(prices), len(miles), len(years))
                 )
                 raise Exception("Both data in prices and miles length does not match")
 
-            for each_price, each_mile in zip(prices, miles):
+            for each_price, each_mile, each_year in zip(prices, miles, years):
                 tmp_dict = {}
                 price = GeneralUtils.getonly_numbers(each_price.text)
                 mile = GeneralUtils.getonly_numbers(each_mile.text)
+                year = (each_year.text).split(" ")[0]
                 tmp_dict['Price'] = price
                 tmp_dict['Miles'] = mile
                 tmp_dict['Trim'] = trim
+                tmp_dict['Year'] = year
                 self.data.append(tmp_dict)
     
     def perform_scraping_each_page(self, trim=None):
@@ -140,7 +147,7 @@ class CarFaxScraper:
         with tqdm(total=total_page_to_flip) as pbar:
             for i in range(total_page_to_flip-1):
                 action = ActionChains(self.carfax)
-                self.get_miles_and_prices(trim=trim)
+                self.get_miles_and_prices_and_year(trim=trim)
                 pbar.update(1)
                 count_pages += 1
                 if count_pages == total_page_to_flip:
@@ -280,7 +287,6 @@ class CarFaxScraper:
             2. Click the carfax report.
             3. Every Vehicle serviced, get the keyword for replaced.
         """
-        import pdb; pdb.set_trace()
         total_page_to_flip = self.get_total_pages()
         count_pages = 0
         with tqdm(total=total_page_to_flip) as pbar:
