@@ -35,6 +35,16 @@ function get_unique_trims(data){
     return trims;
 }
 
+function get_unique_year(data){
+    var unique_years = ["all"]
+    for(var i = 0; i < data.length; i++){
+        if(!unique_years.includes(data[i].Year)){
+            unique_years.push(data[i].Year)
+        }
+    }
+    return unique_years;
+}
+
 function regression(data) {
     var sum_x = 0, sum_y = 0
       , sum_xy = 0, sum_xx = 0
@@ -261,8 +271,4 @@ function render(data, id_name, width, height, svg_left){
             .x(function(d) { return x(d[0]);})
             .y(function(d) { return y(d[1]);})
         )
-    
-    //creating return object
-    depreciation_graph_obj['svg'] = svg_depreciation;
-    return depreciation_graph_obj;
 }
