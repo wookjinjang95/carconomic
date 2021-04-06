@@ -12,9 +12,33 @@ function alert_no_data(){
     });
 }
 
+function update_year_selection(){
+    var make = document.getElementById('make').value;
+    var model = document.getElementById('model').value;
+    var file_location = github_url + make + "/" + model + ".csv";
+    console.log(file_location);
+    d3.csv(file_location).then(function(data){
+        var unique_years = get_unique_year(data);
+        var dropdown = d3.select("#year");
+        var options = dropdown.selectAll("option").data(unique_years);
+        
+        options.remove().exit();
+
+        options.enter()
+            .append("option")
+            .merge(options)
+                .text(function(d){
+                    return d;
+                })
+                .attr("value", function(d){
+                    console.log(d);
+                    return d;
+                })
+    });
+}
+
 function update(file_location){
     d3.csv(file_location).then(function(data){
-
         //remove the axis first.
         svg_depreciation.selectAll("line-hover").remove()
 
@@ -186,6 +210,7 @@ function update(file_location){
 
 make = document.getElementById('make').value;
 model = document.getElementById('model').value;
+year = document.getElem
 
 var element = d3.select("#general_depreciation").node();
 width = (typeof width !== 'undefined') ? width : element.getBoundingClientRect().width;
@@ -218,8 +243,11 @@ svg_depreciation.append("text")
     .attr("y", margin.top - 60)
     .text("Price($)");
 
+//starting here, it's a half dount graph
 var x, y;
-var github_url = "https://raw.githubusercontent.com/wookjinjang95/wookjinjang95.github.io/main/data_scraper/";
+//var github_url = "https://raw.githubusercontent.com/wookjinjang95/wookjinjang95.github.io/main/data_scraper/";
+var github_url = "data_scraper/";
 var file_location = github_url + make + "/" + model + ".csv";
 
 update(file_location);
+update_year_selection(file_location);

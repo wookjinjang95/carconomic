@@ -110,7 +110,6 @@ class CarFaxScraper:
     
     def get_miles_and_prices_and_year(self, trim):
         #TODO: Currently the miles are not grepping well. Requires miles to grep well that's consider N/A
-            import pdb; pdb.set_trace()
             #getting the price objects
             prices = self.carfax.find_elements_by_xpath(
                 "//span[contains(text(), '$')][contains(@class, 'srp-list-item-price')] | \
@@ -145,7 +144,7 @@ class CarFaxScraper:
         total_page_to_flip = self.get_total_pages()
         count_pages = 0
         with tqdm(total=total_page_to_flip) as pbar:
-            for i in range(total_page_to_flip-1):
+            for i in range(total_page_to_flip):
                 action = ActionChains(self.carfax)
                 self.get_miles_and_prices_and_year(trim=trim)
                 pbar.update(1)
