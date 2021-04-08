@@ -1,0 +1,217 @@
+@import (less) "main.css";
+
+.main_title {
+    font-size: 90px;
+    /* color: #ffcc00;  */
+    color: orangered;
+    font-weight: 750;
+    width: 80%;
+}
+.title_container {
+    padding-top:15%;
+    padding-left: 5%;
+}
+
+.title_background_pic {
+    text-align: left; 
+    height: 100vh;
+    width: 100%;
+    background-image: url(photos/front-cover/Lamborghini-svj-rear.jpeg);
+    background-repeat: no-repeat; 
+    background-size: cover;
+}
+
+.front_btn_holder {
+    color: black;
+    padding-top: 10%;
+    font-size: 20px;
+}
+
+.front_data_image {
+    float: left;
+}
+
+.front_data_content_container {
+    float: left;
+    width: 30%;
+}
+
+.front_data_title {
+    font-weight: 850;
+    margin-top: 30%;
+    color: #c44dff;
+    font-size: 60px;
+}
+
+.front_data_content {
+    color: grey;
+    font-size: 20px;
+    margin-top: 20px;
+}
+
+.front_dashboard_container {
+    display: inline-block;
+    margin-top: 10%;
+}
+
+.front_dashboard_img {
+    float: left;
+    width: 60%;
+    height: 70%;
+}
+
+.front_dashboard_title {
+    float: left;
+    font-weight: 850;
+    color: #c44dff;
+}
+
+.front_dashboard_content {
+    color: grey;
+}
+
+.front_dashboard_btn {
+    float: left;
+}
+
+
+@media only screen and (min-width: 320px) {
+    .main_title {
+        font-size: 30px;
+        width: 80%;
+    }
+    .title_container {
+        padding-top: 30%;
+    }
+    .title_background_pic {
+        height: 60%;
+    }
+    .front_btn_holder {
+        font-size: 15px;
+    }
+    .front_data_title {
+        font-size: 30px;
+    }
+    .front_data_image {
+        height: 30%;
+        width: 40%;
+        margin-top: 20%;
+    }
+    .front_data_content {
+        font-size: 15px;
+    }
+    .front_data_content_container{
+        width: 60%;
+    }
+    .front_dashboard_img{
+        height: 60%;
+        width: 40%;
+        margin-top: 5%;
+    }
+    .front_dashboard_title {
+        font-size: 30px;
+        margin-left: 10%;
+    }
+    .front_dashboard_content {
+        margin-top: 10px;
+        font-size: 10px;
+        padding-left: 35px;
+        width: 55%;
+        float: left;
+    }
+    .front_dashboard_btn {
+        margin-top: 40px;
+        margin-left: 90px;
+        float: left;
+        font-size: 15px;
+    }
+    .front_dashboard_container {
+        height: 40%;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .main_title {
+        font-size: 40px;
+        width: 425px;
+    }
+    .title_container {
+        padding-top: 10%;
+    }
+    .title_background_pic {
+        height: 60%;
+    }
+ }
+
+ @media only screen and (min-width: 1024px) {
+    .main_title {
+        font-size: 90px;
+        width: 80%;
+    }
+    .title_container {
+        padding-top:15%;
+    }
+    .title_background_pic {
+        height: 100vh;
+    }
+    .front_btn_holder {
+        font-size: 20px;
+    }
+    .front_data_content_container{
+        width: 50%;
+    }
+    .front_data_title {
+        margin-top: 20%;
+        font-size: 50px;
+    }
+    .front_data_image {
+        width: 50%;
+        height: 60%;
+        margin-top: 0%;
+    }
+    .front_data_content {
+        font-size: 20px;
+    }
+    .front_dashboard_title {
+        margin-top: 20px;
+        margin-right: 5%;
+        margin-left: 90px;
+        font-size: 50px;
+    }
+    .front_dashboard_img {
+        width: 50%;
+        height: 60%;
+        margin-top: 0%;
+    }
+    .front_dashboard_content {
+        margin-top: 20px;
+        font-size: 20px;
+        width: 40%;
+        padding-left: 90px;
+        float: left;
+    }
+    .front_dashboard_btn {
+        margin-top: 40px;
+        margin-left: 90px;
+        float: left;
+    }
+    .front_dashboard_container{
+        height: unset;
+    }
+ }
+
+ @media only screen and (min-width: 1440px) {
+    .learn_more {
+        font-size: 20px;
+    }
+    .front_data_title {
+        font-size: 60px;
+    }
+    .front_dashboard_title {
+        margin-top: 30px;
+        font-size: 60px;
+    }
+    .front_dashboard_btn {
+        font-size: 20px;
+    }
+ }
