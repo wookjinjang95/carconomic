@@ -74,6 +74,28 @@
     float: left;
 }
 
+.visit_tutorial_background {
+    display: inline-block;
+    padding-top: 10%;
+    background-image: url(photos/front-cover/tutorial.jpeg); 
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+}
+
+.visit_tutorial_background_title {
+    padding-left: 5%;
+    font-weight: 850;
+    margin-top: 30px;
+    font-size: 60px;
+}
+
+.visit_tutorial_background_content {
+    margin-top: 3%;
+    margin-left: 5%;
+    width: 50%;
+    font-size: 20px;
+}
 
 @media only screen and (min-width: 320px) {
     .main_title {
@@ -128,6 +150,22 @@
     .front_dashboard_container {
         height: 40%;
     }
+    .visit_tutorial_background_title {
+        font-size: 30px;
+    }
+    .visit_tutorial_background_content {
+        margin-top: 3%;
+        margin-left: 5%;
+        width: 70%;
+        font-size: 15px;
+    }
+    .front_tutorial_btn {
+        display: inline-block;
+        margin-top: 5%;
+        margin-left: 5%;
+        font-size: 20px;
+        font-weight: 750;
+    }
 }
 
 @media only screen and (min-width: 768px) {
@@ -145,7 +183,7 @@
 
  @media only screen and (min-width: 1024px) {
     .main_title {
-        font-size: 90px;
+        font-size: 60px;
         width: 80%;
     }
     .title_container {
@@ -198,9 +236,20 @@
     .front_dashboard_container{
         height: unset;
     }
+    .visit_tutorial_background_content {
+        width: 70%;
+        font-size: 20px;
+    }
+    .visit_tutorial_background_title {
+        font-size: 40px;
+    }
  }
 
  @media only screen and (min-width: 1440px) {
+    .main_title {
+        font-size: 80px;
+        width: 80%;
+    }
     .learn_more {
         font-size: 20px;
     }
@@ -213,5 +262,14 @@
     }
     .front_dashboard_btn {
         font-size: 20px;
+    }
+    .visit_tutorial_background_title {
+        font-size: 60px;
+    }
+    .visit_tutorial_background_content {
+        width: 50%;
+    }
+    .front_tutorial_btn {
+        font-size: 25px;
     }
  }

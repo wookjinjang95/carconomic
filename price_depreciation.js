@@ -1,7 +1,6 @@
 function get_make_and_model(){
     var make = document.getElementById('make').value;
     var model = document.getElementById('model').value;
-    console.log(make, model);
 }
 
 function map_trim_to_color(data){
@@ -96,7 +95,6 @@ function logarithmic(data) {
     return {equation: [A, B], points: results, string: string};
 }
 
-
 //note that when you are selectall, you have to pass the entire array
 function render(data, id_name, width, height, svg_left){
     //creating the object for return object.
@@ -125,13 +123,15 @@ function render(data, id_name, width, height, svg_left){
         .attr("text-anchor", "end")
         .attr("x", dep_width - 60)
         .attr("y", dep_height - 40)
+        .attr('stroke', 'green')
         .text("Miles")
 
     svg_depreciation.append("text")
         .attr("text-anchor", "end")
         .attr("x", margin.right - 20)
         .attr("y", margin.top - 60)
-        .text("Price($)");
+        .text("Price($)")
+        .attr("stroke", "green");
 
     var dot_tooltip = d3.select("body").append("div")
         .attr("class", "dot_tooltip")
@@ -223,6 +223,7 @@ function render(data, id_name, width, height, svg_left){
             .text(function(d){ 
                 return d;})
             .attr("font-size", "15px")
+            .style('color', 'white');
     
     //rectangle legend
     svg_depreciation.selectAll("rect-legend")
