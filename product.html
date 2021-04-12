@@ -10,8 +10,8 @@
         <script src="https://d3js.org/d3.v6.min.js"></script>
         <script src="price_depreciation.js"></script>
     </head>
-    <body style="background-color: #e6e6e6">
-        <nav class="navbar fixed-top navbar-expand-lg navbar-light" style="background-color: whitesmoke">
+    <body style="background-color: #0a0a0f;">
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light" style="background-color: #33334d">
             <a class="navbar-brand" href="index.html" style="margin-left:30">
                 <img src="photos/icon/AIFA_icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
                 AIFA
@@ -19,19 +19,19 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                   <li class="nav-item active">
-                    <a class="nav-link" style="margin-right: 15px; color: black;" href="index.html">Home</a>
+                    <a class="nav-link" style="margin-right: 15px; color: white;" href="index.html">Home</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" style="margin-right: 15px; color: black;" href="product.html">Product</a>
+                    <a class="nav-link" style="margin-right: 15px; color: white;" href="product.html">Product</a>
                   </li>
                   <li>
-                      <a class="nav-link" style="margin-right: 15px; color: black;" href="tutorial.html">Tutorial</a>
+                      <a class="nav-link" style="margin-right: 15px; color: white;" href="tutorial.html">Tutorial</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" style="margin-right: 15px; color: black;" href="about_us.html">About Us</a>
+                    <a class="nav-link" style="margin-right: 15px; color: white;" href="about_us.html">About Us</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" style="margin-right: 15px; color: black;" href="#">Blog</a>
+                    <a class="nav-link" style="margin-right: 15px; color: white;" href="#">Blog</a>
                 </li>
                 </ul>
             </div>
@@ -39,7 +39,7 @@
         <div class="dashboard">
           <div style="width: 100%; margin: auto;">
             <button onclick="alert_no_data()" class="front_btn" style="width: 10%; float: right;">Search</button>
-            <div>
+            <div style="color: white;">
               <label for="make">Choose a brand: </label>
               <select name="make" id="make">
                 <option value="bmw">BMW</option>
@@ -57,17 +57,39 @@
             </div>
           </div>
 
-          <div style="padding-top: 5%;">
-            <div class="brand_dash"></div>
-            <div class="info_dash"></div>
-            <div class="dash_piece">
+          <div style="padding-top: 30px;">
+            <div class="dash_graph">
                 <div class="dash_title">Depreciation Report</div>
-                <div id="general_depreciation" style="height: 100%; width: 110%;"></div>
+                <div id="general_depreciation" style="height: 100%; width: 107%;"></div>
             </div>
-            <div class="dash_piece">
+            <div class="info_dash">
+              <div id="trim_total_info"></div>
+            </div>
+            <div class="mile_display" id="slope_display_info">
+              <!-- <p style="font-size: 20px; color: white;">
+                Average $<a id="linear_slope"></a> per mile
+              </p>
+              <p style="font-size: 20px; color: white;">
+                Price at 20,000 miles: <a id=twenty_thousand></a>
+              </p>
+              <p style="font-size: 20px; color: white;">
+                Price at 40,000 miles: <a id=forty_thousand></a>
+              </p>
+              <p style="font-size: 20px; color: white;">
+                Price at 60,000 miles: <a id=sixty_thousand></a>
+              </p> -->
+            </div>
+            <div class="coming_up">
+              Coming Up..
+            </div>
+            <div class="maintenance_graph_container"></div>
+            <div class="long_ad_container">
+              Coming Up..
+            </div>
+            <!-- <div class="dash_piece">
               <div class="dash_title">Maintenance Report</div>
               <div id="maintenance_cost" style="height: 100%; width: 110%;"></div>
-            </div>
+            </div> -->
           </div>
         </div>
         <script src="general_graph.js"></script>
