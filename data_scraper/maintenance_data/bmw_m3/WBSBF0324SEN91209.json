@@ -1,0 +1,11 @@
+{
+    "message": {
+        "code": 0,
+        "message": "ok",
+        "credentials": "valid",
+        "version": "v3.0.0",
+        "endpoint": "maintlist",
+        "counter": 27
+    },
+    "data": []
+}
