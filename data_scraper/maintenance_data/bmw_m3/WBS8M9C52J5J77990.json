@@ -1,0 +1,716 @@
+{
+    "message": {
+        "code": 0,
+        "message": "ok",
+        "credentials": "valid",
+        "version": "v3.0.0",
+        "endpoint": "maintlist",
+        "counter": 17
+    },
+    "data": [
+        {
+            "desc": "Change Differential Fluid",
+            "due_mileage": 1200,
+            "is_oem": true,
+            "is_cycle": true,
+            "cycle_mileage": 1200,
+            "repair": {
+                "repair_difficulty": 2,
+                "repair_hours": 0.5,
+                "labor_rate_per_hour": 101.44,
+                "part_cost": 60.5,
+                "labor_cost": 50.72,
+                "misc_cost": 25.0,
+                "total_cost": 136.22
+            },
+            "parts": [
+                {
+                    "desc": "Differential Oil 75W140",
+                    "manufacturer": "",
+                    "price": 60.5,
+                    "qty": 1
+                }
+            ]
+        },
+        {
+            "desc": "Change Engine Oil and Filter",
+            "due_mileage": 1200,
+            "is_oem": true,
+            "is_cycle": true,
+            "cycle_mileage": 1200,
+            "repair": {
+                "repair_difficulty": 2,
+                "repair_hours": 0.6,
+                "labor_rate_per_hour": 101.44,
+                "part_cost": 92.4,
+                "labor_cost": 60.86,
+                "misc_cost": 25.0,
+                "total_cost": 178.26
+            },
+            "parts": [
+                {
+                    "desc": "Engine Oil Filter",
+                    "manufacturer": "",
+                    "price": 18.97,
+                    "qty": 1
+                },
+                {
+                    "desc": "Engine Oil",
+                    "manufacturer": "",
+                    "price": 10.49,
+                    "qty": 7
+                }
+            ]
+        },
+        {
+            "desc": "Inspect Intercooler Fluid Level and Condition",
+            "due_mileage": 1200,
+            "is_oem": true,
+            "is_cycle": true,
+            "cycle_mileage": 1200,
+            "repair": {
+                "repair_difficulty": 2,
+                "repair_hours": 0.0,
+                "labor_rate_per_hour": 101.44,
+                "part_cost": 27.0,
+                "labor_cost": 0.0,
+                "misc_cost": 0.0,
+                "total_cost": 27.0
+            },
+            "parts": [
+                {
+                    "desc": "Engine Coolant / Antifreeze",
+                    "manufacturer": "",
+                    "price": 27.0,
+                    "qty": 1
+                }
+            ]
+        },
+        {
+            "desc": "Inspect On-Board Diagnostic Memory",
+            "due_mileage": 1200,
+            "is_oem": true,
+            "is_cycle": true,
+            "cycle_mileage": 1200,
+            "repair": {
+                "repair_difficulty": 3,
+                "repair_hours": 0.0,
+                "labor_rate_per_hour": 101.44,
+                "part_cost": 0.0,
+                "labor_cost": 0.0,
+                "misc_cost": 0.0,
+                "total_cost": 0.0
+            },
+            "parts": null
+        },
+        {
+            "desc": "Inspect Fluid Levels",
+            "due_mileage": 10000,
+            "is_oem": true,
+            "is_cycle": true,
+            "cycle_mileage": 10000,
+            "repair": {
+                "repair_difficulty": 1,
+                "repair_hours": 0.0,
+                "labor_rate_per_hour": 101.44,
+                "part_cost": 12.23,
+                "labor_cost": 0.0,
+                "misc_cost": 0.0,
+                "total_cost": 12.23
+            },
+            "parts": [
+                {
+                    "desc": "Engine Oil",
+                    "manufacturer": "",
+                    "price": 12.23,
+                    "qty": 1
+                }
+            ]
+        },
+        {
+            "desc": "Inspect Horn, Lights, A/C & Heater For Proper Operation",
+            "due_mileage": 10000,
+            "is_oem": true,
+            "is_cycle": true,
+            "cycle_mileage": 10000,
+            "repair": {
+                "repair_difficulty": 1,
+                "repair_hours": 0.0,
+                "labor_rate_per_hour": 101.44,
+                "part_cost": 43.02,
+                "labor_cost": 0.0,
+                "misc_cost": 0.0,
+                "total_cost": 43.02
+            },
+            "parts": [
+                {
+                    "desc": "license lamp",
+                    "manufacturer": "",
+                    "price": 21.51,
+                    "qty": 2
+                }
+            ]
+        },
+        {
+            "desc": "Inspect Parking Brake Operation & Tension",
+            "due_mileage": 10000,
+            "is_oem": true,
+            "is_cycle": true,
+            "cycle_mileage": 10000,
+            "repair": {
+                "repair_difficulty": 1,
+                "repair_hours": 0.0,
+                "labor_rate_per_hour": 101.44,
+                "part_cost": 161.32,
+                "labor_cost": 0.0,
+                "misc_cost": 0.0,
+                "total_cost": 161.32
+            },
+            "parts": [
+                {
+                    "desc": "Disc Brake Pad",
+                    "manufacturer": "",
+                    "price": 161.32,
+                    "qty": 1
+                }
+            ]
+        },
+        {
+            "desc": "Inspect Sunroof Operation, Condition, and Clean Drain(s) (if Equipped)",
+            "due_mileage": 10000,
+            "is_oem": true,
+            "is_cycle": true,
+            "cycle_mileage": 10000,
+            "repair": {
+                "repair_difficulty": 2,
+                "repair_hours": 0.0,
+                "labor_rate_per_hour": 101.44,
+                "part_cost": 10.72,
+                "labor_cost": 0.0,
+                "misc_cost": 0.0,
+                "total_cost": 10.72
+            },
+            "parts": [
+                {
+                    "desc": "Multi Purpose Grease",
+                    "manufacturer": "",
+                    "price": 10.72,
+                    "qty": 1
+                }
+            ]
+        },
+        {
+            "desc": "Inspect Tire Wear and Adjust Tire Pressure",
+            "due_mileage": 10000,
+            "is_oem": true,
+            "is_cycle": true,
+            "cycle_mileage": 10000,
+            "repair": {
+                "repair_difficulty": 1,
+                "repair_hours": 0.0,
+                "labor_rate_per_hour": 101.44,
+                "part_cost": 0.0,
+                "labor_cost": 0.0,
+                "misc_cost": 0.0,
+                "total_cost": 0.0
+            },
+            "parts": null
+        },
+        {
+            "desc": "Inspect Warning System Operation",
+            "due_mileage": 10000,
+            "is_oem": true,
+            "is_cycle": true,
+            "cycle_mileage": 10000,
+            "repair": {
+                "repair_difficulty": 1,
+                "repair_hours": 0.0,
+                "labor_rate_per_hour": 101.44,
+                "part_cost": 0.0,
+                "labor_cost": 0.0,
+                "misc_cost": 0.0,
+                "total_cost": 0.0
+            },
+            "parts": null
+        },
+        {
+            "desc": "Inspect Wiper & Washer System",
+            "due_mileage": 10000,
+            "is_oem": true,
+            "is_cycle": true,
+            "cycle_mileage": 10000,
+            "repair": {
+                "repair_difficulty": 1,
+                "repair_hours": 0.0,
+                "labor_rate_per_hour": 101.44,
+                "part_cost": 10.0,
+                "labor_cost": 0.0,
+                "misc_cost": 0.0,
+                "total_cost": 10.0
+            },
+            "parts": [
+                {
+                    "desc": "Windshield / Headlight Washer Fluid",
+                    "manufacturer": "",
+                    "price": 10.0,
+                    "qty": 1
+                }
+            ]
+        },
+        {
+            "desc": "Measure Brake Linings, Rotor Thickness and Runout",
+            "due_mileage": 10000,
+            "is_oem": true,
+            "is_cycle": true,
+            "cycle_mileage": 10000,
+            "repair": {
+                "repair_difficulty": 2,
+                "repair_hours": 0.3,
+                "labor_rate_per_hour": 101.44,
+                "part_cost": 0.0,
+                "labor_cost": 30.43,
+                "misc_cost": 25.0,
+                "total_cost": 55.43
+            },
+            "parts": null
+        },
+        {
+            "desc": "Clean Vehicle Undercarriage",
+            "due_mileage": 20000,
+            "is_oem": true,
+            "is_cycle": true,
+            "cycle_mileage": 20000,
+            "repair": {
+                "repair_difficulty": 1,
+                "repair_hours": 0.2,
+                "labor_rate_per_hour": 101.44,
+                "part_cost": 0.0,
+                "labor_cost": 20.28,
+                "misc_cost": 25.0,
+                "total_cost": 45.28
+            },
+            "parts": null
+        },
+        {
+            "desc": "Inspect / Road Test Vehicle",
+            "due_mileage": 20000,
+            "is_oem": true,
+            "is_cycle": true,
+            "cycle_mileage": 20000,
+            "repair": {
+                "repair_difficulty": 1,
+                "repair_hours": 0.0,
+                "labor_rate_per_hour": 101.44,
+                "part_cost": 0.0,
+                "labor_cost": 0.0,
+                "misc_cost": 0.0,
+                "total_cost": 0.0
+            },
+            "parts": null
+        },
+        {
+            "desc": "Inspect Battery Condition & Charge",
+            "due_mileage": 20000,
+            "is_oem": true,
+            "is_cycle": true,
+            "cycle_mileage": 20000,
+            "repair": {
+                "repair_difficulty": 1,
+                "repair_hours": 0.0,
+                "labor_rate_per_hour": 101.44,
+                "part_cost": 1712.0,
+                "labor_cost": 0.0,
+                "misc_cost": 0.0,
+                "total_cost": 1712.0
+            },
+            "parts": [
+                {
+                    "desc": "Battery",
+                    "manufacturer": "",
+                    "price": 1712.0,
+                    "qty": 1
+                }
+            ]
+        },
+        {
+            "desc": "Inspect Body & Paint for Damages/Corrosion",
+            "due_mileage": 20000,
+            "is_oem": true,
+            "is_cycle": true,
+            "cycle_mileage": 20000,
+            "repair": {
+                "repair_difficulty": 1,
+                "repair_hours": 0.0,
+                "labor_rate_per_hour": 101.44,
+                "part_cost": 0.0,
+                "labor_cost": 0.0,
+                "misc_cost": 0.0,
+                "total_cost": 0.0
+            },
+            "parts": null
+        },
+        {
+            "desc": "Inspect Brake System, Friction Material and Hydraulic System.",
+            "due_mileage": 20000,
+            "is_oem": true,
+            "is_cycle": true,
+            "cycle_mileage": 20000,
+            "repair": {
+                "repair_difficulty": 2,
+                "repair_hours": 0.0,
+                "labor_rate_per_hour": 101.44,
+                "part_cost": 5.42,
+                "labor_cost": 0.0,
+                "misc_cost": 0.0,
+                "total_cost": 5.42
+            },
+            "parts": [
+                {
+                    "desc": "Brake Fluid",
+                    "manufacturer": "",
+                    "price": 5.42,
+                    "qty": 1
+                }
+            ]
+        },
+        {
+            "desc": "Inspect Chassis, Steering, Suspension & Fasteners",
+            "due_mileage": 20000,
+            "is_oem": true,
+            "is_cycle": true,
+            "cycle_mileage": 20000,
+            "repair": {
+                "repair_difficulty": 2,
+                "repair_hours": 0.0,
+                "labor_rate_per_hour": 101.44,
+                "part_cost": 90.28,
+                "labor_cost": 0.0,
+                "misc_cost": 0.0,
+                "total_cost": 90.28
+            },
+            "parts": [
+                {
+                    "desc": "Steering Tie Rod End Boot",
+                    "manufacturer": "",
+                    "price": 90.28,
+                    "qty": 1
+                }
+            ]
+        },
+        {
+            "desc": "Inspect Cooling System",
+            "due_mileage": 20000,
+            "is_oem": true,
+            "is_cycle": true,
+            "cycle_mileage": 20000,
+            "repair": {
+                "repair_difficulty": 1,
+                "repair_hours": 0.0,
+                "labor_rate_per_hour": 101.44,
+                "part_cost": 21.69,
+                "labor_cost": 0.0,
+                "misc_cost": 0.0,
+                "total_cost": 21.69
+            },
+            "parts": [
+                {
+                    "desc": "Engine Coolant / Antifreeze",
+                    "manufacturer": "",
+                    "price": 21.69,
+                    "qty": 1
+                }
+            ]
+        },
+        {
+            "desc": "Inspect Exhaust System",
+            "due_mileage": 20000,
+            "is_oem": true,
+            "is_cycle": true,
+            "cycle_mileage": 20000,
+            "repair": {
+                "repair_difficulty": 2,
+                "repair_hours": 0.0,
+                "labor_rate_per_hour": 101.44,
+                "part_cost": 27.96,
+                "labor_cost": 0.0,
+                "misc_cost": 0.0,
+                "total_cost": 27.96
+            },
+            "parts": [
+                {
+                    "desc": "Exhaust System Insulator",
+                    "manufacturer": "",
+                    "price": 27.96,
+                    "qty": 1
+                }
+            ]
+        },
+        {
+            "desc": "Inspect Fuel System",
+            "due_mileage": 20000,
+            "is_oem": true,
+            "is_cycle": true,
+            "cycle_mileage": 20000,
+            "repair": {
+                "repair_difficulty": 2,
+                "repair_hours": 0.0,
+                "labor_rate_per_hour": 101.44,
+                "part_cost": 101.88,
+                "labor_cost": 0.0,
+                "misc_cost": 0.0,
+                "total_cost": 101.88
+            },
+            "parts": [
+                {
+                    "desc": "Fuel Line",
+                    "manufacturer": "",
+                    "price": 101.88,
+                    "qty": 1
+                }
+            ]
+        },
+        {
+            "desc": "Inspect Rear View Mirrors",
+            "due_mileage": 20000,
+            "is_oem": true,
+            "is_cycle": true,
+            "cycle_mileage": 20000,
+            "repair": {
+                "repair_difficulty": 1,
+                "repair_hours": 0.0,
+                "labor_rate_per_hour": 101.44,
+                "part_cost": 0.0,
+                "labor_cost": 0.0,
+                "misc_cost": 0.0,
+                "total_cost": 0.0
+            },
+            "parts": null
+        },
+        {
+            "desc": "Inspect Seat Belt Assembly and SRS Components",
+            "due_mileage": 20000,
+            "is_oem": true,
+            "is_cycle": true,
+            "cycle_mileage": 20000,
+            "repair": {
+                "repair_difficulty": 2,
+                "repair_hours": 0.0,
+                "labor_rate_per_hour": 101.44,
+                "part_cost": 0.0,
+                "labor_cost": 0.0,
+                "misc_cost": 0.0,
+                "total_cost": 0.0
+            },
+            "parts": null
+        },
+        {
+            "desc": "Inspect Tire Sealant Expiration Date",
+            "due_mileage": 20000,
+            "is_oem": true,
+            "is_cycle": true,
+            "cycle_mileage": 20000,
+            "repair": {
+                "repair_difficulty": 1,
+                "repair_hours": 0.0,
+                "labor_rate_per_hour": 101.44,
+                "part_cost": 45.1,
+                "labor_cost": 0.0,
+                "misc_cost": 0.0,
+                "total_cost": 45.1
+            },
+            "parts": [
+                {
+                    "desc": "Tire Sealant",
+                    "manufacturer": "",
+                    "price": 45.1,
+                    "qty": 1
+                }
+            ]
+        },
+        {
+            "desc": "Inspect Undercarriage For Leaks, Damage, and Corrosion",
+            "due_mileage": 20000,
+            "is_oem": true,
+            "is_cycle": true,
+            "cycle_mileage": 20000,
+            "repair": {
+                "repair_difficulty": 2,
+                "repair_hours": 0.0,
+                "labor_rate_per_hour": 101.44,
+                "part_cost": 399.69,
+                "labor_cost": 0.0,
+                "misc_cost": 0.0,
+                "total_cost": 399.69
+            },
+            "parts": [
+                {
+                    "desc": "Auto Trans Fluid",
+                    "manufacturer": "",
+                    "price": 399.69,
+                    "qty": 1
+                }
+            ]
+        },
+        {
+            "desc": "Replace Cabin Air Filter",
+            "due_mileage": 20000,
+            "is_oem": true,
+            "is_cycle": true,
+            "cycle_mileage": 20000,
+            "repair": {
+                "repair_difficulty": 2,
+                "repair_hours": 0.5,
+                "labor_rate_per_hour": 101.44,
+                "part_cost": 61.24,
+                "labor_cost": 50.72,
+                "misc_cost": 25.0,
+                "total_cost": 136.96
+            },
+            "parts": [
+                {
+                    "desc": "Cabin Air Filter",
+                    "manufacturer": "",
+                    "price": 61.24,
+                    "qty": 1
+                }
+            ]
+        },
+        {
+            "desc": "Replace Smart Key Battery",
+            "due_mileage": 20000,
+            "is_oem": true,
+            "is_cycle": true,
+            "cycle_mileage": 20000,
+            "repair": {
+                "repair_difficulty": 3,
+                "repair_hours": 0.2,
+                "labor_rate_per_hour": 101.44,
+                "part_cost": 0.0,
+                "labor_cost": 20.28,
+                "misc_cost": 25.0,
+                "total_cost": 45.28
+            },
+            "parts": null
+        },
+        {
+            "desc": "Change Brake Fluid",
+            "due_mileage": 30000,
+            "is_oem": true,
+            "is_cycle": true,
+            "cycle_mileage": 30000,
+            "repair": {
+                "repair_difficulty": 2,
+                "repair_hours": 0.8,
+                "labor_rate_per_hour": 101.44,
+                "part_cost": 10.84,
+                "labor_cost": 81.15,
+                "misc_cost": 25.0,
+                "total_cost": 116.99
+            },
+            "parts": [
+                {
+                    "desc": "Brake Fluid",
+                    "manufacturer": "",
+                    "price": 5.42,
+                    "qty": 2
+                }
+            ]
+        },
+        {
+            "desc": "Replace Engine Air Filter",
+            "due_mileage": 30000,
+            "is_oem": true,
+            "is_cycle": true,
+            "cycle_mileage": 30000,
+            "repair": {
+                "repair_difficulty": 1,
+                "repair_hours": 1.5,
+                "labor_rate_per_hour": 101.44,
+                "part_cost": 82.06,
+                "labor_cost": 152.16,
+                "misc_cost": 25.0,
+                "total_cost": 259.22
+            },
+            "parts": [
+                {
+                    "desc": "Air Filter",
+                    "manufacturer": "",
+                    "price": 40.98,
+                    "qty": 1
+                },
+                {
+                    "desc": "Air Filter",
+                    "manufacturer": "",
+                    "price": 41.08,
+                    "qty": 1
+                }
+            ]
+        },
+        {
+            "desc": "Replace Spark Plugs",
+            "due_mileage": 30000,
+            "is_oem": true,
+            "is_cycle": true,
+            "cycle_mileage": 30000,
+            "repair": {
+                "repair_difficulty": 2,
+                "repair_hours": 4.1,
+                "labor_rate_per_hour": 101.44,
+                "part_cost": 232.14,
+                "labor_cost": 415.9,
+                "misc_cost": 25.0,
+                "total_cost": 673.04
+            },
+            "parts": [
+                {
+                    "desc": "Spark Plug",
+                    "manufacturer": "",
+                    "price": 38.69,
+                    "qty": 6
+                }
+            ]
+        },
+        {
+            "desc": "Replace Oxygen Sensor(s) (O2S) Full Set",
+            "due_mileage": 120000,
+            "is_oem": true,
+            "is_cycle": true,
+            "cycle_mileage": 120000,
+            "repair": {
+                "repair_difficulty": 2,
+                "repair_hours": 5.8,
+                "labor_rate_per_hour": 101.44,
+                "part_cost": 1133.81,
+                "labor_cost": 588.35,
+                "misc_cost": 25.0,
+                "total_cost": 1747.16
+            },
+            "parts": [
+                {
+                    "desc": "Oxygen Sensor",
+                    "manufacturer": "",
+                    "price": 204.77,
+                    "qty": 1
+                },
+                {
+                    "desc": "Oxygen Sensor",
+                    "manufacturer": "",
+                    "price": 339.26,
+                    "qty": 1
+                },
+                {
+                    "desc": "Oxygen Sensor",
+                    "manufacturer": "",
+                    "price": 253.78,
+                    "qty": 1
+                },
+                {
+                    "desc": "Oxygen Sensor",
+                    "manufacturer": "",
+                    "price": 336.0,
+                    "qty": 1
+                }
+            ]
+        }
+    ]
+}

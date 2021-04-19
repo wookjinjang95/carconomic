@@ -52,30 +52,34 @@ class MaintenanceDataGenerator:
                     else:
                         result[each_data['due_mileage']].append(each_data['repair']['total_cost'])
         return result
+
+    @staticmethod
+    def get_the_maintenance_data_in_percentage(jsondir, trim=None):
+        result = []
+        json_files = []
     
     @staticmethod
     def get_insight_each_due_mileage(m_data):
         new_data = {}
         for mileage, costs in m_data.items():
             new_data[mileage] = {}
-            new_data[mileage]['average'] = sum(costs) / len(costs)
+            new_data[mileage]['average'] = round(sum(costs) / len(costs),2)
             new_data[mileage]['max'] = max(costs)
             new_data[mileage]['min'] = min(costs)
         return new_data
 
     @staticmethod
-    def output_csvfile(csv_filename, trim=None):
-        pass
+    def get_top_5_percentage(m_data):
+        print(m_data)
 
-    @staticmethod
-    def compute_total_cost(maintenance_data, depreciation_data):
-        pass
 
 if __name__=="__main__":
     # d_data = MaintenanceDataGenerator.get_data_from_csvfile(
     #     csv_filename="cla_data.csv")
     m_data = MaintenanceDataGenerator.get_the_maintenance_data(
-        jsondir="maintenance_data/benz_cla250"
+        jsondir="maintenance_data/bmw_m3"
     )
-    insight_data = MaintenanceDataGenerator.get_insight_each_due_mileage(m_data)
-    MaintenanceDataGenerator.write_on_csv_format(insight_data)
+    #insight_data = MaintenanceDataGenerator.get_insight_each_due_mileage(m_data)
+    #MaintenanceDataGenerator.write_on_csv_format(insight_data, output_filename="maintenance_data/bmw_m3/report.csv")
+
+    MaintenanceDataGenerator.get_top_5_percentage(m_data)

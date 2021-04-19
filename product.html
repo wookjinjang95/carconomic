@@ -10,7 +10,7 @@
         <script src="https://d3js.org/d3.v6.min.js"></script>
         <script src="price_depreciation.js"></script>
     </head>
-    <body style="background-color: #0a0a0f;">
+    <body style="background-color: rgb(231, 231, 231);">
         <nav class="navbar fixed-top navbar-expand-lg navbar-light" style="background-color: #33334d">
             <a class="navbar-brand" href="index.html" style="margin-left:30">
                 <img src="photos/icon/AIFA_icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
@@ -39,9 +39,9 @@
         <div class="dashboard">
           <div style="width: 100%; margin: auto;">
             <button onclick="alert_no_data()" class="front_btn" style="width: 10%; float: right;">Search</button>
-            <div style="color: white;">
+            <div style="color: black;">
               <label for="make">Choose a brand: </label>
-              <select name="make" id="make">
+              <select name="make" id="make" onchange="update_search_selection();">
                 <option value="bmw">BMW</option>
                 <option value="tesla">Tesla</option>
                 <option value="mercedes benz">Mercedes Benz</option>
@@ -49,11 +49,13 @@
               </select>
               <label for="model" style="padding-left: 5%;">Choose a model: </label>
               <select name="model" id="model" onchange="update_year_selection();">
-                <option value="m3">M3</option>
-                <option value="m5">M5</option>
+                <!-- <option value="m3">M3</option>
+                <option value="m5">M5</option> -->
               </select>
-              <label for="year" style="padding-left: 5%;">Select Year:</label>
-              <select name="year" id="year"></select>
+              <label for="year" style="padding-left: 5%;">Select Year (In Progress):</label>
+              <select name="year" id="year">
+                <option value="all">all</option>
+              </select>
             </div>
           </div>
 
@@ -62,29 +64,18 @@
                 <div class="dash_title">Depreciation Report</div>
                 <div id="general_depreciation" style="height: 100%; width: 107%;"></div>
             </div>
-            <div class="info_dash">
-              <div id="trim_total_info"></div>
-            </div>
-            <div class="mile_display" id="slope_display_info">
-              <!-- <p style="font-size: 20px; color: white;">
-                Average $<a id="linear_slope"></a> per mile
-              </p>
-              <p style="font-size: 20px; color: white;">
-                Price at 20,000 miles: <a id=twenty_thousand></a>
-              </p>
-              <p style="font-size: 20px; color: white;">
-                Price at 40,000 miles: <a id=forty_thousand></a>
-              </p>
-              <p style="font-size: 20px; color: white;">
-                Price at 60,000 miles: <a id=sixty_thousand></a>
-              </p> -->
-            </div>
             <div class="coming_up">
               Coming Up..
             </div>
-            <div class="maintenance_graph_container"></div>
+            <div class="trim_total_info">
+            </div>
+            <div class="mile_display" id="slope_display_info">
+            </div>
             <div class="long_ad_container">
               Coming Up..
+            </div>
+            <div class="maintenance_graph_container">
+              <div class="dash_title">Maintenance Report</div>
             </div>
             <!-- <div class="dash_piece">
               <div class="dash_title">Maintenance Report</div>

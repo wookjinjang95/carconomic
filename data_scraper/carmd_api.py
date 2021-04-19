@@ -4,21 +4,31 @@ import os
 import csv
 
 
-list_of_vin = [
-    "WDDSJ4GB1JN609502", "WDDSJ4EB7JN583717", "WDDSJ4EB1JN551877",
-    "WDDSJ4EB0JN585437", "WDDSJ4EB5JN609926", "WDDSJ4EB8KN767162",
-    "WDDSJ4EB1JN603735", "WDDSJ4EB8EN047168", "WDDSJ4EB1JN591392",
-    "WDDSJ4EB9JN675671"
-]
-# for each_vin in list_of_vin:
-#     my_vehicle = car.vin("WDDSJ4EB6GN358441")
-#     data_file_location = os.path.join(
-#         "maintenance_data", "benz_cla250", "{}.json".format(each_vin))
-#     with open(data_file_location, 'w') as fp:
-#         my_vehicle = car.vin(each_vin)
-#         data = my_vehicle.maintenance_list()
-#         pretty_format = json.dumps(data, indent=4)
-#         fp.write(pretty_format)
+# list_of_vin = [
+#     "WDDSJ4GB1JN609502", "WDDSJ4EB7JN583717", "WDDSJ4EB1JN551877",
+#     "WDDSJ4EB0JN585437", "WDDSJ4EB5JN609926", "WDDSJ4EB8KN767162",
+#     "WDDSJ4EB1JN603735", "WDDSJ4EB8EN047168", "WDDSJ4EB1JN591392",
+#     "WDDSJ4EB9JN675671"
+# ]
+
+list_of_vin =  [
+            "WBS8M9C55J5K98741",
+            "WBS8M9C58J5K99771",
+            "WBS8M9C52J5J77990",
+            "WBS8M9C59J5L01124",
+            "WBS8M9C55H5G84069",
+            "WBS8M9C57J5K98353",
+            "WBS3C9C5XFP803889",
+            "WBSKG9C54BE645863",
+            "WBS8M9C51J5L00386",
+            "WBS8M9C57J5J79170",
+            "WBS8M9C52H5G42104",
+            "WBSKG9C54CE797966",
+            "WBSBF0324SEN91209",
+            "WBS8M9C58G5E68375",
+            "WBSAK0308KAE33214",
+            "WBSPM9C51AE202096"
+        ]
 
 def get_data_from_files(dir="maintenance_data/benz_cla250"):
     list_of_data = {}
@@ -124,13 +134,28 @@ def csv_for_stacked_data(data, filename):
         
 
 if __name__ == "__main__":
-    data = get_data_from_files()
-    data = prep_data_for_prob(data)
-    sorted_data = calculate_prob_for_desc(data)
-    csv_for_stacked_data(
-        data=sorted_data,
-        filename="benz_cla_stat.csv"
-    )
+    # car = CarMD("Basic MmI3MzZhODMtMjVlZC00ZjMxLWE0MzktYWQ0ZGVlZDRkZWQ4",
+    #         "64f31825775e4c7cbc1cf3870f42fcea")
+    # # For fetching maintenance data
+    # for each_vin in list_of_vin:
+    #     my_vehicle = car.vin(each_vin)
+    #     data_file_location = os.path.join(
+    #         "maintenance_data", "bmw_m3", "{}.json".format(each_vin))
+    #     with open(data_file_location, 'w') as fp:
+    #         my_vehicle = car.vin(each_vin)
+    #         data = my_vehicle.maintenance_list()
+    #         pretty_format = json.dumps(data, indent=4)
+    #         fp.write(pretty_format)
+
+    # For generating the bar graph
+    # data = get_data_from_files()
+    # data = prep_data_for_prob(data)
+    # sorted_data = calculate_prob_for_desc(data)
+    # csv_for_stacked_data(
+    #     data=sorted_data,
+    #     filename="benz_cla_stat.csv"
+    # )
+
     # convert_data_to_csv(
     #     data=sorted_data, filename="benz_cla_stat.csv"
     # )
