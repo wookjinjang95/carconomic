@@ -122,22 +122,27 @@ class CarFaxScraper:
             #getting the year objects
             years = self.carfax.find_elements_by_xpath("//h4[contains(@class, 'srp-list-item-basic-info-model')]")
 
-            if len(prices) != len(miles) != len(years):
+            #getting vin numbers
+            vins = self.carfax.find_elements_by_xpath("//article[contains(@id, 'listing')]")
+
+            if len(prices) != len(miles) != len(years) != len(vins):
                 #Logging error that the length is not equal
                 print("The length of prices: {} and miles: {} and years {}".format(
                     len(prices), len(miles), len(years))
                 )
                 raise Exception("Both data in prices and miles length does not match")
 
-            for each_price, each_mile, each_year in zip(prices, miles, years):
+            for each_price, each_mile, each_year, each_vin in zip(prices, miles, years, vins):
                 tmp_dict = {}
                 price = GeneralUtils.getonly_numbers(each_price.text)
                 mile = GeneralUtils.getonly_numbers(each_mile.text)
                 year = (each_year.text).split(" ")[0]
+                vin = each_vin.get_attribute("data-vin")
                 tmp_dict['Price'] = price
                 tmp_dict['Miles'] = mile
                 tmp_dict['Trim'] = trim
                 tmp_dict['Year'] = year
+                tmp_dict['Vin'] = vin
                 self.data.append(tmp_dict)
     
     def perform_scraping_each_page(self, trim=None):
@@ -270,7 +275,7 @@ class CarFaxScraper:
         #closing the current tab
         self.carfax.close()
     
-    def get_vin(self, trim):
+    def get_vin_price_miles(self, trim):
         #there should be 13 objects of vehicle details
         self.carfax.switch_to.window(self.carfax.window_handles[1])
         vin_obj = self.carfax.find_elements_by_class_name("vehicle-info-details")
@@ -296,8 +301,7 @@ class CarFaxScraper:
                     action.move_to_element(each_acc).click().perform()
                     time.sleep(2)
 
-                    if vin:
-                        self.get_vin(trim)
+                    self.get_vin_price_miles(trim)
 
                     self.carfax.close()
                     self.carfax.switch_to.window(self.carfax.window_handles[0])
