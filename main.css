@@ -25,6 +25,14 @@ body{
     text-decoration: underline;
 }
 
+th {
+    background: white;
+    position: sticky;
+    top: 0;
+    color: black;
+    border-bottom: 5px solid black;
+}
+
 .front_btn {
     border: 3px solid #33334d;
     background-color: #33334d;

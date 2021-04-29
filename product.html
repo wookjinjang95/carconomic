@@ -43,6 +43,7 @@
               <select name="make" id="make" onchange="update_search_selection();">
                 <option value="bmw">BMW</option>
                 <option value="tesla">Tesla</option>
+                <option value="lamborghini">Lamborghini</option>
                 <option value="mercedes benz">Mercedes Benz</option>
                 <option value="audi">Audi</option>
               </select>
@@ -59,6 +60,7 @@
           <div style="padding-top: 30px;">
             <div class="dash_graph">
                 <div class="dash_title">Depreciation Report</div>
+                <div id="trim_list" style="overflow-x: hidden; overflow-y: auto; width: 100%; height: 25px; padding-left: 40px;"></div>
                 <div id="general_depreciation" style="height: 100%; width: 107%;"></div>
             </div>
             <div class="coming_up">
@@ -71,9 +73,9 @@
             <div class="long_ad_container">
               Coming Up..
             </div>
-            <div class="maintenance_graph_container">
-              <div class="dash_title">Maintenance Report</div>
-            </div>
+            <!-- <div class="maintenance_graph_container">
+              <div class="dash_title">Maintenance Cost</div>
+            </div> -->
             <div class="raw_data_table_container">
               <div class="dash_title">List of All Selected Vehicles in Nation</div>
             </div>
