@@ -384,12 +384,12 @@ function add_table(equation, id){
 
     // add header row
     thead.append("tr")
-        .style("background-color", "#454569")
         .style("border-bottom", "5px solid black")
         .selectAll("th") 
         .data(text_columns)
         .enter()
         .append("th")
+            .style("background-color", "#454569")
             .style("padding-left", "10px")
             .style("padding-top", "3px")
             .style("padding-bottom", "3px")
@@ -449,10 +449,12 @@ function add_raw_data_table(id, file_location){
         columns.push("Carfax Link")
 
         //remove the current table away
-        d3.select(id).selectAll("table").remove()
+        d3.select(id).selectAll("#all_data_table_wrapper").remove()
 
         var table = d3.select(id).append('table')
             .style("width", "100%")
+            .attr("id", "all_data_table")
+            .attr("class", "display")
 
         var thead = table.append("thead")
         var tbody = table.append("tbody")
@@ -468,20 +470,10 @@ function add_raw_data_table(id, file_location){
             .style("padding-bottom", "3px")
             .text(function(d){ return d;})
 
-        var row_counter = 0;
         var rows = tbody.selectAll("tr")
             .data(data)
             .enter()
             .append('tr')
-                .style("background-color", function(){
-                    if(row_counter % 2 == 1){
-                        row_counter += 1;
-                        return "#bdbdbd"
-                    }else{
-                        row_counter += 1;
-                        return "white";
-                    }
-                })
 
         var cells = rows.selectAll("td")
             .data( function (row) {
@@ -501,8 +493,14 @@ function add_raw_data_table(id, file_location){
                     if(d.column == "Carfax Link"){
                         return "<a target='_blank' href=" + d.value + ">" + d.value + "</a>";
                     }
+                    if(d.column == "Price"){
+                        return "$ " + d.value;
+                    }
                     return d.value;
                 })
+        $(document).ready(function () {
+            $("#all_data_table").DataTable();
+        });
     });
 }
 
