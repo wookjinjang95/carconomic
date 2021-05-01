@@ -242,10 +242,16 @@ function update_miles_vs_price(file_location, trim){
             .append("circle")
                 .attr("r", 5)
             .merge(circles)
-                .attr("cx", function(d) { return x(parseInt(d.Miles))})
-                .attr("cy", function(d) { return y(parseInt(d.Price))})
                 .attr("class", "dot")
                 .style("position", "absolute");
+        
+        svg_depreciation.selectAll("circle")
+            .transition()
+            .delay(function (d,i) { return (i*3)})
+            .duration(500)
+            .attr("cx", function(d) { return x(parseInt(d.Miles))})
+            .attr("cy", function(d) { return y(parseInt(d.Price))})
+            
             
         svg_depreciation.selectAll("circle")
             .attr("fill", function(d) {
@@ -655,6 +661,9 @@ var svg_depreciation = svgContainer
     .append("svg")
         .attr("width", dep_width)
         .attr("height", dep_height)
+        // .call(d3.zoom().on("zoom", function(event){
+        //     svg_depreciation.attr("transform", event.transform);
+        // }))
     .append("g")
         .attr("transform", 
             "translate(" + margin.left + "," + margin.top + ")")

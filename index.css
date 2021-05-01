@@ -79,7 +79,7 @@
     padding-top: 10%;
     background-image: url(photos/front-cover/tutorial.jpeg); 
     width: 100%;
-    height: 100%;
+    padding-bottom: 40px;
     background-size: cover;
 }
 
@@ -136,7 +136,7 @@
     }
     .front_dashboard_content {
         margin-top: 10px;
-        font-size: 10px;
+        font-size: 12px;
         padding-left: 35px;
         width: 55%;
         float: left;
@@ -263,7 +263,11 @@
     .front_dashboard_btn {
         font-size: 20px;
     }
+    .visit_tutorial_background{
+        padding-top: 7%;
+    }
     .visit_tutorial_background_title {
+        margin-top: 10px;
         font-size: 60px;
     }
     .visit_tutorial_background_content {
@@ -271,5 +275,49 @@
     }
     .front_tutorial_btn {
         font-size: 25px;
+    }
+ }
+
+ @media only screen and (min-width: 2560px){
+    .main_title {
+        font-size: 120px;
+        width: 80%;
+    }
+    .front_btn{
+        font-size: 40px;
+    }
+    .learn_more {
+        font-size: 40px;
+    }
+    .front_data_title {
+        font-size: 100px;
+    }
+    .front_data_content{
+        font-size: 40px;
+    }
+    .front_dashboard_title {
+        margin-top: 30px;
+        font-size: 100px;
+    }
+    .front_dashboard_content{
+        font-size: 40px;
+    }
+    .front_dashboard_btn {
+        font-size: 40px;
+    }
+    .visit_tutorial_background{
+        padding-top: 7%;
+    }
+    .visit_tutorial_background_title {
+        margin-top: 10px;
+        font-size: 100px;
+    }
+    .visit_tutorial_background_content {
+        width: 50%;
+        font-size: 40px;
+    }
+    .front_tutorial_btn {
+        margin-top: 3%;
+        font-size: 40px;
     }
  }
