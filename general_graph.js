@@ -32,6 +32,16 @@ function update_model_list(){
             "aventador"
         ]
     }
+    if(make == "chevrolet"){
+        data = [
+            "corvette"
+        ]
+    }
+    if(make == "mclaren"){
+        data = [
+            "720s"
+        ]
+    }
 
     var dropdown = d3.select("#model");
     dropdown.selectAll("option").remove().exit();
