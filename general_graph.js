@@ -27,6 +27,21 @@ function update_model_list(){
             "m3", "m4", "m5"
         ]
     }
+    if(make == "lamborghini"){
+        data = [
+            "aventador"
+        ]
+    }
+    if(make == "chevrolet"){
+        data = [
+            "corvette"
+        ]
+    }
+    if(make == "mclaren"){
+        data = [
+            "720s"
+        ]
+    }
 
     var dropdown = d3.select("#model");
     dropdown.selectAll("option").remove().exit();
@@ -138,34 +153,50 @@ function make_y_gridlines(y) {
         .ticks(5)
 }
 
-function update_miles_vs_price(file_location){
-    d3.csv(file_location).then(function(data){
-        //remove the axis first.
-        // svg_depreciation.selectAll("line-hover").remove()
+function setup_toggle(trims){
+    global_trim_selection = {}
+    for(var i = 0; i < trims.length; i++){
+        global_trim_selection[trims[i]] = true;
+    }
+}
 
+function filter_data_by_trim(data){
+    filtered_data = [];
+    for(var i = 0; i < data.length; i++){
+        if(global_trim_selection[data[i]['Trim']] == true){
+            filtered_data.push(data[i]);
+        }
+    }
+    return filtered_data;
+}
+
+function update_miles_vs_price(file_location, trim){
+    d3.csv(file_location).then(function(data){
         var dot_tooltip = d3.select("body").append("div")
             .attr("class", "dot_tooltip")
             .style("position", "absolute");
 
-        // var axis_hover_line = svg_depreciation.append("path")
-        //     .attr("class", "line-hover")
-        //     .style("stroke", "gray")
-        //     .style("position", "relative")
-        //     .style("stroke-width", "1px")
-        //     .style("opacity", "0");
-
-        // var yaxis_hover_line = svg_depreciation.append("path")
-        //     .attr("class", "line-hover")
-        //     .style("stroke", "gray")
-        //     .style("position", "relative")
-        //     .style("stroke-width", "1px")
-        //     .style("opacity", "0");
-
-        mapping = map_trim_to_color(data);
+        if(trim == undefined){
+            mapping = map_trim_to_color(data);
+        }
         var trims = get_unique_trims(data);
         var max_y = get_y_max_value(data);
         var max_x = get_x_max_value(data);
-    
+
+        //trim initial setup and toggle
+        if(trim == undefined){
+            setup_toggle(trims);
+        }else{
+            if(global_trim_selection[trim] == true){
+                global_trim_selection[trim] = false;
+            }else{
+                global_trim_selection[trim] = true;
+            }
+            console.log(global_trim_selection);
+            filtered_data = filter_data_by_trim(data);
+            data = filtered_data;
+        }
+
         var x = d3.scaleLinear().domain([0, max_x]).range([0, dep_width]);
         var y = d3.scaleLinear().domain([0, max_y]).range([dep_height - margin.top - margin.bottom, 0]);
     
@@ -246,12 +277,6 @@ function update_miles_vs_price(file_location){
                     .style("position", "absolute")
                 //make the color red when hover
                 d3.select(this).attr("fill", "red")
-                // axis_hover_line
-                //     .style("opacity", "0.2")
-                //     .attr("d", d3.line()([[x(d.Miles), 0], [x(d.Miles), dep_height - margin.top - margin.bottom]]))
-                // yaxis_hover_line
-                //     .style("opacity", "0.2")
-                //     .attr("d", d3.line()([[0, y(d.Price)], [dep_width, y(d.Price)]]))
             })
             .on("mouseout", function(event, d) {
                 // axis_hover_line.style("opacity", "0")
@@ -264,45 +289,48 @@ function update_miles_vs_price(file_location){
                     .attr("r", 5);
             })
     
-    
-        svg_depreciation.selectAll(".legend_text").remove().exit();
-        
-         //adding legend text
-        svg_depreciation.selectAll("legend")
+        d3.selectAll(".each_trim").remove().exit();
+
+        var trim_list_containers = d3.select("#trim_list").selectAll("div")
             .data(trims)
             .enter()
-            .append("text")
-                .attr("class", "legend_text")
-                .attr("x", function(d,i){
-                    return dep_width - 150 - (150*i)
-                })
-                .attr("y", margin.top - 60)
-                .style("stroke", "black")
-                .text(function(d){ 
-                    return d;})
-                .attr("font-size", "15px");
-
-
+            .append("div")
+                .attr("class", "each_trim")
+                .style("margin-right", "10px")
+                .style("float", "left")
+                .style("display", "inline-block")
+                .style("cursor", "pointer")
+                .on("click", function (event, d){
+                    update_miles_vs_price(file_location, d);
+                });
+        
+        svg_depreciation.selectAll(".legend_text").remove().exit();
+        
         //rectangle legend
-        var legend_rect = svg_depreciation.selectAll(".rect_legend")
-            .data(trims);
+        d3.selectAll(".each_trim")
+            .append("div")
+            .style("background-color", function(d){
+                return mapping.get(d);
+            })
+            .style("height", "15px")
+            .style("width", "15px")
+            .style("float", "left")
+            .style("margin-top", "5px")
+            .style("margin-right", "5px")
 
-        legend_rect.exit().remove();
-
-        legend_rect
-            .enter()
-            .append("rect")
-            .merge(legend_rect)
-                .attr("class", "rect_legend")
-                .attr("y", margin.top - 73)
-                .attr("x", function(d,i){
-                    return dep_width - 180 - (150*i)
+        //adding legend text
+        d3.selectAll(".each_trim")
+            .append("text")
+                .style("stroke", "black")
+                .style("margin-right", "10px")
+                .text(function (d) { return d;})
+                .style("text-decoration", function(d){
+                    if(global_trim_selection[d] == true){
+                        return "none";
+                    }else{
+                        return "line-through";
+                    }
                 })
-                .style("fill", function(d){
-                    return mapping.get(d);
-                })
-                .attr("height", 15)
-                .attr("width", 15);
             
         //adding linear regression
         new_data = data.map(d => [parseInt(d.Miles), parseInt(d.Price)])
@@ -324,6 +352,7 @@ function update_miles_vs_price(file_location){
         svg_depreciation.append("line")
                 .attr("class", "linear-line")
                 .style("stroke", "red")
+                .style("opacity", "0.7")
                 .style("stroke-width", "2px")
                 .attr("x1", x(0))
                 .attr("y1", y(b))
@@ -337,6 +366,7 @@ function update_miles_vs_price(file_location){
             .attr("class", "log-line")
             .attr("fill", "none")
             .style("stroke", "steelblue")
+            .style("opacity", "0.7")
             .style("stroke-width", "2px")
             .attr("d", d3.line()
                 .x(function(d) { return x(d[0]);})
@@ -364,12 +394,12 @@ function add_table(equation, id){
 
     // add header row
     thead.append("tr")
-        .style("background-color", "#454569")
         .style("border-bottom", "5px solid black")
         .selectAll("th") 
         .data(text_columns)
         .enter()
         .append("th")
+            .style("background-color", "#454569")
             .style("padding-left", "10px")
             .style("padding-top", "3px")
             .style("padding-bottom", "3px")
@@ -429,17 +459,18 @@ function add_raw_data_table(id, file_location){
         columns.push("Carfax Link")
 
         //remove the current table away
-        d3.select(id).selectAll("table").remove()
+        d3.select(id).selectAll("#all_data_table_wrapper").remove()
 
         var table = d3.select(id).append('table')
             .style("width", "100%")
+            .attr("id", "all_data_table")
+            .attr("class", "display")
 
         var thead = table.append("thead")
         var tbody = table.append("tbody")
 
         // add header row
         thead.append("tr")
-        .style("border-bottom", "5px solid black")
         .selectAll("th") 
         .data(columns)
         .enter()
@@ -449,20 +480,10 @@ function add_raw_data_table(id, file_location){
             .style("padding-bottom", "3px")
             .text(function(d){ return d;})
 
-        var row_counter = 0;
         var rows = tbody.selectAll("tr")
             .data(data)
             .enter()
             .append('tr')
-                .style("background-color", function(){
-                    if(row_counter % 2 == 1){
-                        row_counter += 1;
-                        return "#bdbdbd"
-                    }else{
-                        row_counter += 1;
-                        return "white";
-                    }
-                })
 
         var cells = rows.selectAll("td")
             .data( function (row) {
@@ -482,10 +503,20 @@ function add_raw_data_table(id, file_location){
                     if(d.column == "Carfax Link"){
                         return "<a target='_blank' href=" + d.value + ">" + d.value + "</a>";
                     }
+                    if(d.column == "Price"){
+                        return "$ " + d.value;
+                    }
                     return d.value;
                 })
+        $(document).ready(function () {
+            $("#all_data_table").DataTable();
+        });
     });
 }
+
+// function sort_price_in_raw_data(id, file_location){
+    
+// }
 
 function update_maintenance_bar_graph(file_location){
     d3.csv(file_location).then(function(data) {
@@ -607,13 +638,14 @@ function update_search_selection(){
 make = document.getElementById('make').value;
 model = document.getElementById('model').value;
 var mapping = undefined;
+var global_trim_selection = {};
 
 var element = d3.select("#general_depreciation").node();
 width = (typeof width !== 'undefined') ? width : element.getBoundingClientRect().width;
 height = (typeof height !== 'undefined') ? height : element.getBoundingClientRect().height;
 
 svg_left = (typeof svg_left !== 'undefined') ? svg_left : 60;
-var margin = {top: 40, right: 40, bottom: 30, left: svg_left},
+var margin = {top: 40, right: 60, bottom: 30, left: svg_left},
 dep_width = parseInt(width) - margin.left - margin.right,
 dep_height = parseInt(height) - margin.top - margin.bottom
 
@@ -663,35 +695,35 @@ var trim_svg_container = d3.select(".trim_total_info").append("svg")
     .attr("transform", "translate(" + h_margin.left + "," + h_margin.top + ")");
 
 //starting here is the bar graph for maintenance
-var svg_maintenance_bargraph_size = d3.select(".maintenance_graph_container").node();
-var bargraph_width = svg_maintenance_bargraph_size.getBoundingClientRect().width;
-var bargraph_height = svg_maintenance_bargraph_size.getBoundingClientRect().height;
+// var svg_maintenance_bargraph_size = d3.select(".maintenance_graph_container").node();
+// var bargraph_width = svg_maintenance_bargraph_size.getBoundingClientRect().width;
+// var bargraph_height = svg_maintenance_bargraph_size.getBoundingClientRect().height;
 
-var g_width = bargraph_width - margin.left - margin.right;
-var g_height = bargraph_height - margin.top - margin.bottom;
+// var g_width = bargraph_width - margin.left - margin.right;
+// var g_height = bargraph_height - margin.top - margin.bottom;
 
-var svgMainContainer = d3.select(".maintenance_graph_container")
-var svg_maintenance_bargraph = svgMainContainer
-    .append("svg")
-        .attr("width", bargraph_width)
-        .attr("height", bargraph_height)
-    .append("g")
-        .attr("transform",
-            "translate(" + 50 + "," + 50 + ")")
+// var svgMainContainer = d3.select(".maintenance_graph_container")
+// var svg_maintenance_bargraph = svgMainContainer
+//     .append("svg")
+//         .attr("width", bargraph_width)
+//         .attr("height", bargraph_height)
+//     .append("g")
+//         .attr("transform",
+//             "translate(" + 50 + "," + 50 + ")")
 
-svg_maintenance_bargraph.append("text")
-    .attr("text-anchor", "end")
-    .attr("x", g_width)
-    .attr("y", g_height - 40)
-    .style("stroke", "black")
-    .text("Miles")
+// svg_maintenance_bargraph.append("text")
+//     .attr("text-anchor", "end")
+//     .attr("x", g_width)
+//     .attr("y", g_height - 40)
+//     .style("stroke", "black")
+//     .text("Miles")
 
-svg_maintenance_bargraph.append("text")
-    .attr("text-anchor", "end")
-    .attr("x", margin.left)
-    .attr("y", margin.top - 60)
-    .style("stroke", "black")
-    .text("Avg Price ($)");
+// svg_maintenance_bargraph.append("text")
+//     .attr("text-anchor", "end")
+//     .attr("x", margin.left)
+//     .attr("y", margin.top - 60)
+//     .style("stroke", "black")
+//     .text("Avg Price ($)");
 
 //starting here, it's a half dount graph
 
@@ -703,5 +735,9 @@ var maintenance_file_loation = github_url +"maintenance_data/" + make + "_" + mo
 update_miles_vs_price(file_location);
 update_year_selection();
 update_side_trim_bars(file_location);
-update_maintenance_bar_graph(maintenance_file_loation);
+// update_maintenance_bar_graph(maintenance_file_loation);
 add_raw_data_table(".raw_data_table_container", file_location);
+
+//global variable for sorting 
+var sort_price = false;
+var sort_miles = false;

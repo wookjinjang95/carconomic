@@ -7,8 +7,11 @@
         <!-- Below is the bootstrap tool-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
         <link rel="stylesheet" href="main.css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
         <script src="https://d3js.org/d3.v6.min.js"></script>
         <script src="price_depreciation.js"></script>
+        <script type ="text/javascript" src ="/js/jquery.js"></script>
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
     </head>
     <body style="background-color: rgb(231, 231, 231);">
         <nav class="navbar fixed-top navbar-expand-lg navbar-light" style="background-color: #33334d">
@@ -31,7 +34,7 @@
                     <a class="nav-link" style="margin-right: 15px; color: white;" href="about_us.html">About Us</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" style="margin-right: 15px; color: white;" href="#">Blog</a>
+                    <a class="nav-link" style="margin-right: 15px; color: white;" href="#">Blog (Coming Soon)</a>
                 </li>
                 </ul>
             </div>
@@ -43,8 +46,9 @@
               <select name="make" id="make" onchange="update_search_selection();">
                 <option value="bmw">BMW</option>
                 <option value="tesla">Tesla</option>
-                <option value="mercedes benz">Mercedes Benz</option>
-                <option value="audi">Audi</option>
+                <option value="lamborghini">Lamborghini</option>
+                <option value="chevrolet">Chevrolet</option>
+                <option value="mclaren">Mclaren</option>
               </select>
               <label for="model" style="padding-left: 5%;">Choose a model: </label>
               <select name="model" id="model" onchange="update_year_selection();"></select>
@@ -59,21 +63,21 @@
           <div style="padding-top: 30px;">
             <div class="dash_graph">
                 <div class="dash_title">Depreciation Report</div>
+                <div id="trim_list" style="overflow-x: hidden; overflow-y: auto; width: 100%; height: 25px; padding-left: 40px;"></div>
                 <div id="general_depreciation" style="height: 100%; width: 107%;"></div>
             </div>
             <div class="coming_up">
             </div>
+            <div class="mile_display"></div>
             <div class="trim_total_info">
               <div class="trim_dash_title"># of Vehicles Per Trim Found Nationally</div>
-            </div>
-            <div class="mile_display" id="slope_display_info">
             </div>
             <div class="long_ad_container">
               Coming Up..
             </div>
-            <div class="maintenance_graph_container">
-              <div class="dash_title">Maintenance Report</div>
-            </div>
+            <!-- <div class="maintenance_graph_container">
+              <div class="dash_title">Maintenance Cost</div>
+            </div> -->
             <div class="raw_data_table_container">
               <div class="dash_title">List of All Selected Vehicles in Nation</div>
             </div>

@@ -17,12 +17,12 @@ function map_trim_to_color(data){
 
 function get_x_max_value(data){
     var max = d3.max(data.map(function (d) { return parseInt(d.Miles)}));
-    return max + 1000;
+    return max + 10000;
 }
 
 function get_y_max_value(data){
     var max = d3.max(data.map(function (d) { return parseInt(d.Price)}));
-    return max + 1000;
+    return max + 10000;
 }
 function get_unique_trims(data){
     var trims = [];
