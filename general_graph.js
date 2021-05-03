@@ -241,9 +241,11 @@ function update_miles_vs_price(file_location, trim){
         circles.enter()
             .append("circle")
                 .attr("r", 5)
+                .style("opacity", "0.8")
             .merge(circles)
                 .attr("class", "dot")
-                .style("position", "absolute");
+                .style("position", "absolute")
+                .style("opacity", "0.8")
         
         svg_depreciation.selectAll("circle")
             .transition()
@@ -378,89 +380,91 @@ function update_miles_vs_price(file_location, trim){
                 .x(function(d) { return x(d[0]);})
                 .y(function(d) { return y(d[1]);})
             )
-        add_table(
-            log_result.equation, ".mile_display"
-        )
     });
 }
 
-function add_table(equation, id){
-    var data = generate_table_data(equation)
-    var columns = ["MILES", "PRICE"]
-    var text_columns = ["MILES (mi.)", "PRICE (AVG)"]
-    //delete the table before adding new one
-    d3.select(id).selectAll("table").remove()
+// function add_table(equation, id){
+//     var data = generate_table_data(equation)
+//     var columns = ["MILES", "PRICE"]
+//     var text_columns = ["MILES (mi.)", "PRICE (AVG)"]
+//     //delete the table before adding new one
+//     d3.select(id).selectAll("table").remove()
 
-    var table = d3.select(id).append('table')
-        .style("width", "100%")
+//     var table = d3.select(id).append('table')
+//         .style("width", "100%")
     
-    var thead = table.append("thead")
-    var tbody = table.append("tbody")
-    var row_counter = 0;
+//     var thead = table.append("thead")
+//     var tbody = table.append("tbody")
+//     var row_counter = 0;
 
-    // add header row
-    thead.append("tr")
-        .style("border-bottom", "5px solid black")
-        .selectAll("th") 
-        .data(text_columns)
-        .enter()
-        .append("th")
-            .style("background-color", "#454569")
-            .style("padding-left", "10px")
-            .style("padding-top", "3px")
-            .style("padding-bottom", "3px")
-            .style("color", "white")
-            .text(function(d){ return d;})
+//     // add header row
+//     thead.append("tr")
+//         .style("border-bottom", "5px solid black")
+//         .selectAll("th") 
+//         .data(text_columns)
+//         .enter()
+//         .append("th")
+//             .style("background-color", "#454569")
+//             .style("padding-left", "10px")
+//             .style("padding-top", "3px")
+//             .style("padding-bottom", "3px")
+//             .style("color", "white")
+//             .text(function(d){ return d;})
 
-    var rows = tbody.selectAll("tr")
-        .data(data)
-        .enter()
-        .append('tr')
-            .style("background-color", function(){
-                if(row_counter % 2 == 1){
-                    row_counter += 1;
-                    return "#454569"
-                }else{
-                    row_counter += 1;
-                    return "white";
-                }
-            })
-            .style("color", function(){
-                var current_node = d3.select(this);
-                if(current_node.attr('style') == "background-color: white;"){
-                    return "black";
-                }else{
-                    return "white";
-                }
-            });
+//     var rows = tbody.selectAll("tr")
+//         .data(data)
+//         .enter()
+//         .append('tr')
+//             .style("background-color", function(){
+//                 if(row_counter % 2 == 1){
+//                     row_counter += 1;
+//                     return "#454569"
+//                 }else{
+//                     row_counter += 1;
+//                     return "white";
+//                 }
+//             })
+//             .style("color", function(){
+//                 var current_node = d3.select(this);
+//                 if(current_node.attr('style') == "background-color: white;"){
+//                     return "black";
+//                 }else{
+//                     return "white";
+//                 }
+//             });
 
         
-    var cells = rows.selectAll("td")
-        .data( function (row) {
-            return columns.map(function (column) {
-                return {column: column, value: row[column]};
-              });
-        }).enter()
-        .append('td')
-            .style("padding-top", "3px")
-            .style("padding-bottom", "3px")
-            .style("padding-left", "10px")
-            .text(function(d) { return d.value})
-            .transition()
-            .duration(2000)
-            .tween("text", function(d){
-                var i = d3.interpolate(0, d.value)
-                return function(t) {
-                    d3.select(this).text(
-                        parseFloat(i(t)).toFixed(2)
-                    );
-                };
-            });
+//     var cells = rows.selectAll("td")
+//         .data( function (row) {
+//             return columns.map(function (column) {
+//                 return {column: column, value: row[column]};
+//               });
+//         }).enter()
+//         .append('td')
+//             .style("padding-top", "3px")
+//             .style("padding-bottom", "3px")
+//             .style("padding-left", "10px")
+//             .text(function(d) { return d.value})
+//             .transition()
+//             .duration(2000)
+//             .tween("text", function(d){
+//                 var i = d3.interpolate(0, d.value)
+//                 return function(t) {
+//                     d3.select(this).text(
+//                         parseFloat(i(t)).toFixed(2)
+//                     );
+//                 };
+//             });
         
-}
+// }
 
 function add_raw_data_table(id, file_location){
     d3.csv(file_location).then(function(data){
+        //adding the title
+        var make = document.getElementById('make').value;
+        var model = document.getElementById('model').value;
+        d3.select("#title_of_raw_table").text(
+            "List of All " + make.toUpperCase() + " " + model.toUpperCase().replace("_", " ") + " vehicles in Nation")
         var columns = Object.keys(data[0]);
         columns.push("Carfax Link")
 
@@ -519,10 +523,6 @@ function add_raw_data_table(id, file_location){
         });
     });
 }
-
-// function sort_price_in_raw_data(id, file_location){
-    
-// }
 
 function update_maintenance_bar_graph(file_location){
     d3.csv(file_location).then(function(data) {
@@ -612,8 +612,15 @@ function update_side_trim_bars(file_location){
             .attr("x", 0)
             .attr("height", y.bandwidth())
             .attr("width", function(d){
-                return x(d.value)
+                return 0
             });
+
+        bars.selectAll("rect")
+            .transition()
+            .duration(4000)
+            .attr("width", function(d){
+                return x(d.value);
+            })
 
         bars.append("text")
             .attr("class", "label")
@@ -623,12 +630,22 @@ function update_side_trim_bars(file_location){
             })
             //x position is 3 pixels to the right of the bar
             .attr("x", function (d) {
+                return 3;
+            })
+        
+        bars.selectAll("text")
+            .transition()
+            .duration(4000)
+            .attr("x", function(d) {
                 return x(d.value) + 3;
             })
-            .text(function (d) {
-                return d.value;
+            .tween("text", function(d){
+                var i = d3.interpolate(0, d.value)
+                return function(t) {
+                    d3.select(this).text(
+                        parseFloat(i(t)).toFixed(0));
+                };
             });
-        
     });
 }
 
