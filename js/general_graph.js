@@ -7,9 +7,32 @@ function alert_no_data(){
         if(!response.ok){
             alert("No data available for " + make + " " + model);
         }else{
+            get_global_regression_for_all(file_location)
             update_miles_vs_price(file_location);
             update_side_trim_bars(file_location);
             add_raw_data_table(".raw_data_table_container", file_location);
+        }
+    });
+}
+
+function filter_data_by_trim(data, trim){
+    filtered_data = []
+    for(var i = 0; i < data.length; i++){
+        if(data[i]['Trim'] == trim){
+            filtered_data.push(data[i]);
+        }
+    }
+    return filtered_data;
+}
+
+function get_global_regression_for_all(file_location){
+    d3.csv(file_location).then(function(data){
+        unique_trims = get_unique_trims(data);
+        for(var i = 0; i < unique_trims.length; i++){
+            filtered_trim_data = filter_data_by_trim(data, unique_trims[i]);
+            new_data = filtered_trim_data.map(d => [parseInt(d.Miles), parseInt(d.Price)]);
+            regression_line = logarithmic(new_data);
+            global_regression[unique_trims[i]] = regression_line
         }
     });
 }
@@ -160,7 +183,7 @@ function setup_toggle(trims){
     }
 }
 
-function filter_data_by_trim(data){
+function filter_data_by_selected_trim(data){
     filtered_data = [];
     for(var i = 0; i < data.length; i++){
         if(global_trim_selection[data[i]['Trim']] == true){
@@ -170,7 +193,7 @@ function filter_data_by_trim(data){
     return filtered_data;
 }
 
-function update_miles_vs_price(file_location, trim){
+function update_miles_vs_price(file_location, trim, move=false){
     d3.csv(file_location).then(function(data){
         var dot_tooltip = d3.select("body").append("div")
             .attr("class", "dot_tooltip")
@@ -192,8 +215,7 @@ function update_miles_vs_price(file_location, trim){
             }else{
                 global_trim_selection[trim] = true;
             }
-            console.log(global_trim_selection);
-            filtered_data = filter_data_by_trim(data);
+            filtered_data = filter_data_by_selected_trim(data);
             data = filtered_data;
         }
 
@@ -238,21 +260,40 @@ function update_miles_vs_price(file_location, trim){
             
         circles.exit().remove();
 
-        circles.enter()
-            .append("circle")
-                .attr("r", 5)
+        if(move == true){
+            circles.enter()
+                .append("circle")
+                    .attr("r", 5)
+                    .style("opacity", "0.8")
+                .merge(circles)
+                    .attr("class", "dot")
+                    .style("position", "absolute")
+                    .style("opacity", "0.8")
+
+            svg_depreciation.selectAll("circle")
+                .transition()
+                .duration(500)
+                .attr("cx", function(d) { return x(parseInt(d.Miles))})
+                .attr("cy", function(d) { return y(parseInt(d.Price))})
+        }
+        else{
+            circles.enter()
+                .append("circle")
+                    .attr("r", 5)
+                    .style("opacity", "0")
+                .merge(circles)
+                    .attr("class", "dot")
+                    .style("position", "absolute")
+                    .style("opacity", "0")
+                    .attr("cx", function(d) { return x(parseInt(d.Miles))})
+                    .attr("cy", function(d) { return y(parseInt(d.Price))})
+
+            svg_depreciation.selectAll("circle")
+                .transition()
+                .delay(function (d,i) { return (i*3)})
+                .duration(1000)
                 .style("opacity", "0.8")
-            .merge(circles)
-                .attr("class", "dot")
-                .style("position", "absolute")
-                .style("opacity", "0.8")
-        
-        svg_depreciation.selectAll("circle")
-            .transition()
-            .delay(function (d,i) { return (i*3)})
-            .duration(500)
-            .attr("cx", function(d) { return x(parseInt(d.Miles))})
-            .attr("cy", function(d) { return y(parseInt(d.Price))})
+        }
             
             
         svg_depreciation.selectAll("circle")
@@ -309,7 +350,7 @@ function update_miles_vs_price(file_location, trim){
                 .style("display", "inline-block")
                 .style("cursor", "pointer")
                 .on("click", function (event, d){
-                    update_miles_vs_price(file_location, d);
+                    update_miles_vs_price(file_location, d, true);
                 });
         
         svg_depreciation.selectAll(".legend_text").remove().exit();
@@ -465,11 +506,28 @@ function add_raw_data_table(id, file_location){
         var model = document.getElementById('model').value;
         d3.select("#title_of_raw_table").text(
             "List of All " + make.toUpperCase() + " " + model.toUpperCase().replace("_", " ") + " vehicles in Nation")
-        var columns = Object.keys(data[0]);
+
+        //adding the regression value data
+        for(var i = 0; i < data.length; i++){
+            y_value = look_for_y_value_from_log(
+                global_regression[data[i].Trim], data[i].Miles
+            )
+            if(isNaN(y_value)){
+                data[i]['Expected Price'] = "N/A";
+                data[i]['Difference'] = "N/A";
+            }else{
+                data[i]['Expected Price'] = "$ " + y_value.toFixed(0);
+                data[i]['Difference'] = data[i]['Price'] - y_value.toFixed(0);
+            }
+        }
+
+        var columns = [
+            "Price", "Expected Price", "Difference", "Miles", "Trim", "Year", "Vin"
+        ]
         columns.push("Carfax Link")
 
         //remove the current table away
-        d3.select(id).selectAll("#all_data_table_wrapper").remove()
+        d3.select(id).selectAll("#all_data_table_wrapper").remove().exit()
 
         var table = d3.select(id).append('table')
             .style("width", "100%")
@@ -515,6 +573,16 @@ function add_raw_data_table(id, file_location){
                     }
                     if(d.column == "Price"){
                         return "$ " + d.value;
+                    }
+                    if(d.column == "Difference"){
+                        if(d.value < 0){
+                            d3.select(this).style("color", "green")
+                        }else{
+                            d3.select(this).style("color", "red")
+                            if(d.value != "N/A"){
+                                return "+" + d.value;
+                            }
+                        }
                     }
                     return d.value;
                 })
@@ -663,6 +731,10 @@ model = document.getElementById('model').value;
 var mapping = undefined;
 var global_trim_selection = {};
 
+
+//global variable for depreciation equation
+var global_regression = {};
+
 var element = d3.select("#general_depreciation").node();
 width = (typeof width !== 'undefined') ? width : element.getBoundingClientRect().width;
 height = (typeof height !== 'undefined') ? height : element.getBoundingClientRect().height;
@@ -758,12 +830,9 @@ var github_url = "data_scraper/";
 var file_location = github_url + make + "/" + model + ".csv";
 var maintenance_file_loation = github_url +"maintenance_data/" + make + "_" + model + "/report.csv";
 
+get_global_regression_for_all(file_location);
 update_miles_vs_price(file_location);
 update_year_selection();
 update_side_trim_bars(file_location);
 // update_maintenance_bar_graph(maintenance_file_loation);
 add_raw_data_table(".raw_data_table_container", file_location);
-
-//global variable for sorting 
-var sort_price = false;
-var sort_miles = false;
