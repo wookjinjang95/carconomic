@@ -26,6 +26,7 @@ function filter_data_by_trim(data, trim){
 }
 
 function get_global_regression_for_all(file_location){
+    global_regression = {};
     d3.csv(file_location).then(function(data){
         unique_trims = get_unique_trims(data);
         for(var i = 0; i < unique_trims.length; i++){
@@ -193,11 +194,28 @@ function filter_data_by_selected_trim(data){
     return filtered_data;
 }
 
+function filter_data_by_year(data, year){
+    filtered_data = [];
+    for(var i = 0; i < data.length; i++){
+        if(data[i]['Year'] == year){
+            filtered_data.push(data[i])
+        }
+    }
+    return filtered_data;
+}
+
 function update_miles_vs_price(file_location, trim, move=false){
     d3.csv(file_location).then(function(data){
         var dot_tooltip = d3.select("body").append("div")
             .attr("class", "dot_tooltip")
             .style("position", "absolute");
+
+        //data filter with given parameter
+        var selected_year = document.getElementById('year').value;
+        if( selected_year != "all"){
+            filtered_data = filter_data_by_year(data, selected_year);
+            data = filtered_data;
+        }
 
         if(trim == undefined){
             mapping = map_trim_to_color(data);
@@ -218,7 +236,6 @@ function update_miles_vs_price(file_location, trim, move=false){
             filtered_data = filter_data_by_selected_trim(data);
             data = filtered_data;
         }
-
         var x = d3.scaleLinear().domain([0, max_x]).range([0, dep_width]);
         var y = d3.scaleLinear().domain([0, max_y]).range([dep_height - margin.top - margin.bottom, 0]);
     
@@ -405,8 +422,21 @@ function update_miles_vs_price(file_location, trim, move=false){
                 .style("stroke-width", "2px")
                 .attr("x1", x(0))
                 .attr("y1", y(b))
-                .attr("x2", x((0 - b)/m))
-                .attr("y2", y(0));
+                .attr("x2", function(){
+                    if(m < 0){
+                        return x((0 - b)/m);
+                    }
+                    else{
+                        return x(max_x);
+                    }
+                })
+                .attr("y2", function(){
+                    if(m < 0){
+                        return y(0);
+                    }else{
+                        return y(m*max_x + b);
+                    }
+                });
     
         d3.selectAll(".log-line").remove();
 
@@ -639,6 +669,12 @@ function update_side_trim_bars(file_location){
         .attr("transform", "translate(" + h_margin.left + "," + h_margin.top + ")");
 
     d3.csv(file_location).then(function(data) {
+        //data filter with given parameter
+        var selected_year = document.getElementById('year').value;
+        if( selected_year != "all"){
+            filtered_data = filter_data_by_year(data, selected_year);
+            data = filtered_data;
+        }
         
         //adding the total of trims section
         trim_count_data = get_total_for_each_trims(data);
