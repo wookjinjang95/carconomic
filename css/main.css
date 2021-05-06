@@ -127,9 +127,9 @@ th {
     margin-left: 10px;
     margin-bottom: 15px;
     overflow-y: auto;
-    background-color: #33334d;
+    /* background-color: #33334d; */
     border-radius: 7px;
-    box-shadow: 5px 10px 10px #888888;
+    /* box-shadow: 5px 10px 10px #888888; */
 }
 
 .coming_up {
@@ -140,10 +140,8 @@ th {
     margin-left: 10px;
     margin-bottom: 15px;
     color: black;
-    background-color: white;
     font-size: 30px;
     border-radius: 7px;
-    box-shadow: 5px 10px 10px #888888;
 }
 
 .long_ad_container {
@@ -153,20 +151,18 @@ th {
     padding-left: 400px;
     display: inline-block;
     color: black;
-    background-color: white;
     padding: 100px;
     font-size: 30px;
     border-radius: 7px;
-    box-shadow: 5px 10px 10px #888888;
 }
 
 .raw_data_table_container {
     width: 100%;
-    margin-top: 15px;
     display: inline-block;
     background-color: white;
     /* overflow-y: auto; */
     box-shadow: 5px 10px 10px #888888;
+    border-radius: 7px;
 }
 
 .maintenance_graph_container {
@@ -209,7 +205,7 @@ th {
 }
 
 .faded_background::before {
-    background-image: url(photos/front-cover/tall_building_2.jpeg);
+    background-image: url(../photos/front-cover/tall_building_2.jpeg);
     content: "";
     background-size: cover;
     position: absolute;

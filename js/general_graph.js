@@ -330,7 +330,9 @@ function update_miles_vs_price(file_location, trim, move=false){
                     .html(
                         "Trim: " + d.Trim + "</br>" + 
                         "Price: " + d.Price + "</br>" + 
-                        "Miles: " + d.Miles)
+                        "Miles: " + d.Miles + "</br>" +
+                        "Year: " + d.Year
+                    )
                     //don't use attr here, use style here.
                     .style("display", "inline-block")
                     .style("left", xPosition + "px")
@@ -675,7 +677,7 @@ function update_side_trim_bars(file_location){
             filtered_data = filter_data_by_year(data, selected_year);
             data = filtered_data;
         }
-        
+
         //adding the total of trims section
         trim_count_data = get_total_for_each_trims(data);
 
