@@ -825,7 +825,11 @@ var global_graph_font_size = 10;
 if(width < 320){
     margin = {top: 40, right: 20, bottom: 50, left: 40}
     global_graph_font_size = 6;
-}else{
+}
+else if(width < 425){
+    margin = {top: 40, right: 20, bottom: 45, left: 40}
+}
+else{
     margin = {top: 40, right: 60, bottom: 50, left: svg_left}
 }
 
@@ -899,7 +903,12 @@ c_dep_height = undefined;
 if(width < 320){
     c_dep_width = c_width - margin.left - margin.right + 30;
     c_dep_height = c_height - margin.top - margin.bottom - 60;
-}else{
+}
+else if(width < 425){
+    c_dep_width = c_width - margin.left - margin.right + 40;
+    c_dep_height = c_height - margin.top - margin.bottom - 70;
+}
+else{
     c_dep_width = c_width - margin.left - margin.right + 30;
     c_dep_height = c_height - margin.top - margin.bottom - 20;
 }
@@ -920,7 +929,12 @@ var cost_svg = costSvgContainer
 cost_svg.append("text")
     .attr("text-anchor", "end")
     .attr("x", c_dep_width - 60)
-    .attr("y", c_dep_height - 60)
+    .attr("y", function(){
+        if(width > 320 && width < 425){
+            return c_dep_height - 50;
+        }
+        return c_dep_height - 60;
+    })
     .style("stroke", "black")
     .text("Miles")
 
