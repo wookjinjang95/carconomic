@@ -10,6 +10,7 @@ function alert_no_data(){
             get_global_regression_for_all(file_location)
             update_miles_vs_price(file_location);
             update_side_trim_bars(file_location);
+            update_cost_analysis(file_location);
             add_raw_data_table(".raw_data_table_container", file_location);
         }
     });
@@ -25,7 +26,7 @@ function filter_data_by_trim(data, trim){
     return filtered_data;
 }
 
-function get_global_regression_for_all(file_location){
+async function get_global_regression_for_all(file_location){
     global_regression = {};
     d3.csv(file_location).then(function(data){
         unique_trims = get_unique_trims(data);
@@ -38,7 +39,7 @@ function get_global_regression_for_all(file_location){
     });
 }
 
-function update_model_list(){
+async function update_model_list(){
     var make = document.getElementById('make').value;
     var data = undefined;
     if(make == "tesla"){
@@ -82,7 +83,7 @@ function update_model_list(){
             })
 }
 
-function update_year_selection(){
+async function update_year_selection(){
     var make = document.getElementById('make').value;
     var model = document.getElementById('model').value;
     var file_location = github_url + make + "/" + model + ".csv";
@@ -204,7 +205,7 @@ function filter_data_by_year(data, year){
     return filtered_data;
 }
 
-function update_miles_vs_price(file_location, trim, move=false){
+function update_miles_vs_price(file_location, color_mapping, trim, move=false){
     d3.csv(file_location).then(function(data){
         var dot_tooltip = d3.select("body").append("div")
             .attr("class", "dot_tooltip")
@@ -217,8 +218,8 @@ function update_miles_vs_price(file_location, trim, move=false){
             data = filtered_data;
         }
 
-        if(trim == undefined){
-            mapping = map_trim_to_color(data);
+        if(color_mapping == undefined){
+            color_mapping = map_trim_to_color(data);
         }
         var trims = get_unique_trims(data);
         var max_y = get_y_max_value(data);
@@ -315,7 +316,7 @@ function update_miles_vs_price(file_location, trim, move=false){
             
         svg_depreciation.selectAll("circle")
             .attr("fill", function(d) {
-                return mapping.get(d.Trim);
+                return color_mapping.get(d.Trim);
             })
             .on("mousemove", function(event, d) {
                 d3.select(this)
@@ -323,7 +324,7 @@ function update_miles_vs_price(file_location, trim, move=false){
                     .duration(100)
                     .attr("r", 10);
 
-                var border_color = mapping.get(d.Trim)
+                var border_color = color_mapping.get(d.Trim)
                 var xPosition = event.clientX + 50;
                 var yPosition = window.scrollY + (event.clientY);
                 dot_tooltip
@@ -349,7 +350,7 @@ function update_miles_vs_price(file_location, trim, move=false){
             .on("mouseout", function(event, d) {
                 // axis_hover_line.style("opacity", "0")
                 // yaxis_hover_line.style("opacity", "0")
-                d3.select(this).attr("fill", mapping.get(d.Trim))
+                d3.select(this).attr("fill", color_mapping.get(d.Trim))
                 dot_tooltip.style("display", "none");
                 d3.select(this)
                     .transition()
@@ -369,7 +370,7 @@ function update_miles_vs_price(file_location, trim, move=false){
                 .style("display", "inline-block")
                 .style("cursor", "pointer")
                 .on("click", function (event, d){
-                    update_miles_vs_price(file_location, d, true);
+                    update_miles_vs_price(file_location, color_mapping=color_mapping, trim=d, move=true);
                 });
         
         svg_depreciation.selectAll(".legend_text").remove().exit();
@@ -378,7 +379,7 @@ function update_miles_vs_price(file_location, trim, move=false){
         d3.selectAll(".each_trim")
             .append("div")
             .style("background-color", function(d){
-                return mapping.get(d);
+                return color_mapping.get(d);
             })
             .style("height", "15px")
             .style("width", "15px")
@@ -455,81 +456,6 @@ function update_miles_vs_price(file_location, trim, move=false){
             )
     });
 }
-
-// function add_table(equation, id){
-//     var data = generate_table_data(equation)
-//     var columns = ["MILES", "PRICE"]
-//     var text_columns = ["MILES (mi.)", "PRICE (AVG)"]
-//     //delete the table before adding new one
-//     d3.select(id).selectAll("table").remove()
-
-//     var table = d3.select(id).append('table')
-//         .style("width", "100%")
-    
-//     var thead = table.append("thead")
-//     var tbody = table.append("tbody")
-//     var row_counter = 0;
-
-//     // add header row
-//     thead.append("tr")
-//         .style("border-bottom", "5px solid black")
-//         .selectAll("th") 
-//         .data(text_columns)
-//         .enter()
-//         .append("th")
-//             .style("background-color", "#454569")
-//             .style("padding-left", "10px")
-//             .style("padding-top", "3px")
-//             .style("padding-bottom", "3px")
-//             .style("color", "white")
-//             .text(function(d){ return d;})
-
-//     var rows = tbody.selectAll("tr")
-//         .data(data)
-//         .enter()
-//         .append('tr')
-//             .style("background-color", function(){
-//                 if(row_counter % 2 == 1){
-//                     row_counter += 1;
-//                     return "#454569"
-//                 }else{
-//                     row_counter += 1;
-//                     return "white";
-//                 }
-//             })
-//             .style("color", function(){
-//                 var current_node = d3.select(this);
-//                 if(current_node.attr('style') == "background-color: white;"){
-//                     return "black";
-//                 }else{
-//                     return "white";
-//                 }
-//             });
-
-        
-//     var cells = rows.selectAll("td")
-//         .data( function (row) {
-//             return columns.map(function (column) {
-//                 return {column: column, value: row[column]};
-//               });
-//         }).enter()
-//         .append('td')
-//             .style("padding-top", "3px")
-//             .style("padding-bottom", "3px")
-//             .style("padding-left", "10px")
-//             .text(function(d) { return d.value})
-//             .transition()
-//             .duration(2000)
-//             .tween("text", function(d){
-//                 var i = d3.interpolate(0, d.value)
-//                 return function(t) {
-//                     d3.select(this).text(
-//                         parseFloat(i(t)).toFixed(2)
-//                     );
-//                 };
-//             });
-        
-// }
 
 function add_raw_data_table(id, file_location){
     d3.csv(file_location).then(function(data){
@@ -709,9 +635,7 @@ function update_side_trim_bars(file_location){
 
         bars.append("rect")
             .attr("class", "bar")
-            .style("fill", function(d){
-                return mapping.get(d.trim);
-            })
+            .style("fill", "steelblue")
             .attr("y", function(d) {
                 return y(d.trim);
             })
@@ -755,6 +679,116 @@ function update_side_trim_bars(file_location){
     });
 }
 
+function update_cost_analysis(file_location){
+    d3.csv(file_location).then(function (data){
+        var cost_tooltip = d3.select("body").append("div")
+            .attr("class", "cost_tooltip")
+            .style("position", "absolute");
+        
+        //data filter with given parameter
+        var selected_year = document.getElementById('year').value;
+        if( selected_year != "all"){
+            filtered_data = filter_data_by_year(data, selected_year);
+            data = filtered_data;
+        }
+
+        var own_mapping = map_trim_to_color(data);
+
+        //add the x-axis and y-axis
+        var max_x = get_x_max_value(data);
+        var x = d3.scaleLinear().domain([0, max_x]).range([0, c_dep_width]);
+        new_data, cost_max = calculate_cost(global_regression, x);
+
+        var y = d3.scaleLinear().domain([0, cost_max]).range([c_dep_height - margin.top - margin.bottom, 0]);
+
+        cost_svg.selectAll(".y-axis").remove();
+        cost_svg.selectAll(".x-axis").remove();
+
+        cost_svg.append("g")
+            .attr("class", "y-axis")
+            .call(d3.axisLeft(y));
+
+        cost_svg.append("g")
+            .attr("class", "x-axis")
+            .attr("transform", "translate(0," + (c_dep_height - margin.top - margin.bottom)  + ")")
+            .call(d3.axisBottom(x));
+
+        d3.selectAll(".curve-line").remove();
+        d3.selectAll(".cost-label").remove();
+
+        for(trim in new_data){
+            text_position_element = new_data[trim][1]
+            cost_svg.append("path")
+                .datum(new_data[trim])
+                .attr("class", "curve-line")
+                .attr("fill", "none")
+                .style("stroke", function(){
+                    return own_mapping.get(trim);
+                })
+                .style("opacity", "0.7")
+                .style("stroke-width", "2px")
+                .attr("d", d3.line()
+                    .x(function(d) { return x(d[0]);})
+                    .y(function(d) { return y(d[1]);})
+                    .curve(d3.curveCatmullRom));
+
+            cost_svg.append("text")
+                .attr("class", "cost-label")
+                .attr("transform", "translate (" +  x(text_position_element[0]) + ", " + (y(text_position_element[1]) - 5) + ")")
+                .attr("text-anchor", "start")
+                .text(trim)
+                .style("fill", own_mapping.get(trim));
+        }
+
+
+        all_points = []
+        for(var trim in new_data){
+            for(var i = 0; i < new_data[trim].length; i++){
+                all_points.push(new_data[trim][i])
+            }
+        }
+
+        var circles  = cost_svg.selectAll("circle")
+            .data(all_points);
+
+        circles.exit().remove();
+
+        circles.enter()
+            .append("circle")
+                .attr("r", 5)
+                .style("opacity", 0.5)
+                .style("fill", "steelblue")
+            .merge(circles)
+                .attr("class", "dot")
+                .style("position", "absolute")
+                .style("opacity", 0.5)
+                .attr("cx", function(d) { return x(parseInt(d[0]))})
+                .attr("cy", function(d) { return y(parseInt(d[1]))})
+
+        cost_svg.selectAll("circle")
+                .on("mousemove", function(event, d) {
+                    var xPosition = event.clientX + 50;
+                    var yPosition = window.scrollY + (event.clientY);
+                    cost_tooltip
+                        .html(
+                            "Cost: " + d[1].toFixed(0) + "</br>" + 
+                            "Miles: " + d[0] + "</br>"
+                        )
+                        //don't use attr here, use style here.
+                        .style("display", "inline-block")
+                        .style("left", xPosition + "px")
+                        .style("top", yPosition + "px")
+                        .style("padding", "10px")
+                        .style("background-color", "lightsteelblue")
+                        .style("border-radius", "7px")
+                        .style("position", "absolute")
+                })
+                .on("mouseout", function(event, d) {
+                    cost_tooltip.style("display", "none");
+                });
+    });
+}
+
 //Things that need first
 update_model_list();
 
@@ -766,7 +800,6 @@ function update_search_selection(){
 
 make = document.getElementById('make').value;
 model = document.getElementById('model').value;
-var mapping = undefined;
 var global_trim_selection = {};
 
 
@@ -778,7 +811,7 @@ width = (typeof width !== 'undefined') ? width : element.getBoundingClientRect()
 height = (typeof height !== 'undefined') ? height : element.getBoundingClientRect().height;
 
 svg_left = (typeof svg_left !== 'undefined') ? svg_left : 60;
-var margin = {top: 40, right: 60, bottom: 30, left: svg_left},
+var margin = {top: 40, right: 60, bottom: 50, left: svg_left},
 dep_width = parseInt(width) - margin.left - margin.right,
 dep_height = parseInt(height) - margin.top - margin.bottom
 
@@ -830,41 +863,43 @@ var trim_svg_container = d3.select(".trim_total_info").append("svg")
     .append("g")
     .attr("transform", "translate(" + h_margin.left + "," + h_margin.top + ")");
 
-//starting here is the bar graph for maintenance
-// var svg_maintenance_bargraph_size = d3.select(".maintenance_graph_container").node();
-// var bargraph_width = svg_maintenance_bargraph_size.getBoundingClientRect().width;
-// var bargraph_height = svg_maintenance_bargraph_size.getBoundingClientRect().height;
+//starting here is the cost vs miles graph
+var cost_element = d3.select(".cost_analysis_container").node();
+c_width = cost_element.getBoundingClientRect().width;
+c_height = cost_element.getBoundingClientRect().height;
 
-// var g_width = bargraph_width - margin.left - margin.right;
-// var g_height = bargraph_height - margin.top - margin.bottom;
+c_dep_width = c_width - margin.left - margin.right + 30;
+c_dep_height = c_height - margin.top - margin.bottom - 20;
 
-// var svgMainContainer = d3.select(".maintenance_graph_container")
-// var svg_maintenance_bargraph = svgMainContainer
-//     .append("svg")
-//         .attr("width", bargraph_width)
-//         .attr("height", bargraph_height)
-//     .append("g")
-//         .attr("transform",
-//             "translate(" + 50 + "," + 50 + ")")
+var costSvgContainer = d3.select("#cost_analysis")
+var cost_svg = costSvgContainer
+    .attr("class", "graph")
+    .append("svg")
+        .attr("width", c_dep_width)
+        .attr("height", c_dep_height)
+        // .call(d3.zoom().on("zoom", function(event){
+        //     svg_depreciation.attr("transform", event.transform);
+        // }))
+    .append("g")
+        .attr("transform", 
+            "translate(" + margin.left + "," + margin.top + ")")
 
-// svg_maintenance_bargraph.append("text")
-//     .attr("text-anchor", "end")
-//     .attr("x", g_width)
-//     .attr("y", g_height - 40)
-//     .style("stroke", "black")
-//     .text("Miles")
+cost_svg.append("text")
+    .attr("text-anchor", "end")
+    .attr("x", c_dep_width - 60)
+    .attr("y", c_dep_height - 40)
+    .style("stroke", "black")
+    .text("Miles")
 
-// svg_maintenance_bargraph.append("text")
-//     .attr("text-anchor", "end")
-//     .attr("x", margin.left)
-//     .attr("y", margin.top - 60)
-//     .style("stroke", "black")
-//     .text("Avg Price ($)");
-
-//starting here, it's a half dount graph
+cost_svg.append("text")
+    .attr("text-anchor", "end")
+    .attr("x", margin.right - 20)
+    .attr("y", margin.top - 60)
+    .style("stroke", "black")
+    .text("Cost ($)");
 
 //var github_url = "https://raw.githubusercontent.com/wookjinjang95/wookjinjang95.github.io/main/data_scraper/";
-var github_url = "data_scraper/";
+var github_url = "data/";
 var file_location = github_url + make + "/" + model + ".csv";
 var maintenance_file_loation = github_url +"maintenance_data/" + make + "_" + model + "/report.csv";
 
@@ -872,5 +907,6 @@ get_global_regression_for_all(file_location);
 update_miles_vs_price(file_location);
 update_year_selection();
 update_side_trim_bars(file_location);
+update_cost_analysis(file_location);
 // update_maintenance_bar_graph(maintenance_file_loation);
 add_raw_data_table(".raw_data_table_container", file_location);

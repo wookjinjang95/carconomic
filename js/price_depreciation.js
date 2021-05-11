@@ -3,37 +3,6 @@ function get_make_and_model(){
     var model = document.getElementById('model').value;
 }
 
-function map_trim_to_color(data){
-    var trims = get_unique_trims(data);
-    var mapping = new Map();
-    for(var i = 0; i < trims.length; i++){
-        r = Math.floor(Math.random() * Math.floor(256));
-        g = Math.floor(Math.random() * Math.floor(256));
-        b = Math.floor(Math.random() * Math.floor(256));
-        mapping.set(trims[i], 'rgb(' + r + ',' + g + ',' + b + ')');
-    }
-    return mapping;
-}
-
-function get_x_max_value(data){
-    var max = d3.max(data.map(function (d) { return parseInt(d.Miles)}));
-    return max + 10000;
-}
-
-function get_y_max_value(data){
-    var max = d3.max(data.map(function (d) { return parseInt(d.Price)}));
-    return max + 10000;
-}
-function get_unique_trims(data){
-    var trims = [];
-    for(var i = 0; i < data.length; i++){
-        if(!trims.includes(data[i].Trim)){
-            trims.push(data[i].Trim)
-        }
-    }
-    return trims;
-}
-
 function get_unique_year(data){
     var unique_years = ["all"]
     for(var i = 0; i < data.length; i++){
@@ -42,57 +11,6 @@ function get_unique_year(data){
         }
     }
     return unique_years;
-}
-
-function regression(data) {
-    var sum_x = 0, sum_y = 0
-      , sum_xy = 0, sum_xx = 0
-      , count = 0
-      , m, b;
-  
-    if (data.length === 0) {
-      throw new Error('Empty data');
-    }
-  
-    // calculate sums
-    for (var i = 0, len = data.length; i < len; i++) {
-      var point = data[i];
-      sum_x += point[0];
-      sum_y += point[1];
-      sum_xx += point[0] * point[0];
-      sum_xy += point[0] * point[1];
-      count++;
-    }
-  
-    // calculate slope (m) and y-intercept (b) for f(x) = m * x + b
-    m = (count * sum_xy - sum_x * sum_y) / (count * sum_xx - sum_x * sum_x);
-    b = (sum_y / count) - (m * sum_x) / count;
-    return [m,b];
-}
-
-function logarithmic(data) {
-    var sum = [0, 0, 0, 0], n = 0, results = [];
-
-    for (len = data.length; n < len; n++) {
-      if (data[n][1] != null) {
-        sum[0] += Math.log(data[n][0]);
-        sum[1] += data[n][1] * Math.log(data[n][0]);
-        sum[2] += data[n][1];
-        sum[3] += Math.pow(Math.log(data[n][0]), 2);
-      }
-    }
-
-    var B = (n * sum[1] - sum[2] * sum[0]) / (n * sum[3] - sum[0] * sum[0]);
-    var A = (sum[2] - B * sum[0]) / n;
-
-    for (var i = 0, len = data.length; i < len; i++) {
-        var coordinate = [data[i][0], A + B * Math.log(data[i][0])];
-        results.push(coordinate);
-    }
-
-    var string = 'y = ' + Math.round(A*100) / 100 + ' + ' + Math.round(B*100) / 100 + ' ln(x)';
-
-    return {equation: [A, B], points: results, string: string};
 }
 
 function look_for_y_value_from_log(log_equation, x_value){
