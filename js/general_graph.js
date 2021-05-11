@@ -947,6 +947,10 @@ cost_svg.append("text")
     .style("stroke", "black")
     .text("Cost ($)");
 
+if(width <= 425){
+    alert("For better and full experience, Carconomics recommend using either tablet or computer");
+}
+
 // var github_url = "https://raw.githubusercontent.com/wookjinjang95/wookjinjang95.github.io/main/data/";
 var github_url = "data/";
 var file_location = github_url + make + "/" + model + ".csv";
