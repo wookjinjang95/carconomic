@@ -266,10 +266,12 @@ function update_miles_vs_price(file_location, color_mapping, trim, move=false){
 
         svg_depreciation.append("g")
             .attr("class", "y-axis")
+            .style("font-size", global_graph_font_size + "px")
             .call(d3.axisLeft(y));
 
         svg_depreciation.append("g")
             .attr("class", "x-axis")
+            .style("font-size", global_graph_font_size + "px")
             .attr("transform", "translate(0," + (dep_height - margin.top - margin.bottom)  + ")")
             .call(d3.axisBottom(x));
         
@@ -545,7 +547,10 @@ function add_raw_data_table(id, file_location){
                     return d.value;
                 })
         $(document).ready(function () {
-            $("#all_data_table").DataTable();
+            $("#all_data_table").DataTable({
+                "responsive": true,
+                "scrollX": true
+            });
         });
     });
 }
@@ -706,10 +711,12 @@ function update_cost_analysis(file_location){
 
         cost_svg.append("g")
             .attr("class", "y-axis")
+            .style("font-size", global_graph_font_size + "px")
             .call(d3.axisLeft(y));
 
         cost_svg.append("g")
             .attr("class", "x-axis")
+            .style("font-size", global_graph_font_size + "px")
             .attr("transform", "translate(0," + (c_dep_height - margin.top - margin.bottom)  + ")")
             .call(d3.axisBottom(x));
 
@@ -811,7 +818,17 @@ width = (typeof width !== 'undefined') ? width : element.getBoundingClientRect()
 height = (typeof height !== 'undefined') ? height : element.getBoundingClientRect().height;
 
 svg_left = (typeof svg_left !== 'undefined') ? svg_left : 60;
-var margin = {top: 40, right: 60, bottom: 50, left: svg_left},
+
+var margin = {};
+var global_graph_font_size = 10;
+
+if(width < 320){
+    margin = {top: 40, right: 20, bottom: 50, left: 40}
+    global_graph_font_size = 6;
+}else{
+    margin = {top: 40, right: 60, bottom: 50, left: svg_left}
+}
+
 dep_width = parseInt(width) - margin.left - margin.right,
 dep_height = parseInt(height) - margin.top - margin.bottom
 
@@ -821,6 +838,7 @@ var svg_depreciation = svgContainer
     .append("svg")
         .attr("width", dep_width)
         .attr("height", dep_height)
+        // .attr("viewBox", '0 0 ' + dep_width + " " + dep_height)
         // .call(d3.zoom().on("zoom", function(event){
         //     svg_depreciation.attr("transform", event.transform);
         // }))
@@ -831,14 +849,21 @@ var svg_depreciation = svgContainer
 svg_depreciation.append("text")
     .attr("text-anchor", "end")
     .attr("x", dep_width - 60)
-    .attr("y", dep_height - 40)
+    .attr("y", function(){
+        if(width < 320){
+            return dep_height - 60;
+        }
+        return dep_height - 40;
+    })
     .style("stroke", "black")
     .text("Miles")
 
 svg_depreciation.append("text")
     .attr("text-anchor", "end")
-    .attr("x", margin.right - 20)
-    .attr("y", margin.top - 60)
+    .attr("x", margin.left - 20)
+    .attr("y", function(){
+        return margin.top - 60;
+    })
     .style("stroke", "black")
     .text("Price($)");
 
@@ -868,8 +893,16 @@ var cost_element = d3.select(".cost_analysis_container").node();
 c_width = cost_element.getBoundingClientRect().width;
 c_height = cost_element.getBoundingClientRect().height;
 
-c_dep_width = c_width - margin.left - margin.right + 30;
-c_dep_height = c_height - margin.top - margin.bottom - 20;
+c_dep_width = undefined;
+c_dep_height = undefined;
+
+if(width < 320){
+    c_dep_width = c_width - margin.left - margin.right + 30;
+    c_dep_height = c_height - margin.top - margin.bottom - 60;
+}else{
+    c_dep_width = c_width - margin.left - margin.right + 30;
+    c_dep_height = c_height - margin.top - margin.bottom - 20;
+}
 
 var costSvgContainer = d3.select("#cost_analysis")
 var cost_svg = costSvgContainer
@@ -887,18 +920,18 @@ var cost_svg = costSvgContainer
 cost_svg.append("text")
     .attr("text-anchor", "end")
     .attr("x", c_dep_width - 60)
-    .attr("y", c_dep_height - 40)
+    .attr("y", c_dep_height - 60)
     .style("stroke", "black")
     .text("Miles")
 
 cost_svg.append("text")
     .attr("text-anchor", "end")
-    .attr("x", margin.right - 20)
+    .attr("x", margin.left - 20)
     .attr("y", margin.top - 60)
     .style("stroke", "black")
     .text("Cost ($)");
 
-//var github_url = "https://raw.githubusercontent.com/wookjinjang95/wookjinjang95.github.io/main/data_scraper/";
+// var github_url = "https://raw.githubusercontent.com/wookjinjang95/wookjinjang95.github.io/main/data/";
 var github_url = "data/";
 var file_location = github_url + make + "/" + model + ".csv";
 var maintenance_file_loation = github_url +"maintenance_data/" + make + "_" + model + "/report.csv";
