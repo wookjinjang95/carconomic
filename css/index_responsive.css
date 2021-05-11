@@ -1,0 +1,228 @@
+@import "main.css";
+@import "index.css";
+
+
+@media only screen and (min-width: 320px) {
+    .main_title {
+        font-size: 30px;
+        width: 80%;
+    }
+    .title_container {
+        padding-top: 30%;
+    }
+    .title_background_pic {
+        height: 60%;
+    }
+    .front_btn_holder {
+        font-size: 15px;
+    }
+    .front_data_title {
+        font-size: 30px;
+    }
+    .front_data_image {
+        height: 30%;
+        width: 40%;
+        margin-top: 20%;
+    }
+    .front_data_content {
+        font-size: 15px;
+    }
+    .front_data_content_container{
+        width: 60%;
+    }
+    .front_dashboard_img{
+        height: 60%;
+        width: 40%;
+        margin-top: 5%;
+    }
+    .front_dashboard_title {
+        font-size: 30px;
+        margin-left: 10%;
+    }
+    .front_dashboard_content {
+        margin-top: 10px;
+        font-size: 12px;
+        padding-left: 35px;
+        width: 55%;
+        float: left;
+    }
+    .front_dashboard_btn {
+        margin-top: 40px;
+        margin-left: 90px;
+        float: left;
+        font-size: 15px;
+    }
+    .front_dashboard_container {
+        height: 40%;
+    }
+    .visit_tutorial_background_title {
+        font-size: 30px;
+    }
+    .visit_tutorial_background_content {
+        margin-top: 3%;
+        margin-left: 5%;
+        width: 70%;
+        font-size: 15px;
+    }
+    .front_tutorial_btn {
+        display: inline-block;
+        margin-top: 5%;
+        margin-left: 5%;
+        font-size: 20px;
+        font-weight: 750;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .main_title {
+        font-size: 40px;
+        width: 425px;
+    }
+    .title_container {
+        padding-top: 10%;
+    }
+    .title_background_pic {
+        height: 60%;
+    }
+ }
+
+ @media only screen and (min-width: 1024px) {
+    .main_title {
+        font-size: 60px;
+        width: 80%;
+    }
+    .title_container {
+        padding-top:15%;
+    }
+    .title_background_pic {
+        height: 100vh;
+    }
+    .front_btn_holder {
+        font-size: 20px;
+    }
+    .front_data_content_container{
+        width: 50%;
+    }
+    .front_data_title {
+        margin-top: 20%;
+        font-size: 50px;
+    }
+    .front_data_image {
+        width: 50%;
+        height: 60%;
+        margin-top: 0%;
+    }
+    .front_data_content {
+        font-size: 20px;
+    }
+    .front_dashboard_title {
+        margin-top: 20px;
+        margin-right: 5%;
+        margin-left: 90px;
+        font-size: 50px;
+    }
+    .front_dashboard_img {
+        width: 50%;
+        height: 60%;
+        margin-top: 0%;
+    }
+    .front_dashboard_content {
+        margin-top: 20px;
+        font-size: 20px;
+        width: 40%;
+        padding-left: 90px;
+        float: left;
+    }
+    .front_dashboard_btn {
+        margin-top: 40px;
+        margin-left: 90px;
+        float: left;
+    }
+    .front_dashboard_container{
+        height: unset;
+    }
+    .visit_tutorial_background_content {
+        width: 70%;
+        font-size: 20px;
+    }
+    .visit_tutorial_background_title {
+        font-size: 40px;
+    }
+ }
+
+ @media only screen and (min-width: 1440px) {
+    .main_title {
+        font-size: 80px;
+        width: 80%;
+    }
+    .learn_more {
+        font-size: 20px;
+    }
+    .front_data_title {
+        font-size: 60px;
+    }
+    .front_dashboard_title {
+        margin-top: 30px;
+        font-size: 60px;
+    }
+    .front_dashboard_btn {
+        font-size: 20px;
+    }
+    .visit_tutorial_background{
+        padding-top: 7%;
+    }
+    .visit_tutorial_background_title {
+        margin-top: 10px;
+        font-size: 60px;
+    }
+    .visit_tutorial_background_content {
+        width: 50%;
+    }
+    .front_tutorial_btn {
+        font-size: 25px;
+    }
+ }
+
+ @media only screen and (min-width: 2560px){
+    .main_title {
+        font-size: 120px;
+        width: 80%;
+    }
+    .front_btn{
+        font-size: 40px;
+    }
+    .learn_more {
+        font-size: 40px;
+    }
+    .front_data_title {
+        font-size: 100px;
+    }
+    .front_data_content{
+        font-size: 40px;
+    }
+    .front_dashboard_title {
+        margin-top: 30px;
+        font-size: 100px;
+    }
+    .front_dashboard_content{
+        font-size: 40px;
+    }
+    .front_dashboard_btn {
+        font-size: 40px;
+    }
+    .visit_tutorial_background{
+        padding-top: 7%;
+    }
+    .visit_tutorial_background_title {
+        margin-top: 10px;
+        font-size: 100px;
+    }
+    .visit_tutorial_background_content {
+        width: 50%;
+        font-size: 40px;
+    }
+    .front_tutorial_btn {
+        margin-top: 3%;
+        font-size: 40px;
+    }
+ }

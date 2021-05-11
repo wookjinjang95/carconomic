@@ -1,0 +1,58 @@
+@import "product.css";
+
+@media only screen and (min-width: 320px){
+    .dashboard {
+        margin-top: 20%;
+    }
+    .front_btn {
+        float: none;
+        width: 100%;
+        margin-top: 10%;
+    }
+    .dash_graph{
+        width: 100%;
+        height: 500px;
+        font-size: 15px;
+    }
+    .trim_total_info{
+        width: 100%;
+        margin-left: 0px;
+    }
+}
+
+@media only screen and (min-width: 768px){
+    .dashboard {
+        margin-top: 10%;
+    }
+}
+
+@media only screen and (min-width: 1024px){
+    .front_btn {
+        float: right;
+        width: 15%;
+        margin-top: 0%;
+    }
+}
+
+@media only screen and (min-width: 1440px){
+    .dashboard {
+        margin-top: 5%;
+    }
+    .front_btn {
+        float: right;
+        width: 10%;
+        margin-top: 0%;
+    }
+    .dash_graph{
+        width: 70%;
+        height: 650px;
+        font-size: 15px;
+    }
+    .trim_total_info{
+        width: 29%;
+        margin-left: 10px;
+    }
+    .mile_display{
+        width: 29%;
+    }
+}
