@@ -342,8 +342,8 @@ function update_miles_vs_price(file_location, color_mapping, trim, move=false){
                     .style("top", yPosition + "px")
                     .style("padding", "10px")
                     .style("border", "3px solid " + border_color)
-                    .style("background-color", "#33334d")
-                    .style("color", "white")
+                    .style("background-color", "lightsteelblue")
+                    .style("color", "black")
                     .style("border-radius", "10px")
                     .style("position", "absolute")
                 //make the color red when hover
@@ -702,9 +702,11 @@ function update_cost_analysis(file_location){
         //add the x-axis and y-axis
         var max_x = get_x_max_value(data);
         var x = d3.scaleLinear().domain([0, max_x]).range([0, c_dep_width]);
-        new_data, cost_max = calculate_cost(global_regression, x);
+        (async function(){
+            var new_data, cost_max, cost_min = await calculate_cost(global_regression, x);
+        })()
 
-        var y = d3.scaleLinear().domain([0, cost_max]).range([c_dep_height - margin.top - margin.bottom, 0]);
+        var y = d3.scaleLinear().domain([cost_min, cost_max]).range([c_dep_height - margin.top - margin.bottom, 0]);
 
         cost_svg.selectAll(".y-axis").remove();
         cost_svg.selectAll(".x-axis").remove();
