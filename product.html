@@ -11,11 +11,12 @@
         <script src="https://d3js.org/d3.v6.min.js"></script>
         <script src="js/price_depreciation.js"></script>
         <script type ="text/javascript" src ="/js/jquery.js"></script>
+        <script type="text/javascript" src="js/utils.js"></script>
         <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
     </head>
     <body style="background-color: rgb(231, 231, 231);">
         <nav class="navbar fixed-top navbar-expand-lg navbar-light" style="background-color: #33334d">
-            <a class="navbar-brand" href="index.html" style="margin-left:30">
+            <a class="navbar-brand" href="index.html" style="margin-left:30; color: white;">
                 <img src="photos/icon/AIFA_icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
                 Carconomic
             </a>
@@ -25,7 +26,7 @@
                     <a class="nav-link" style="margin-right: 15px; color: white;" href="index.html">Home</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" style="margin-right: 15px; color: white;" href="product.html">Product (Beta)</a>
+                    <a class="nav-link" style="margin-right: 15px; color: white;" href="product.html">Dashboard</a>
                   </li>
                   <li>
                       <a class="nav-link" style="margin-right: 15px; color: white;" href="tutorial.html">Tutorial</a>
@@ -61,9 +62,10 @@
           </div>
 
           <div style="padding-top: 30px;">
-            <div><i>Data Updated Lastly: April-22-2021</i></div>
+            <div><i>*Unspecified = Base model or not specified from owner</i></div>
             <div class="dash_graph">
-                <div class="dash_title">Depreciation Report</div>
+                <div style="float: left"><i>Data Updated Lastly: 04-22-2021</i></div>
+                <div class="dash_title">Market Report</div>
                 <div id="trim_list" style="overflow-x: hidden; overflow-y: auto; width: 100%; height: 25px; padding-left: 40px;"></div>
                 <div id="general_depreciation" style="height: 100%; width: 107%;"></div>
             </div>
@@ -73,7 +75,11 @@
             <div class="trim_total_info">
               <div class="trim_dash_title">Total Number of Vehicles Per Trim</div>
             </div>
-            <div class="long_ad_container">
+            <div class="cost_analysis_container">
+              <div><i>Data Updated Lastly: 04-22-2021</i></div>
+              <div class="dash_title">Depreciation Cost Analysis</div>
+              <div id="cost_trim_list" style="overflow-x: hidden; overflow-y: auto; width: 100%; height: 25px; padding-left: 40px;"></div>
+              <div id="cost_analysis"></div>
             </div>
             <!-- <div class="maintenance_graph_container">
               <div class="dash_title">Maintenance Cost</div>
