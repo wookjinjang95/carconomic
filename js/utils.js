@@ -1,6 +1,7 @@
 function calculate_cost(global_regression, x_axis){
     new_data = {};
     cost_max = 0;
+    cost_min = 0;
     ticks = x_axis.ticks();
    
     //generate the points
@@ -26,12 +27,12 @@ function calculate_cost(global_regression, x_axis){
                 }
                 point = [ticks[i], prev_value - curr_value];
                 if( (prev_value - curr_value) > cost_max) cost_max = prev_value - curr_value;
+                if( (prev_value - curr_value) < cost_min) cost_min = prev_value - curr_value;
                 new_data[trim].push(point);
             }
         }
     }
-    console.log(new_data)
-    return new_data, cost_max;
+    return new_data, cost_max, cost_min;
 }
 
 function get_the_first_point(log_equation){
