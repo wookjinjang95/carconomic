@@ -28,21 +28,21 @@
             </button>
             <div class="collapse navbar-collapse" id="collapsed_menu">
                 <ul class="navbar-nav">
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" style="margin-right: 15px;" href="index.html">Home</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" style="margin-right: 15px;" href="product.html">Dashboard</a>
-                      </li>
-                      <li>
-                          <a class="nav-link" style="margin-right: 15px;" href="tutorial.html">Tutorial</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" style="margin-right: 15px;" href="about_us.html">About Us</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" style="margin-right: 15px;" href="#">Blog (Coming Soon)</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="margin-right: 15px;" href="product.html">Dashboard</a>
+                    </li>
+                    <li>
+                        <a class="nav-link active" style="margin-right: 15px;" href="tutorial.html">Tutorial</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="margin-right: 15px;" href="about_us.html">About Us</a>
+                    </li>
+                    <!-- <li class="nav-item">
+                        <a class="nav-link" style="margin-right: 15px;" href="#">Blog (Coming Soon)</a>
+                    </li> -->
                 </ul>
             </div>
         </nav>
@@ -76,9 +76,6 @@
                     For example, some websites show miles and price for all BMW M3 and M5. 
                     By collecting all the information, we can see how the market behaves for those specific vehicles.
                 </p>
-                <div>
-                    For BMW M3, we see that the price drop is different. For first 10,000 miles, BMW M3 loses value of $8,000 dollars.
-                </div>
                 <div style="font-size: 30px; padding-top: 5%; padding-bottom: 2%;">
                     By comparing two BMW M3 and M5 side by side..
                 </div>
@@ -125,8 +122,8 @@
                 </table>
                 <div>
                     By looking at those two data table side by side, we can see that BMW M5 tends to depreciate
-                    more than BMW M3. Despite the depreciation for M3 and M5 might be similar from 5000 miles to 10,000 miles,
-                    M5 loses value than M3. Consequently, we can conclude that each vehicle has its own depreciation.
+                    more than BMW M3. Despite the depreciation percentage for M3 and M5 might be similar from 5000 miles to 10,000 miles,
+                    M5 loses value more than M3. Consequently, we can conclude that each vehicle has its own depreciation.
                 </div>
                 <div id="chapter_2" class="display-4" style="text-align: center; padding-top: 5%; padding-bottom: 2%;">
                     Depreciation Line Vs Straight Line</div>
@@ -161,8 +158,8 @@
                 </div>
                 <div style="font-size: 30px;">What is the depreciation line?</div>
                 <p>
-                    As mentioned in <a href="#chapter_1">chapter 1</a> about the depreciation, car value depreciate in faster rate in 
-                    the beginning of usage and slows in depreciation rate as you drive more. Let's draw this depreciation line along with 
+                    As mentioned in <a href="#chapter_1">chapter 1</a> about the depreciation, a car's value depreciates faster in 
+                    the beginning of couple thousand miles and slows in depreciation rate as you drive more. Let's draw this depreciation line along with 
                     the straight line we drawn before in <a href="#chapter_2">chapter 2</a>. If you check the graph above, there are two
                     lines that's been drawn. <a style="color: red">Red line</a> is the straight line that we mentioned as a linear regression
                     model. The <a style="color: steelblue">blue line</a> is a depreciation line. If you look at the depreciation line,
@@ -181,9 +178,9 @@
                 <p>
                     <p>
                         Please remember that these insights are just general theory. There is no evidenence that supports these theories or hypothesis.
-                        These are the below insights that Carconomic believes. Carconomic will talk two different perspectives, consumer and seller.
+                        These are the below insights that Carconomic believes. We will think two different perspectives, a consumer's perspective and seller's perspective.
                     </p>
-                    <img src="photos/Graph_two_pointers.png" style="height: 50%; padding-left: 25%; padding-right: 25%;">
+                    <img src="photos/Graph_two_pointers.png" class="two_pointer_img">
                     <p style="font-size: 25px;">
                         Consumer Insights
                     </p>
@@ -199,11 +196,11 @@
                             </p>
                         </li>
                         <li>
-                            <div style="font-size: 20px;">[Consumer] Avoid any depreciation</div>
+                            <div style="font-size: 20px;">[Consumer] Avoid Any Depreciation</div>
                             <p>
-                                Second point is where <a style="color: steelblue">depreciation line</a> draws becomes linear and draws
+                                <a style="text-decoration: underline; font-weight: 900;">Second Point</a> is where <a style="color: steelblue">depreciation line</a> draws becomes linear and draws
                                 above the <a style="color: red">straight line</a>, this is where consumer will be interested in buying 
-                                a car that has low mileage but could also avoid hard depreciation rate.
+                                a car that will hold its value well. However, starting at second point, there will be maintenance cost coming in.
                             </p>
                         </li>
                     </ul>
@@ -212,21 +209,21 @@
                     </p>
                     <ul>
                         <li>
-                            <div style="font-size: 20px;">[Seller] More buyers at first point</div>
+                            <div style="font-size: 20px;">[Seller] Big Market at First Point</div>
                             <p>
-                                As a seller, the car already tanked the depreciation and lost the money. It's too late as a seller to recover the 
-                                money that it losts from early depreciation. At first point, that's when seller can sell their cars since that's 
-                                where most buyers are looking forward to. It will be easy to sell the car at that first point's price and miles.
-                                Also if you already owned the vehicle before the first point, please try to sell before the first point meets or passes
-                                to avoid losing money from depreication as much as possible.
+                                Assuming you are the owner of the vehicle, the owner probably lost some money due to early depreciation.
+                                It's too late as a seller to recover the money that it losts from early depreciation. At <a style="text-decoration: underline; font-weight: 900;">first point</a>,
+                                sellers can sell their cars due to high demand from buyers. The demand for a car at first point is the highest compare to other mileage.
+                                It will be easy to sell the car at that first point's price and miles. Also if you already owned the vehicle before the first point,
+                                please try to sell before the first point meets or passes to avoid losing money from depreication as much as possible.
                             </p>
                         </li>
                         <li>
                             <div style="font-size: 20px;">[Seller] Avoid maintenance cost</div>
                             <p>
-                                Once the second point comes across, the vehicle pretty much is considered used and going through a phase where
+                                Once the <a style="text-decoration: underline; font-weight: 900;">second point</a> comes across, the vehicle pretty much is considered used and going through a phase where
                                 things are going to break. There is a reason why the depreciation rate slowed down and becomes linear starting
-                                 at that the second point.
+                                at that the second point due to maintenance cost.
                             </p>
                         </li>
                     </ul>

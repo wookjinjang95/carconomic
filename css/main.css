@@ -105,6 +105,12 @@ th {
     padding-left: 22%;
 }
 
+.two_pointer_img {
+    height: 50%;
+    padding-left: 25%;
+    padding-right: 25%;
+}
+
 /* width */
 ::-webkit-scrollbar {
     width: 10px;
