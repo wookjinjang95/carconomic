@@ -1,0 +1,17 @@
+@media only screen and (min-width: 320px) {
+    .tutorial_body_container{
+        padding-left: 2%;
+    }
+    .sidenav {
+        width: 0%;
+    }
+}
+
+@media only screen and (min-width: 1440px) {
+    .tutorial_body_container{
+        padding-left: 22%;
+    }
+    .sidenav {
+        width: 20%;
+    }
+}

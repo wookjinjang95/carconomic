@@ -101,6 +101,10 @@ th {
     margin-right: 10%;
 }
 
+.tutorial_body_container {
+    padding-left: 22%;
+}
+
 /* width */
 ::-webkit-scrollbar {
     width: 10px;

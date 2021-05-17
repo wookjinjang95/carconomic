@@ -35,6 +35,10 @@ function render(data, id_name, width, height, svg_left){
     dep_width = parseInt(width) - margin.left - margin.right,
     dep_height = parseInt(height) - margin.top - margin.bottom
 
+    if(dep_width < 768){
+        dep_width = 768;
+    }
+
     var svgContainer = d3.select(id_name)
     var svg_depreciation = svgContainer
         .attr("class", "graph")
@@ -95,13 +99,14 @@ function render(data, id_name, width, height, svg_left){
         .data(data)
         .enter()
         .append("circle")
-            .attr("r", 3)
+            .attr("r", 5)
             .attr("cx", function(d) { return x(parseInt(d.Miles))})
             .attr("cy", function(d) { return y(parseInt(d.Price))})
             .attr("fill", function(d) {
                 return mapping.get(d.Trim);
             })
             .attr("class", "dot")
+            .style("opacity", "0.8")
         
         .on("mousemove", function(event, d) {
             var border_color = mapping.get(d.Trim)
