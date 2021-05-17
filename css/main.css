@@ -88,28 +88,6 @@ th {
     border: 3px solid #ff9900; 
 }
 
-.faded_background {
-    position: relative; 
-    height: 100vh;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.faded_background::before {
-    background-image: url(../photos/front-cover/tall_building_2.jpeg);
-    content: "";
-    background-size: cover;
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    bottom: 0px;
-    left: 0px;
-    opacity: 0.75;
-    z-index: 0;
-}
-
 .profile_pic {
     width: 100%;
     height: 40%;
