@@ -19,6 +19,7 @@
     background-image: url(../photos/front-cover/Lamborghini-svj-rear.jpeg);
     background-repeat: no-repeat; 
     background-size: cover;
+    min-height: 420px !important;
 }
 
 .front_btn_holder {
