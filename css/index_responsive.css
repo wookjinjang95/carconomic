@@ -48,7 +48,7 @@
     }
     .front_dashboard_btn {
         margin-top: 40px;
-        margin-left: 90px;
+        margin-left: 50%;
         float: left;
         font-size: 15px;
     }
@@ -83,6 +83,10 @@
     }
     .title_background_pic {
         height: 60%;
+    }
+    .front_dashboard_btn {
+        margin-top: 30px;
+        margin-left: 30px;
     }
  }
 
@@ -136,6 +140,7 @@
     .front_dashboard_btn {
         margin-top: 40px;
         margin-left: 90px;
+        font-size: 20px;
         float: left;
     }
     .front_dashboard_container{
