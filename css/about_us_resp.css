@@ -1,0 +1,350 @@
+.our_mission_title{
+    font-weight: 850;
+    margin-left: 40%;
+    color: orangered;
+    font-size: 70px;
+}
+
+.our_mission_title_content {
+    font-weight: 850;
+    color: black;
+    margin-top: 2%;
+    font-size: 30px;
+    padding-bottom: 20px;
+    margin-left: 40%;
+    margin-right: 10%;
+}
+
+.our_mission_title_content i {
+    font-size: 20px;
+}
+
+.our_story_container {
+    top: 85%;
+    background-color: white;
+    width: 80%;
+    margin-left: 10%;
+    padding-bottom: 10%;
+    position: absolute;
+    z-index: 1;
+}
+
+.our_story_content {
+    color: black;
+    margin-top: 2%;
+    font-size: 20px;
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+.our_story_title {
+    font-weight: 850;
+    color: green;
+    margin-left: 15%;
+    padding-top: 10%;
+    font-size: 70px;
+}
+
+.our_member_container {
+    display: inline-block;
+    margin-left: 15%;
+    margin-right: 15%;
+    margin-top: 50%;
+    padding-bottom: 5%;
+}
+
+.our_member_container .title {
+    font-weight: 850;
+    color: black;
+    text-align: center;
+    padding-bottom: 5%;
+    font-size: 60px;
+}
+
+.faded_background {
+    position: relative; 
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.faded_background::before {
+    background-image: url(../photos/front-cover/tall_building_2.jpeg);
+    content: "";
+    background-size: cover;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    opacity: 0.75;
+    z-index: 0;
+}
+
+.profile_name {
+    font-size: 60px;
+    text-align: center;
+    color: black;
+    margin-top: 5%;
+}
+
+.profile_job_title {
+    text-align: center;
+    padding-bottom: 2%;
+}
+
+.profile_col i {
+    text-align: center;
+}
+.profile_email_icon {
+    height: 20px;
+    width: 20px;
+}
+.profile_email {
+    font-size: 20px;
+    color: #4d94ff;
+}
+.why_img {
+    width: 40%;
+    float: left;
+    margin-top: 5%;
+    margin-left: 5%;
+    display: inline-block;
+}
+
+.why_container {
+    margin-left: 5%;
+    display: inline-block;
+    width: 40%;
+}
+.why_container p {
+    color: black;
+    margin-top: 2%;
+    font-size: 20px;
+}
+.data_collection_title {
+    font-weight: 850;
+    padding-top: 5%;
+    color: white;
+    margin-left: 10%;
+    font-size: 40px;
+}
+
+.data_collection_col_title {
+    font-weight: 850;
+    font-size: 30px;
+}
+.data_collection_col_content {
+    font-size: 15px;
+    margin-top: 5%;
+}
+
+@media only screen and (min-width: 320px) {
+    .our_mission_title {
+        margin-left: 20%;
+        font-size: 40px;
+    }
+    .our_mission_title_content {
+        margin-left: 20%;
+        font-size: 20px;
+    }
+    .our_mission_title_content i {
+        font-size: 15px;
+    }
+    .our_story_title {
+        font-size: 40px;
+    }
+    .our_story_content {
+        font-size: 10px;
+    }
+    .our_story_container {
+        margin-left: 15%;
+    }
+    .our_member_container {
+        margin-top: 140%;
+    }
+    .our_member_container .title {
+        font-size: 40px;
+    }
+    .profile_col {
+        width: 43%;
+        float: left;
+        margin-left: 3%;
+        margin-right: 3%;
+    }
+    .profile_pic {
+        width: 100%;
+        height: 15%;
+        border-radius: 200px;
+    }
+    .profile_name {
+        font-size: 10px;
+    }
+    .profile_job_title {
+        font-size: 10px;
+    }
+    .profile_col i {
+        font-size: 10px;
+    }
+    .profile_email_icon {
+        height: 10px;
+        width: 10px;
+    }
+    .profile_email {
+        font-size: 8px;
+        color: #4d94ff;
+    }
+    .why_img {
+        width: 0%;
+    }
+    .why_container {
+        width: 100%;
+    }
+    .why_container p {
+        font-size: 10px;
+        padding-right: 10%;
+    }
+    .data_collection_col_title {
+        font-size: 15px;
+    }
+    .data_collection_col_content {
+        font-size: 10px;
+    }
+}
+
+@media only screen and (min-width: 425px) {
+    .our_member_container {
+        margin-top: 80%;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .our_member_container {
+        margin-top: 40%;
+    }
+    .profile_pic {
+        height: 250px;
+    }
+}
+
+@media only screen and (min-width: 1024px) {
+    .our_story_content {
+        font-size: 15px;
+    }
+    .profile_name {
+        font-size: 15px;
+    }
+    .profile_job_title {
+        font-size: 15px;
+    }
+    .profile_email_icon {
+        height: 15px;
+        width: 15px;
+    }
+    .profile_email {
+        font-size: 15px;
+        color: #4d94ff;
+    }
+    .profile_pic {
+        height: 300px;
+    }
+    .profile_col i {
+        font-size: 15px;
+    }
+    .why_img {
+        width: 40%;
+    }
+    .why_container {
+        width: 40%;
+    }
+    .why_container p {
+        font-size: 20px;
+        padding-right: 10%;
+    }
+    .data_collection_col_title {
+        font-size: 30px;
+    }
+    .data_collection_col_content {
+        font-size: 20px;
+    }
+}
+
+@media only screen and (min-width: 1440px) {
+    .our_mission_title {
+        margin-left: 40%;
+        font-size: 70px;
+    }
+    .our_mission_title_content {
+        margin-left: 40%;
+        font-size: 30px;
+    }
+
+    .our_mission_title_content i {
+        font-size: 20px;
+    }
+    .our_story_title {
+        font-size: 70px;
+    }
+    .our_story_content {
+        font-size: 20px;
+    }
+    .our_member_container {
+        margin-top: 50%;
+    }
+    .our_story_container {
+        margin-left: 10%;
+    }
+    .our_member_container .title {
+        font-size: 60px;
+    }
+    .profile_col {
+        width: 30%;
+        float: left;
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+    .profile_pic {
+        width: 100%;
+        height: 300px;
+        border-radius: 200px;
+    }
+    .profile_name {
+        font-size: 30px;
+    }
+    .profile_job_title {
+        font-size: 20px;
+    }
+    .profile_col i {
+        font-size: 15px;
+    }
+    .profile_email_icon {
+        height: 20px;
+        width: 20px;
+    }
+    .profile_email {
+        font-size: 20px;
+        color: #4d94ff;
+    }
+    .why_img {
+        width: 40%;
+    }
+    .why_container {
+        width: 40%;
+    }
+    .why_container p {
+        font-size: 20px;
+        padding-right: 10%;
+    }
+    .data_collection_col_title {
+        font-size: 30px;
+    }
+    .data_collection_col_content {
+        font-size: 20px;
+    }
+}
+
+@media only screen and (min-width: 2560px) {
+
+}
