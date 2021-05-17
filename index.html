@@ -5,7 +5,12 @@
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Titillium+Web&display=swap" rel="stylesheet">
         <!-- Below is the bootstrap tool-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+        <!-- End of Bootstrap tool -->
         <link rel="stylesheet" href="css/main.css">
         <link rel="stylesheet" href="css/index.css">
         <link rel="stylesheet" href="css/index_responsive.css">
@@ -17,23 +22,26 @@
                 <img src="photos/icon/AIFA_icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
                 Carconomic
             </a>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                  <li class="nav-item active">
-                    <a class="nav-link" style="margin-right: 15px;" href="index.html">Home</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" style="margin-right: 15px;" href="product.html">Dashboard</a>
-                  </li>
-                  <li>
-                      <a class="nav-link" style="margin-right: 15px;" href="tutorial.html">Tutorial</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" style="margin-right: 15px;" href="about_us.html">About Us</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" style="margin-right: 15px;" href="#">Blog (Coming Soon)</a>
-                </li>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsed_menu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="collapsed_menu">
+                <ul class="nav navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" style="margin-right: 15px;" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="margin-right: 15px;" href="product.html">Dashboard</a>
+                    </li>
+                    <li>
+                        <a class="nav-link" style="margin-right: 15px;" href="tutorial.html">Tutorial</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="margin-right: 15px;" href="about_us.html">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="margin-right: 15px;" href="#">Blog (Coming Soon)</a>
+                    </li>
                 </ul>
             </div>
         </nav>
