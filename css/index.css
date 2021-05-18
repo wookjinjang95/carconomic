@@ -28,6 +28,28 @@
     font-size: 20px;
 }
 
+.purchase_smartly_title {
+    color: #c44dff;
+    text-align: center;
+    margin-top: 10%;
+    font-weight: 850;
+    font-size: 60px;
+}
+
+.purchase_smartly_first_content {
+    text-align: center;
+    margin-left: 15%;
+    margin-right: 15%;
+    font-size: 40px;
+}
+.purchase_smartly_second_content {
+    margin-top: 30px;
+    font-size: 20px; 
+    text-align: center; 
+    color: grey; 
+    margin-left: 20%; 
+    margin-right: 20%;
+}
 .front_data_image {
     float: left;
 }

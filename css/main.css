@@ -49,6 +49,7 @@ th {
     color: white;
     background-color: orangered;
     border: 3px solid orangered;
+    text-decoration: none;
 }
 
 .learn_more {
@@ -68,6 +69,7 @@ th {
     background-color: #8011b8;
     border: 3px solid #8011b8;
     color: white;
+    text-decoration: none;
 }
 
 .tutorial_btn {

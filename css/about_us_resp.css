@@ -346,5 +346,26 @@
 }
 
 @media only screen and (min-width: 2560px) {
-
+    .our_member_container {
+        margin-top: 30%;
+    }
+    .our_member_container .title {
+        font-size: 80px;
+    }
+    .profile_pic {
+        width: 90%;
+        height: 400px;
+    }
+    .profile_name {
+        font-size: 50px;
+    }
+    .profile_job_title {
+        font-size: 40px;
+    }
+    .profile_col i {
+        font-size: 20px;
+    }
+    .profile_email {
+        font-size: 20px;
+    }
 }
