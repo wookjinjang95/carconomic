@@ -7,6 +7,15 @@
         font-size: 30px;
         width: 80%;
     }
+    .purchase_smartly_title {
+        font-size: 30px;
+    }
+    .purchase_smartly_first_content {
+        font-size: 15px;
+    }
+    .purchase_smartly_second_content {
+        font-size: 10px;
+    }
     .title_container {
         padding-top: 30%;
     }
@@ -25,7 +34,7 @@
         margin-top: 20%;
     }
     .front_data_content {
-        font-size: 15px;
+        font-size: 12px;
     }
     .front_data_content_container{
         width: 60%;
@@ -41,7 +50,7 @@
     }
     .front_dashboard_content {
         margin-top: 10px;
-        font-size: 12px;
+        font-size: 10px;
         padding-left: 35px;
         width: 55%;
         float: left;
@@ -71,6 +80,28 @@
         font-size: 20px;
         font-weight: 750;
     }
+    .learn_more {
+        font-size: 12px;
+    }
+}
+
+@media only screen and (min-width: 425px){
+    .purchase_smartly_title {
+        font-size: 30px;
+    }
+    .purchase_smartly_first_content {
+        font-size: 20px;
+    }
+    .purchase_smartly_second_content {
+        font-size: 15px;
+    }
+    .learn_more {
+        font-size: 15px;
+    }
+    .front_dashboard_btn {
+        margin-top: 10px;
+        margin-left: 40px;
+    }
 }
 
 @media only screen and (min-width: 768px) {
@@ -88,6 +119,9 @@
         margin-top: 30px;
         margin-left: 30px;
     }
+    .front_dashboard_title {
+        margin-left: 5%;
+    }
  }
 
  @media only screen and (min-width: 1024px) {
@@ -102,6 +136,15 @@
         height: 100vh;
     }
     .front_btn_holder {
+        font-size: 20px;
+    }
+    .purchase_smartly_title {
+        font-size: 50px;
+    }
+    .purchase_smartly_first_content {
+        font-size: 30px;
+    }
+    .purchase_smartly_second_content {
         font-size: 20px;
     }
     .front_data_content_container{
@@ -132,7 +175,7 @@
     }
     .front_dashboard_content {
         margin-top: 20px;
-        font-size: 20px;
+        font-size: 15px;
         width: 40%;
         padding-left: 90px;
         float: left;
@@ -163,12 +206,18 @@
     .learn_more {
         font-size: 20px;
     }
+    .purchase_smartly_title {
+        font-size: 60px;
+    }
     .front_data_title {
         font-size: 60px;
     }
     .front_dashboard_title {
         margin-top: 30px;
         font-size: 60px;
+    }
+    .front_dashboard_content {
+        font-size: 20px;
     }
     .front_dashboard_btn {
         font-size: 20px;
@@ -186,6 +235,9 @@
     .front_tutorial_btn {
         font-size: 25px;
     }
+    .learn_more {
+        font-size: 25px;
+    }
  }
 
  @media only screen and (min-width: 2560px){
@@ -200,6 +252,7 @@
         font-size: 40px;
     }
     .front_data_title {
+        margin-top: 40%;
         font-size: 100px;
     }
     .front_data_content{
@@ -229,5 +282,16 @@
     .front_tutorial_btn {
         margin-top: 3%;
         font-size: 40px;
+    }
+    .purchase_smartly_title {
+        font-size: 100px;
+    }
+    .purchase_smartly_first_content {
+        font-size: 60px;
+    }
+    .purchase_smartly_second_content {
+        font-size: 40px;
+        margin-left: 10%;
+        margin-right: 10%;
     }
  }

@@ -7,7 +7,9 @@ function alert_no_data(){
         if(!response.ok){
             alert("No data available for " + make + " " + model);
         }else{
-            get_global_regression_for_all(file_location)
+            (async function(){
+                await get_global_regression_for_all(file_location);
+            })();
             update_miles_vs_price(file_location);
             update_side_trim_bars(file_location);
             update_cost_analysis(file_location);
