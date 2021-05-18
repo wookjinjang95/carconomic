@@ -18,6 +18,9 @@
         width: 100%;
         margin-left: 0px;
     }
+    .warning {
+        font-size: 8px;
+    }
 }
 
 @media only screen and (min-width: 768px){
@@ -31,6 +34,9 @@
         float: right;
         width: 15%;
         margin-top: 0%;
+    }
+    .warning {
+        font-size: 10px;
     }
 }
 
@@ -54,5 +60,8 @@
     }
     .mile_display{
         width: 29%;
+    }
+    .warning {
+        font-size: 10px;
     }
 }

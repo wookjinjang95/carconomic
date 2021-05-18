@@ -706,7 +706,7 @@ function update_cost_analysis(file_location){
         var x = d3.scaleLinear().domain([0, max_x]).range([0, c_dep_width]);
         (async function(){
             var new_data, cost_max, cost_min = await calculate_cost(global_regression, x);
-        })()
+        })();
 
         var y = d3.scaleLinear().domain([cost_min, cost_max]).range([c_dep_height - margin.top - margin.bottom, 0]);
 
