@@ -107,5 +107,49 @@
           </div>
         </div>
         <script src="js/general_graph.js"></script>
+        <script>
+          window.onload = function(){
+            var make = sessionStorage.getItem("make");
+            if(make){
+              $('#make').val(make);
+            }
+        
+            var model = sessionStorage.getItem("model");
+            (async function(){
+                await update_model_list();
+            })();
+            if(model){
+              $("#model").val(model);
+            }
+
+            var year = sessionStorage.getItem("year");
+            (async function(){
+                await update_year_selection();
+            })();
+            if(year){
+              $("#year").val(year);
+            }
+            alert_no_data();
+          };
+
+          $('#make').change(function() { 
+            sessionStorage.setItem("make", $(this).val());
+          });
+          $('#model').change(function() { 
+            sessionStorage.setItem("model", $(this).val());
+          });
+          $('#year').change(function() { 
+            sessionStorage.setItem("year", $(this).val());
+          });
+          
+
+          // var model = $('#model').val();
+          // sessionStorage.setItem("model", model);
+
+          // var year = $('#year').val();
+          // sessionStorage.setItem("year", year);
+
+          console.log(sessionStorage);
+        </script>
     </body>
 </html>

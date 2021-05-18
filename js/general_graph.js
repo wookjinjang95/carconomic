@@ -41,7 +41,7 @@ async function get_global_regression_for_all(file_location){
     });
 }
 
-async function update_model_list(){
+function update_model_list(){
     var make = document.getElementById('make').value;
     var data = undefined;
     if(make == "tesla"){
@@ -82,10 +82,12 @@ async function update_model_list(){
             })
             .attr("value", function(d){
                 return d;
-            })
+            });
+    
+    sessionStorage.setItem("model", $("#model").val());
 }
 
-async function update_year_selection(){
+function update_year_selection(){
     var make = document.getElementById('make').value;
     var model = document.getElementById('model').value;
     var file_location = github_url + make + "/" + model + ".csv";
@@ -105,6 +107,8 @@ async function update_year_selection(){
                     return d;
                 })
     });
+
+    // sessionStorage.setItem("year", $("#year").val());
 }
 
 function get_certain_points(miles, equation) {
@@ -800,9 +804,6 @@ function update_cost_analysis(file_location){
     });
 }
 
-//Things that need first
-update_model_list();
-
 function update_search_selection(){
     update_model_list();
     update_year_selection();
@@ -958,10 +959,9 @@ var github_url = "data/";
 var file_location = github_url + make + "/" + model + ".csv";
 var maintenance_file_loation = github_url +"maintenance_data/" + make + "_" + model + "/report.csv";
 
-get_global_regression_for_all(file_location);
-update_miles_vs_price(file_location);
-update_year_selection();
-update_side_trim_bars(file_location);
-update_cost_analysis(file_location);
-// update_maintenance_bar_graph(maintenance_file_loation);
-add_raw_data_table(".raw_data_table_container", file_location);
+// get_global_regression_for_all(file_location);
+// update_miles_vs_price(file_location);
+// update_side_trim_bars(file_location);
+// update_cost_analysis(file_location);
+// // update_maintenance_bar_graph(maintenance_file_loation);
+// add_raw_data_table(".raw_data_table_container", file_location);
