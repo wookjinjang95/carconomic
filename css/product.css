@@ -4,6 +4,11 @@
     margin-right: 3%;
 }
 
+.warning {
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
 .dash_graph {
     float: left;
     padding-bottom: 10px;

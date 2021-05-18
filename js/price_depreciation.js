@@ -14,6 +14,7 @@ function get_unique_year(data){
 }
 
 function look_for_y_value_from_log(log_equation, x_value){
+    // console.log(log_equation);
     for(var i = 0; i < log_equation.points.length; i++){
         if(log_equation.points[i][0] == x_value){
             return log_equation.points[i][1];
