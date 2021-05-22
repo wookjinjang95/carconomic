@@ -1,0 +1,425 @@
+@import "slideshow_utils.css";
+
+@media only screen and (min-width: 320px) {
+    #slide_1 {
+        height: 50%;
+    }
+    #slide_1 .title {
+        font-size: 20px;
+    }
+    .wordCarousel {
+        font-size: 30px;
+    }
+    .wordCarousel div {
+        float: left;
+        margin-left: -28px;
+    }
+    .dashboard_content {
+        width: 100%;
+        padding-right: 10%;
+    } 
+    .check_dashboard_btn {
+        font-size: 8px;
+    }
+    #slide_3 {
+        height: 70%;
+    }
+    #slide_3 img {
+        width: 0;
+        height: 0;
+    }
+    #slide_3 .title {
+        float: left;
+        font-size: 40px;
+        margin-left: 15%;
+    }
+    #slide_3 p {
+        float: left;
+        text-align: center;
+        width: 90%;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    #slide_3 a {
+        float: left;
+        margin-left: 28%;
+    }
+    #slide_4 .title {
+        font-size: 30px;
+    }
+    #slide_4 {
+        height: 70%;
+    }
+    #slide_4 p {
+        width: 80%;
+        font-size: 12px;
+    }
+    #slide_4 a {
+        font-size: 10px;
+    }
+    .bubble {
+        display: none;
+    }
+    .bubble_2 {
+        display: none;
+    }
+}
+@media only screen and (min-width: 425px) {
+    #slide_1 {
+        height: 50%;
+    }
+    #slide_1 .title {
+        font-size: 20px;
+    }
+    .wordCarousel {
+        font-size: 40px;
+    }
+    .wordCarousel div {
+        float: left;
+        margin-left: -28px;
+    }
+    .dashboard_content {
+        width: 100%;
+        padding-right: 10%;
+    } 
+    .check_dashboard_btn {
+        font-size: 14px;
+    }
+    #slide_3 {
+        height: 70%;
+    }
+    #slide_3 img {
+        width: 0;
+        height: 0;
+    }
+    #slide_3 .title {
+        float: left;
+        font-size: 40px;
+        margin-left: 22%;
+    }
+    #slide_3 p {
+        float: left;
+        text-align: center;
+        width: 90%;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    #slide_3 a {
+        float: left;
+        margin-left: 34%;
+    }
+    #slide_4 .title {
+        font-size: 40px;
+    }
+    #slide_4 {
+        height: 80%;
+    }
+    #slide_4 p {
+        width: 80%;
+        font-size: 12px;
+    }
+    #slide_4 a {
+        font-size: 12px;
+    }
+    .bubble {
+        display: none;
+    }
+    .bubble_2 {
+        display: none;
+    }
+}
+@media only screen and (min-width: 768px) {
+    #slide_1 {
+        height: 100%;
+    }
+    .dashboard_content {
+        /* fix here also */
+    }
+    .check_dashboard_btn {
+        /* fix here also */
+    }
+    #slide_1 .title {
+        font-size: 40px;
+        padding-right: 40%;
+    }
+    #slide_1 a {
+        margin-top: 15%;
+    }
+    .wordCarousel div {
+        float: left;
+        margin-left: -24px;
+    }
+    #slide_3 {
+        margin-top: 12.5%;
+        height: 100%;
+    }
+    #slide_3 .title {
+        margin-top: 25%;
+        font-size: 40px;
+        float: right;
+        margin-left: 0%;
+    }
+    #slide_3 p {
+        width: 50%;
+        float: right;
+        text-align: right;
+        margin-top: 3%;
+        margin-right: 3%;
+        margin-left: 0px;
+    }
+    #slide_3 img {
+        width: 40%;
+        height: 50%;
+        margin-top: 20%;
+    }
+    #slide_3 a {
+        float: right;
+        margin-left: none;
+    }
+    #slide_4 .title{
+        font-size: 50px;
+    }
+    #slide_4 p {
+        width: 40%;
+        font-size: 12px;
+    }
+    .bubble {
+        height: 15%;
+        width: 35%;
+        display: block;
+        margin-top: -20%;
+    }
+    .bubble p {
+        font-size: 8px;
+        float: left;
+        text-align: left;
+        margin-right: 0%;
+    }
+    .bubble i {
+        font-size: 5px;
+        margin-top: -3%;
+    }
+    .bubble_2 {
+        width: 35%;
+        height: 15%;
+        left: 63%;
+        top: 325%;
+        display: block;
+    }
+    .bubble_2 p {
+        margin-left: 0%;
+        padding-bottom: -2px;
+    }
+    .bubble_2 i {
+        font-size: 6px;
+        margin-top: -12px;
+    }
+    .bubble_2 img {
+        margin-top: -22%;
+    }
+}
+@media only screen and (min-width: 1024px) {
+    #slide_1 .title {
+        font-size: 40px;
+    }
+    .wordCarousel div {
+        float: right;
+        margin-left: -22px;
+    }
+    #slide_3 {
+        margin-top: 22%;
+    }
+    #slide_4 {
+        height: 100%;
+    }
+    .bubble{
+        top: 330%;
+        width: 40%;
+        margin-top: -5%;
+        margin-left: -10%;
+    }
+    .bubble p {
+        font-size: 10px;
+        text-align: left;
+        float: left;
+    }
+    .bubble i {
+        font-size: 10px;
+        float: left;
+    }
+    .bubble_2 {
+        top: 345%;
+        width: 40%;
+        left: 58%;
+    }
+    .bubble_2 i {
+        font-size: 8px;
+    }
+    .bubble_2 img {
+        margin-top: -11.5%;
+    }
+}
+@media only screen and (min-width: 1440px) {
+    #slide_1 .title {
+        font-size: 50px;
+        padding-right: 55%;
+    }
+    #slide_1 a {
+        margin-top: 5%;
+        font-size: 15px;
+    }
+    .wordCarousel {
+        padding-top: 18%;
+        padding-left: 10%;
+        font-size: 60px;
+        font-weight: 850;
+        color: black;
+        float: left;
+    }
+    .wordCarousel div {
+        overflow: hidden;
+        position: relative;
+        float: right;
+        height: 100px;
+        padding-top: 10px;
+        margin-top: -10px;
+    }
+    .dashboard_content {
+        color: white;
+        float: left;
+        padding-left: 10%;
+        width: 70%;
+    }
+    #slide_3 {
+        margin-top: 17.8%
+    }
+    #slide_3 p {
+        width: 40%;
+    }
+    #slide_3 .title {
+        font-size: 70px;
+        margin-top: 15%;
+    }
+    #slide_3 img {
+        width: 50%;
+        height: 65%;
+        margin-top: 10%;
+    }
+    .bubble {
+        width: 30%;
+        height: 20%;
+        left: 65%;
+        top: 340%;
+    }
+    .bubble p {
+        font-size: 12px;
+    }
+    .bubble i {
+        font-size: 12px;
+        margin-top: 0%;
+        margin-left: 3%;
+    }
+    .bubble_2 {
+        width: 30%;
+        height: 20%;
+        left: 65%;
+        top: 360%;
+    }
+    .bubble_2 p {
+        font-size: 12px;
+    }
+    .bubble_2 i {
+        font-size: 10px;
+    }
+    .bubble_2 img {
+        margin-top: -11%;
+    }
+    #slide_4 .title {
+        font-size: 70px;
+    }
+    #slide_4 p {
+        margin-left: 5%;
+        margin-top: 3%;
+        width: 50%;
+        font-size: 15px;
+    }
+    #slide_4 a {
+        font-size: 15px;
+    }
+}
+@media only screen and (min-width: 2560px) {
+    #slide_1 .title {
+        font-size: 80px;
+        padding-right: 60vw;
+    }
+    #slide_1 a {
+        font-size: 30px;
+        border-radius: 50px;
+    }
+    .wordCarousel {
+        font-size: 100px;
+    }
+    .wordCarousel div {
+        margin-top: -10px;
+        height: 110px;
+    }
+    .wordCarousel li {
+        height: 120px;
+    }
+    @keyframes flip4 {
+        0% { margin-top: -480px; }
+        5% { margin-top: -320px; }
+        25% { margin-top: -320px; }
+        30% { margin-top: -160px; }
+        50% { margin-top: -160px; }
+        55% { margin-top: 0px; }
+        75% { margin-top: 0px; }
+        80% { margin-top: -480px; }
+        99.99% { margin-top: -480px; }
+        100% { margin-top: -480px; }
+    }
+    .dashboard_content {
+        font-size: 25px;
+    }
+    .check_dashboard_btn {
+        border-radius: 40px;
+        font-size: 30px;
+        padding: 16px 16px 16px 16px;
+    }
+    #slide_3 .title {
+        font-size: 120px;
+    }
+    #slide_3 p {
+        font-size: 25px;
+    }
+    #slide_3 a {
+        font-size: 30px;
+        border-radius: 40px;
+    }
+    #slide_4 .title {
+        font-size: 120px;
+    }
+    #slide_4 p {
+        font-size: 30px;
+    }
+    #slide_4 a {
+        font-size: 30px;
+        border-radius: 35px;
+    }
+    .bubble {
+        top: 320%;
+    }
+    .bubble p{
+        font-size: 18px;
+    }
+    .bubble i {
+        font-size: 17px;
+    }
+    .bubble_2 {
+        top: 340%;
+    }
+    .bubble_2 i {
+        font-size: 17px;
+        margin-top: 3%;
+    }
+}
