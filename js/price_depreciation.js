@@ -7,14 +7,16 @@ function get_unique_year(data){
     var unique_years = ["all"]
     for(var i = 0; i < data.length; i++){
         if(!unique_years.includes(data[i].Year)){
-            unique_years.push(data[i].Year)
+            unique_years.push(data[i].Year);
         }
     }
+    unique_years.sort( function(a,b){
+        return a - b;
+    })
     return unique_years;
 }
 
 function look_for_y_value_from_log(log_equation, x_value){
-    // console.log(log_equation);
     for(var i = 0; i < log_equation.points.length; i++){
         if(log_equation.points[i][0] == x_value){
             return log_equation.points[i][1];
