@@ -69,6 +69,11 @@ function update_model_list(){
             "720s"
         ]
     }
+    if(make == "porsche"){
+        data = [
+            "911", "718_boxster"
+        ]
+    }
 
     var dropdown = d3.select("#model");
     dropdown.selectAll("option").remove().exit();
