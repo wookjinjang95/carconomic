@@ -16,14 +16,6 @@ function get_unique_year(data){
     return unique_years;
 }
 
-function look_for_y_value_from_log(log_equation, x_value){
-    for(var i = 0; i < log_equation.points.length; i++){
-        if(log_equation.points[i][0] == x_value){
-            return log_equation.points[i][1];
-        }
-    }
-}
-
 //note that when you are selectall, you have to pass the entire array
 function render(data, id_name, width, height, svg_left){
     //creating the object for return object.

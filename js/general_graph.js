@@ -1,4 +1,4 @@
-function alert_no_data(){
+async function alert_no_data(){
     var make = document.getElementById('make').value;
     var model = document.getElementById('model').value;
     var file_location = github_url + make + "/" + model + ".csv";
@@ -9,11 +9,11 @@ function alert_no_data(){
         }else{
             (async function(){
                 await get_global_regression_for_all(file_location);
+                update_miles_vs_price(file_location);
+                update_side_trim_bars(file_location);
+                update_cost_analysis(file_location);
+                add_raw_data_table(".raw_data_table_container", file_location);
             })();
-            update_miles_vs_price(file_location);
-            update_side_trim_bars(file_location);
-            update_cost_analysis(file_location);
-            add_raw_data_table(".raw_data_table_container", file_location);
         }
     });
 }
@@ -28,17 +28,39 @@ function filter_data_by_trim(data, trim){
     return filtered_data;
 }
 
+function look_for_y_value_from_log(log_equation, x_value){
+    try{
+        for(var i = 0; i < log_equation.points.length; i++){
+            if(log_equation.points[i][0] == x_value){
+                return log_equation.points[i][1];
+            }
+        }
+    } catch (err){
+        console.log(err);
+        console.log(log_equation);
+    }
+}
+
 async function get_global_regression_for_all(file_location){
     global_regression = {};
-    d3.csv(file_location).then(function(data){
-        unique_trims = get_unique_trims(data);
-        for(var i = 0; i < unique_trims.length; i++){
-            filtered_trim_data = filter_data_by_trim(data, unique_trims[i]);
-            new_data = filtered_trim_data.map(d => [parseInt(d.Miles), parseInt(d.Price)]);
-            regression_line = logarithmic(new_data);
-            global_regression[unique_trims[i]] = regression_line
-        }
-    });
+    var data = await d3.csv(file_location);
+    unique_trims = await get_unique_trims(data);
+    for(var i = 0; i < unique_trims.length; i++){
+        filtered_trim_data = filter_data_by_trim(data, unique_trims[i]);
+        new_data = filtered_trim_data.map(d => [parseInt(d.Miles), parseInt(d.Price)]);
+        regression_line = logarithmic(new_data);
+        global_regression[unique_trims[i]] = regression_line
+    }
+    // d3.csv(file_location).then(function(data){
+    //     unique_trims = get_unique_trims(data);
+    //     for(var i = 0; i < unique_trims.length; i++){
+    //         filtered_trim_data = filter_data_by_trim(data, unique_trims[i]);
+    //         new_data = filtered_trim_data.map(d => [parseInt(d.Miles), parseInt(d.Price)]);
+    //         regression_line = logarithmic(new_data);
+    //         global_regression[unique_trims[i]] = regression_line
+    //     }
+    // });
+    // return global_regression;
 }
 
 function update_model_list(){
@@ -112,8 +134,6 @@ function update_year_selection(){
                     return d;
                 })
     });
-
-    // sessionStorage.setItem("year", $("#year").val());
 }
 
 function get_certain_points(miles, equation) {
@@ -471,6 +491,9 @@ function update_miles_vs_price(file_location, color_mapping, trim, move=false){
 }
 
 function add_raw_data_table(id, file_location){
+    if(global_regression == "undefined"){
+        console.log("Waiting 3 seconds for the result");
+    }
     d3.csv(file_location).then(function(data){
         //adding the title
         var make = document.getElementById('make').value;
@@ -480,9 +503,7 @@ function add_raw_data_table(id, file_location){
 
         //adding the regression value data
         for(var i = 0; i < data.length; i++){
-            y_value = look_for_y_value_from_log(
-                global_regression[data[i].Trim], data[i].Miles
-            )
+            y_value = look_for_y_value_from_log(global_regression[data[i].Trim], data[i].Miles)
             if(isNaN(y_value)){
                 data[i]['Expected Price'] = "N/A";
                 data[i]['Difference'] = "N/A";
