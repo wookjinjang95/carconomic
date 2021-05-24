@@ -254,9 +254,11 @@ class CarFaxScraper:
             trims = self.carfax.find_elements_by_xpath("//span[contains(@id, 'trimFilter_')][contains(@class, 'srp-filter--fancyCbx')]")
             if trim:
                 #get that trim only
+                filtered_list = []
                 for each_trim in trims:
-                    if each_trim.get_attribute('id') == trim:
-                        return [each_trim]
+                    if trim in each_trim.get_attribute('id'):
+                        filtered_list.append(each_trim)
+                return filtered_list
             return trims
         else:
             print("There is no trim level for this search.. Skipping trim section")
