@@ -1,7 +1,7 @@
 # #Tesla Data Scraping
-python3 miles_and_price.py -z 91214 -m 'Model X' -ma Tesla -f ../data/tesla/model_x.csv
-python3 miles_and_price.py -z 91214 -m 'Model S' -ma Tesla -f ../data/tesla/model_s.csv
-python3 miles_and_price.py -z 91214 -m 'Model 3' -ma Tesla -f ../data/tesla/model_3.csv
+# python3 miles_and_price.py -z 91214 -m 'Model X' -ma Tesla -f ../data/tesla/model_x.csv
+# python3 miles_and_price.py -z 91214 -m 'Model S' -ma Tesla -f ../data/tesla/model_s.csv
+# python3 miles_and_price.py -z 91214 -m 'Model 3' -ma Tesla -f ../data/tesla/model_3.csv
 
 # #Porsche Data Scraping
 # echo "##### Porsche ######"
@@ -27,3 +27,4 @@ python3 miles_and_price.py -z 91214 -m 'Model 3' -ma Tesla -f ../data/tesla/mode
 # python3 miles_and_price.py -z 91214 -m 'M3' -ma BMW -f ../data/bmw/m3.csv
 # python3 miles_and_price.py -z 91214 -m 'M4' -ma BMW -f ../data/bmw/m4.csv
 # python3 miles_and_price.py -z 91214 -m 'M5' -ma BMW -f ../data/bmw/m5.csv
+python3 miles_and_price.py -z 91214 -m '3 Series' -ma BMW -f ../data/bmw/m340i.csv -t "M340i"
