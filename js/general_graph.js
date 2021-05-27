@@ -51,17 +51,9 @@ async function get_global_regression_for_all(file_location){
         regression_line = logarithmic(new_data);
         global_regression[unique_trims[i]] = regression_line
     }
-    // d3.csv(file_location).then(function(data){
-    //     unique_trims = get_unique_trims(data);
-    //     for(var i = 0; i < unique_trims.length; i++){
-    //         filtered_trim_data = filter_data_by_trim(data, unique_trims[i]);
-    //         new_data = filtered_trim_data.map(d => [parseInt(d.Miles), parseInt(d.Price)]);
-    //         regression_line = logarithmic(new_data);
-    //         global_regression[unique_trims[i]] = regression_line
-    //     }
-    // });
-    // return global_regression;
 }
+
+
 
 function update_model_list(){
     var make = document.getElementById('make').value;
