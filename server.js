@@ -8,7 +8,3 @@ app.use(express.static(dir));
 console.log(dir)
 
 app.listen(8080, () => console.log('Listening on http://localhost:8080/'));
-
-var fs = require('fs');
-const files = fs.readdirSync('data/tesla/');
-console.log(files);

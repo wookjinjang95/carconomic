@@ -108,52 +108,110 @@ class CarFaxScraper:
         self.carfax.execute_script("arguments[0].click();", search_button)
         time.sleep(2)
     
+    def old_method_get_miles_and_prices_and_year(self, trim):
+        #getting the price objects
+        prices = self.carfax.find_elements_by_xpath(
+            "//span[contains(text(), '$')][contains(@class, 'srp-list-item-price')] | \
+            //span[contains(text(), 'Call for Price')][contains(@class, 'srp-list-item-price')] | \
+            //span[contains(text(), 'Request Quote')][contains(@class, 'srp-list-item-price')]")
+
+        #getting the mile objects
+        miles = self.carfax.find_elements_by_xpath("//span[contains(text(), 'miles')][contains(@class, 'srp-list-item-basic-info')]")
+
+        #getting the year objects
+        years = self.carfax.find_elements_by_xpath("//h4[contains(@class, 'srp-list-item-basic-info-model')]")
+
+        #getting vin numbers
+        vins = self.carfax.find_elements_by_xpath("//article[contains(@id, 'listing')]")
+
+        #getting location
+        # import pdb; pdb.set_trace()
+        # cities = states = []
+        # locations = self.carfax.find_elements_by_xpath("//div[contains(@class, 'srp-list-item-dealership-location')]")
+        # for location in locations:
+        #     location_text = location.find_element_by_xpath(".//span").text
+        #     location_text = location_text.split(",")
+        #     city = location_text[0]
+        #     state = location_text[1].split(" ")[0]
+
+        if len(prices) != len(miles) != len(years) != len(vins):
+            #Logging error that the length is not equal
+            print("The length of prices: {} and miles: {} and years {}".format(
+                len(prices), len(miles), len(years))
+            )
+            raise Exception("Both data in prices and miles length does not match")
+
+        for each_price, each_mile, each_year, each_vin in zip(prices, miles, years, vins):
+            tmp_dict = {}
+            price = GeneralUtils.getonly_numbers(each_price.text)
+            mile = GeneralUtils.getonly_numbers(each_mile.text)
+            year = (each_year.text).split(" ")[0]
+            vin = each_vin.get_attribute("data-vin")
+            tmp_dict['Price'] = price
+            tmp_dict['Miles'] = mile
+            tmp_dict['Trim'] = trim
+            tmp_dict['Year'] = year
+            tmp_dict['Vin'] = vin
+            self.data.append(tmp_dict)
+
+    
     def get_miles_and_prices_and_year(self, trim):
         #TODO: Currently the miles are not grepping well. Requires miles to grep well that's consider N/A
-            #getting the price objects
-            prices = self.carfax.find_elements_by_xpath(
-                "//span[contains(text(), '$')][contains(@class, 'srp-list-item-price')] | \
-                //span[contains(text(), 'Call for Price')][contains(@class, 'srp-list-item-price')] | \
-                //span[contains(text(), 'Request Quote')][contains(@class, 'srp-list-item-price')]")
+        result_boxes = self.carfax.find_elements_by_xpath("//article[contains(@class, 'srp-list-item')]")
 
-            #getting the mile objects
-            miles = self.carfax.find_elements_by_xpath("//span[contains(text(), 'miles')][contains(@class, 'srp-list-item-basic-info')]")
+        prices = []
+        years = []
+        vins = []
+        miles = []
+        cities = []
+        states = []
 
-            #getting the year objects
-            years = self.carfax.find_elements_by_xpath("//h4[contains(@class, 'srp-list-item-basic-info-model')]")
+        for each_box in result_boxes:
+            price = each_box.find_elements_by_xpath(
+                ".//span[contains(text(), '$')][contains(@class, 'srp-list-item-price')] | \
+                .//span[contains(text(), 'Call for Price')][contains(@class, 'srp-list-item-price')] | \
+                .//span[contains(text(), 'Request Quote')][contains(@class, 'srp-list-item-price')]")[0]
+            
+            mile = each_box.find_elements_by_xpath(".//span[contains(text(), 'miles')][contains(@class, 'srp-list-item-basic-info')]")[0]
+            year = each_box.find_elements_by_xpath(
+                ".//h4[contains(@class, 'srp-list-item-basic-info-model')]"
+            )[0]
+            vin = each_box.get_attribute("data-vin")
+            location = each_box.find_elements_by_xpath(".//div[contains(@class, 'srp-list-item-dealership-location')]")
+            
+            if not location:
+                cities.append("N/A")
+                states.append("N/A")
+            else:
+                location_text = location[0].find_element_by_xpath(".//span").text
+                location_text = location_text.split(",")
+                cities.append(location_text[0])
+                states.append(location_text[1].split(" ")[0])
 
-            #getting vin numbers
-            vins = self.carfax.find_elements_by_xpath("//article[contains(@id, 'listing')]")
+            prices.append(GeneralUtils.getonly_numbers(price.text))
+            miles.append(GeneralUtils.getonly_numbers(mile.text))
+            years.append(
+                (year.text).split(" ")[0]
+            )
+            vins.append(vin)
 
-            #getting location
-            # import pdb; pdb.set_trace()
-            # cities = states = []
-            # locations = self.carfax.find_elements_by_xpath("//div[contains(@class, 'srp-list-item-dealership-location')]")
-            # for location in locations:
-            #     location_text = location.find_element_by_xpath(".//span").text
-            #     location_text = location_text.split(",")
-            #     city = location_text[0]
-            #     state = location_text[1].split(" ")[0]
+        if len(prices) != len(miles) != len(years) != len(vins) != len(cities) != len(states):
+            #Logging error that the length is not equal
+            print("The length of prices: {} and miles: {} and years {}".format(
+                len(prices), len(miles), len(years))
+            )
+            raise Exception("Both data in prices and miles length does not match")
 
-            if len(prices) != len(miles) != len(years) != len(vins):
-                #Logging error that the length is not equal
-                print("The length of prices: {} and miles: {} and years {}".format(
-                    len(prices), len(miles), len(years))
-                )
-                raise Exception("Both data in prices and miles length does not match")
-
-            for each_price, each_mile, each_year, each_vin in zip(prices, miles, years, vins):
-                tmp_dict = {}
-                price = GeneralUtils.getonly_numbers(each_price.text)
-                mile = GeneralUtils.getonly_numbers(each_mile.text)
-                year = (each_year.text).split(" ")[0]
-                vin = each_vin.get_attribute("data-vin")
-                tmp_dict['Price'] = price
-                tmp_dict['Miles'] = mile
-                tmp_dict['Trim'] = trim
-                tmp_dict['Year'] = year
-                tmp_dict['Vin'] = vin
-                self.data.append(tmp_dict)
+        for price, mile, year, vin, city, state in zip(prices, miles, years, vins, cities, states):
+            tmp_dict = {}
+            tmp_dict['Price'] = price
+            tmp_dict['Miles'] = mile
+            tmp_dict['Trim'] = trim
+            tmp_dict['Year'] = year
+            tmp_dict['Vin'] = vin
+            tmp_dict['City'] = city
+            tmp_dict['State'] = state
+            self.data.append(tmp_dict)
     
     def perform_scraping_each_page(self, trim=None):
         total_page_to_flip = self.get_total_pages()
