@@ -88,6 +88,11 @@ function update_model_list(){
             "911", "718_boxster"
         ]
     }
+    if(make == "ford"){
+        data = [
+            "shelby_gt_350", "shelby_gt_500"
+        ]
+    }
 
     var dropdown = d3.select("#model");
     dropdown.selectAll("option").remove().exit();
@@ -506,7 +511,7 @@ function add_raw_data_table(id, file_location){
         }
 
         var columns = [
-            "Price", "Expected Price", "Difference", "Miles", "Trim", "Year", "Vin"
+            "Price", "Expected Price", "Difference", "Miles", "Trim", "Year", "Vin", "City", "State"
         ]
         columns.push("Carfax Link")
 

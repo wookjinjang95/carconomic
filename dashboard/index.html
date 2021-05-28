@@ -60,9 +60,10 @@
                 <option value="tesla">Tesla</option>
                 <option value="bmw">BMW</option>
                 <option value="lamborghini">Lamborghini</option>
-                <option value="chevrolet">Chevrolet</option>
+                <!-- <option value="chevrolet">Chevrolet</option> -->
                 <option value="mclaren">Mclaren</option>
-                <option value="porsche">Porsche</option>
+                <!-- <option value="porsche">Porsche</option> -->
+                <option value="ford">Ford</option>
               </select>
               <label for="model" style="padding-left: 5%;">Choose a model: </label>
               <select name="model" id="model" onchange="update_year_selection();"></select>
@@ -95,18 +96,11 @@
               <div id="cost_trim_list" style="overflow-x: hidden; overflow-y: auto; width: 100%; height: 25px; padding-left: 40px;"></div>
               <div id="cost_analysis"></div>
             </div>
-            <!-- <div class="maintenance_graph_container">
-              <div class="dash_title">Maintenance Cost</div>
-            </div> -->
             <div class="raw_data_table_container">
               <div style="float: left; display: inline-block;"><i>*Please note that if carfax link is not working, there is a chance that vehicle is out of market.</i></div>
               <div style="float: right; display: inline-block; margin-right: 10px; display: inline-block;"><i>Data Updated Lastly: 05-23-2021</i></div>
               <div class="dash_title" id="title_of_raw_table"></div>
             </div>
-            <!-- <div class="dash_piece">
-              <div class="dash_title">Maintenance Report</div>
-              <div id="maintenance_cost" style="height: 100%; width: 110%;"></div>
-            </div> -->
           </div>
         </div>
         <script src="../js/general_graph.js"></script>
