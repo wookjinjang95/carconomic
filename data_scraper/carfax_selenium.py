@@ -184,7 +184,7 @@ class CarFaxScraper:
                 states.append("N/A")
             else:
                 location_text = location[0].find_element_by_xpath(".//span").text
-                location_text = location_text.split(",")
+                location_text = location_text.split(", ")
                 cities.append(location_text[0])
                 states.append(location_text[1].split(" ")[0])
 
