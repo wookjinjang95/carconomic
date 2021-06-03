@@ -65,7 +65,7 @@ function update_model_list(){
     }
     if(make == "bmw"){
         data = [
-            "m340i", "m3", "m4", "m5"
+            "m235i", "m240i", "m340i", "m3", "m4", "m5"
         ]
     }
     if(make == "lamborghini"){

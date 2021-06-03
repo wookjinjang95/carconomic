@@ -5,32 +5,13 @@
     .sidenav {
         width: 0%;
     }
-    .two_pointer_img {
-        height: 30%;
-        padding-left: 2%;
-        padding-right: 2%;
+    #menu {
+        display: none;
     }
 }
 
-@media only screen and (min-width: 425px){
-    .two_pointer_img {
-        height: 35%;
-    }
-}
-
-@media only screen and (min-width: 768px) {
-    .two_pointer_img {
-        height: 50%;
-        padding-left: 10%;
-        padding-right: 10%;
-    }
-}
-
-@media only screen and (min-width: 1440px) {
-    .tutorial_body_container{
-        padding-left: 22%;
-    }
-    .sidenav {
-        width: 20%;
+@media only screen and (min-width: 1440px){
+    #menu {
+        display: block;
     }
 }

@@ -258,8 +258,9 @@ class CarFaxScraper:
         else:
             for each_trim in trims:
                 str_trim = each_trim.get_attribute('id').split("_")[1]
+                full_trim_id = each_trim.get_attribute('id')
                 print("Perform scraping on trim: {}".format(str_trim))
-                self.apply_trim(trim_name=str_trim)
+                self.apply_trim(full_trim_id)
 
                 #check if get_accident_report
                 if get_accident_report and no_accident:
@@ -268,7 +269,7 @@ class CarFaxScraper:
                     self.perform_scraping_each_page(trim=str_trim)
 
                 #click again to remove from the filter
-                self.apply_trim(trim_name=str_trim)
+                self.apply_trim(full_trim_id)
 
     def produce_data(self, filename, output_type="json"):
         filtered_data = DataCleanerUtils.only_get_prices(self.data)
@@ -303,7 +304,7 @@ class CarFaxScraper:
         if not trims:
             raise Exception("Failed to get trims list from get_trim_obj_by_name() function")
         for each_trim in trims:
-            if trim_name in each_trim.get_attribute('id'):
+            if trim_name == each_trim.get_attribute('id'):
                 return each_trim
     
     def get_all_trims(self, trim):
@@ -322,7 +323,7 @@ class CarFaxScraper:
             print("There is no trim level for this search.. Skipping trim section")
             return []
     
-    def apply_trim(self, trim_name:str):
+    def apply_trim(self, trim_name: str):
         #have to select the trim object again.
         trim_obj = self.get_trim_obj_by_name(trim_name=trim_name)
         action = ActionChains(self.carfax)
