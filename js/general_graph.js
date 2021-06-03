@@ -70,7 +70,7 @@ function update_model_list(){
     }
     if(make == "lamborghini"){
         data = [
-            "aventador"
+            "aventador", "huracan"
         ]
     }
     if(make == "chevrolet"){
