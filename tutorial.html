@@ -49,6 +49,266 @@
                 </ul>
             </div>
         </nav>
+        <div class="container" style="margin-top: 60px;">
+            <div class="row">
+                <div class="col-sm-3" id="menu">
+                    <div style="margin-top: 20vh; position: fixed;">
+                        <h4>VEHICLE DEPRECIATION</h4>
+                        <hr>
+                        <a href="#chapter_1">What is Depreciation?</a></br>
+                        <a href="#chapter_2">Depreciation line vs Linear line</a></br>
+                        <a href="#chapter_3">Insight from the graph</a>
+                    </div>
+                </div>
+                <div class="col-lg">
+                    <div class="tutorial_body_container">
+                        <section id="chapter_1"></section>
+                        <div style="padding-top: 80px; width: 100%; overflow-y: auto;">
+                            <div id="chapter_1" class="display-4" style="padding-bottom: 2%;">Depreciation</div>
+                            <p>
+                                Vehicle Depreciation is when a vehicle loses its value as the owner keeps driving it throughout the day.
+                                You might buy the vehicle for x amount of money (let's say $20,000 for an example). That $20,000 might disappear
+                                out of your pocket but the money is still there with your car. The car doesn't lose all that $20,000 as soon as 
+                                you purchase the car. It might sound complicated but every car you see out there has its own market value depending on
+                                the model and mileage of the car.
+                            </p>
+                            <table class="table">
+                                <thead class="thead-dark">
+                                    <tr>
+                                    <th scope='col'>Model</th>
+                                    <th scope="col">Miles</th>
+                                    <th scope="col">Price</th>
+                                    <th scope='col'>Total Loss</th>
+                                    <th scope='col'>Percent Loss</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>BMW M3</td>
+                                        <td>5572</td>
+                                        <td>$59,745</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>BMW M3</td>
+                                        <td>11664</td>
+                                        <td>$51,990</td>
+                                        <td style="color: red">-$7,755</td>
+                                        <td style="color: red">-12.9%</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>BMW M3</td>
+                                        <td>30689</td>
+                                        <td>$43,981</td>
+                                        <td style="color: red">-$15,764</td>
+                                        <td style="color: red">-26.4%</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>BMW M3</td>
+                                        <td>62243</td>
+                                        <td>$31,590</td>
+                                        <td style="color: red">-$28,155</td>
+                                        <td style="color: red">-47.1%</td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <p>
+                                The rule is simple! More you drive the vehicle, more the car's value depreciates. By looking at the data table above,
+                                you can see that for a model BMW M3 vehicle loses its value as the mileage increases. 
+                            </p>
+                            <div class="display-6">How does depreciation work?</div>
+                            <p style="padding-top: 30px">
+                                There is always a golden rule when it comes to purchasing a car: never buy it new, always buy it pre-owned. 
+                                But why is this the case? The reason why people want to avoid purchasing a new car is to avoid the depreciation, or devaluation, of the vehicle. 
+                                In fact, new cars depreciate a lot faster than used cars, with the value dropping roughly 20% after the 
+                                first year of ownership then continuing to depreciate around 10% the following year. 
+                                After 5 years or so, a car could be worth about half of its initial sticker price. 
+                                Depreciation typically slows down after the 5-year mark, and essentially stops once the car reaches the tender age of 10 years [Experian article].  
+                                In this tutorial, it will explain how depreciation works and how some cars have slower depreciation rates than others. 
+                                To demonstrate how depreciation works on certain cars, we will be using two models: the BMW M3 and M5. 
+                            </p>
+                            <p>
+                                Before starting, it will be great if we can collect data first. 
+                                We will be collecting data for each BMW M3 and M5 that's currently available on the market. 
+                                For example, some websites show miles and price for all BMW M3 and M5. 
+                                By collecting all the information, we can see how the market behaves for those specific vehicles.
+                            </p>
+                            <div style="font-size: 30px; padding-top: 5%; padding-bottom: 2%;">
+                                By comparing two BMW M3 and M5 side by side..
+                            </div>
+                            <table class="table">
+                                <thead class="thead-dark">
+                                    <tr>
+                                    <th scope='col'>Model</th>
+                                    <th scope="col">Miles</th>
+                                    <th scope="col">Price</th>
+                                    <th scope='col'>Total Loss</th>
+                                    <th scope='col'>Percent Loss</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                    <th scope="row">BMW M3</th>
+                                    <td>5572</td>
+                                    <td>$59,745</td>
+                                    <td></td>
+                                    <td></td>
+                                    </tr>
+                                    <tr>
+                                    <th scope="row">BMW M3</th>
+                                    <td>11664</td>
+                                    <td>$51,990</td>
+                                    <td style="color: red">-$7,755</td>
+                                    <td style="color: red">-12.9%</td>
+                                    <td></td>
+                                    </tr>
+                                    <th scope="row">BMW M5</th>
+                                    <td>5485</td>
+                                    <td>$92,594</td>
+                                    <td></td>
+                                    <td></td>
+                                    </tr>
+                                    <tr>
+                                    <th scope="row">BMW M5</th>
+                                    <td>10341</td>
+                                    <td>$79,997</td>
+                                    <td style="color: red">-$12,597</td>
+                                    <td style="color: red">-13.6%</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div>
+                                By looking at those two data table side by side, we can see that BMW M5 tends to depreciate
+                                more than BMW M3. Despite the depreciation percentage for M3 and M5 might be similar from 5000 miles to 10,000 miles,
+                                M5 loses value more than M3. Consequently, we can conclude that each vehicle has its own depreciation.
+                            </div>
+                            <div id="chapter_2" class="display-4" style="text-align: center; padding-top: 5%; padding-bottom: 2%;">
+                                Depreciation Line Vs Straight Line</div>
+                            <div class="display-6" id="chapter_2" style="padding-top: 2%;">
+                                BMW M3 Price Vs Miles
+                            </div>
+                            <p>
+                                *Please move the cursor to circles to see more details
+                            </p>
+                            <div id="bmw_m3_depreciation" style="height: 600px; width: 100%;"></div>
+                            <div class="display-6">
+                                BMW M5 Price Vs Miles
+                            </div>
+                            <p>
+                                *Please move the cursor to circles to see more details
+                            </p>
+                            <div id="bmw_m5_depreciation" style="height: 600px;"></div>
+                            <div style="font-size: 30px;">
+                                What is the straight line in the graph?
+                            </div>
+                            <div>
+                                The straight line is called a linear regression, or linear model. 
+                                Basically, gathering all the data (dots) in the graph, the linear regression, which is in a straight line, 
+                                will show trend of the graph. This trend is basically demonstrating how much will it cost per one mile. 
+                                However, this line itself is not useful
+                                <mark style="background-color: rgba(255, 145, 0, 0.822)6, 156)">
+                                    This is just an ideal market where each mile will have fixed cost.
+                                </mark>
+                                As a consumer, we wish that there is no sudden depreciation and every car has a fixed depreciation rate per each mile.
+                                Life would have been so much easier. But that's not the case as we saw in previous data for BMW M3 and M5 depreciation
+                                data table. Now let's draw another line called depreciation line or logartihmic regression model.
+                            </div>
+                            <div style="font-size: 30px;">What is the depreciation line?</div>
+                            <p>
+                                As mentioned in <a href="#chapter_1">chapter 1</a> about the depreciation, a car's value depreciates faster in 
+                                the beginning of couple thousand miles and slows in depreciation rate as you drive more. Let's draw this depreciation line along with 
+                                the straight line we drawn before in <a href="#chapter_2">chapter 2</a>. If you check the graph above, there are two
+                                lines that's been drawn. <a style="color: red">Red line</a> is the straight line that we mentioned as a linear regression
+                                model. The <a style="color: steelblue">blue line</a> is a depreciation line. If you look at the depreciation line,
+                                we notices that, in the beginning, the line goes straight down. A lot more slope than any other miles. This shows
+                                how the depreciation rate is at highest for brand new cars.
+                            </p>
+                            <p>
+                                If you go towards 60,000 miles mark on the graph, you notice that the depreication line starts to become linear and less
+                                slope. This tells us that the depreciation rate slows down as the car gets driven in a long term period. So the real question
+                                is how these two lines combined together in one graph can bring insight to us?
+                            </p>
+                            <div id="chapter_3" class="display-2" style="text-align: center; padding-top: 5%; padding-bottom: 2%;">Insights</div>
+                            <div style="font-size: 30px;">
+                                What insights can we learn from these two lines?
+                            </div>
+                            <p>
+                                <p>
+                                    Please remember that these insights are just general theory. There is no evidenence that supports these theories or hypothesis.
+                                    These are the below insights that Carconomic believes. We will think two different perspectives, a consumer's perspective and seller's perspective.
+                                </p>
+                                <img src="photos/Graph_two_pointers.png" class="two_pointer_img">
+                                <p style="font-size: 25px;">
+                                    Consumer Insights
+                                </p>
+                                <ul>
+                                    <li>
+                                        <div style="font-size: 20px;">[Consumer] Avoid Early Depreciation</div>
+                                        <p>
+                                            The <a style="text-decoration: underline; font-weight: 900;">first point</a> is where <a style="color: steelblue">depreciation line</a>
+                                            and <a style="color: red">straight line</a> meets. That is when depreciation rate starts to slow down. This meams that the vehicle
+                                            passed the huge depreciation rate phase. For example, BMW M5 biggest depreciation rate stops at 9000 miles with price around
+                                            88,000 dollars. This tells us that if you are interested in buying pre-owned cars, the best mileage will be to buy BMW M5,
+                                            in this case, at 9000 miles.
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <div style="font-size: 20px;">[Consumer] Avoid Any Depreciation</div>
+                                        <p>
+                                            <a style="text-decoration: underline; font-weight: 900;">Second Point</a> is where <a style="color: steelblue">depreciation line</a> draws becomes linear and draws
+                                            above the <a style="color: red">straight line</a>, this is where consumer will be interested in buying 
+                                            a car that will hold its value well. However, starting at second point, there will be maintenance cost coming in.
+                                        </p>
+                                    </li>
+                                </ul>
+                                <p style="font-size: 25px;">
+                                    Seller Insights
+                                </p>
+                                <ul>
+                                    <li>
+                                        <div style="font-size: 20px;">[Seller] Big Market at First Point</div>
+                                        <p>
+                                            Assuming you are the owner of the vehicle, the owner probably lost some money due to early depreciation.
+                                            It's too late as a seller to recover the money that it losts from early depreciation. At <a style="text-decoration: underline; font-weight: 900;">first point</a>,
+                                            sellers can sell their cars due to high demand from buyers. The demand for a car at first point is the highest compare to other mileage.
+                                            It will be easy to sell the car at that first point's price and miles. Also if you already owned the vehicle before the first point,
+                                            please try to sell before the first point meets or passes to avoid losing money from depreication as much as possible.
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <div style="font-size: 20px;">[Seller] Avoid maintenance cost</div>
+                                        <p>
+                                            Once the <a style="text-decoration: underline; font-weight: 900;">second point</a> comes across, the vehicle pretty much is considered used and going through a phase where
+                                            things are going to break. There is a reason why the depreciation rate slowed down and becomes linear starting
+                                            at that the second point due to maintenance cost.
+                                        </p>
+                                    </li>
+                                </ul>
+                                <p style="font-size: 25px;">
+                                    Combined Both Buyer and Seller Insights
+                                </p>
+                                <ul>
+                                    <div style="Avoid Depreciation and Maintenance"></div>
+                                    <li>
+                                        As a buyer, you can buy the vehicle at first point and sell the vehicle at second point. This way, you are 
+                                        avoidiing the early sharp depreciation rate and sell the vehicle before maintenance becomes a problem. 
+                                    </li>
+                                </ul>
+                                <p>
+                                    We see that there are different insights from different perspective from buyers and sellers. But one graph can bring multiple insights
+                                    and it's pretty much up to the user to decide which sounds better for him or her.
+                                </p>
+                            </p>
+                            <script src="js/bmw_price_depreciation.js"></script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="sidenav">
             <a style="border-top: 1px solid black; border-bottom: 1px solid black; text-align: center;padding-top: 10px; padding-bottom: 10px;">
                 Vehicle Market Analysis</a>
@@ -57,196 +317,6 @@
             <a href="#chapter_3">Ch 3: Insights</a>
             <a style="margin-top: 5%; border-top: 1px solid black; border-bottom: 1px solid black; text-align: center;padding-top: 10px; padding-bottom: 10px;">
                 Maintenance Analysis (TBA)</a>
-        </div>
-        <div class="tutorial_body_container">
-            <section id="chapter_1"></section>
-            <div style="padding-top: 80px; width: 100%; overflow-y: auto;">
-                <div id="chapter_1" class="display-2" style="text-align: center; padding-bottom: 2%;">Depreciation</div>
-                <div class="display-6">How does depreciation work?</div>
-                <p style="padding-top: 30px">
-                    There is always a golden rule when it comes to purchasing a car: never buy it new, always buy it pre-owned. 
-                    But why is this the case? The reason why people want to avoid purchasing a new car is to avoid the depreciation, or devaluation, of the vehicle. 
-                    In fact, new cars depreciate a lot faster than used cars, with the value dropping roughly 20% after the 
-                    first year of ownership then continuing to depreciate around 10% the following year. 
-                    After 5 years or so, a car could be worth about half of its initial sticker price. 
-                    Depreciation typically slows down after the 5-year mark, and essentially stops once the car reaches the tender age of 10 years [Experian article].  
-                    In this tutorial, it will explain how depreciation works and how some cars have slower depreciation rates than others. 
-                    To demonstrate how depreciation works on certain cars, we will be using two models: the BMW M3 and M5. 
-                </p>
-                <p>
-                    Before starting, it will be great if we can collect data first. 
-                    We will be collecting data for each BMW M3 and M5 that's currently available on the market. 
-                    For example, some websites show miles and price for all BMW M3 and M5. 
-                    By collecting all the information, we can see how the market behaves for those specific vehicles.
-                </p>
-                <div style="font-size: 30px; padding-top: 5%; padding-bottom: 2%;">
-                    By comparing two BMW M3 and M5 side by side..
-                </div>
-                <table class="table">
-                    <thead class="thead-dark">
-                        <tr>
-                        <th scope='col'>Model</th>
-                        <th scope="col">Miles</th>
-                        <th scope="col">Price</th>
-                        <th scope='col'>Total Loss</th>
-                        <th scope='col'>Percent Loss</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                        <th scope="row">BMW M3</th>
-                        <td>5572</td>
-                        <td>$59,745</td>
-                        <td></td>
-                        <td></td>
-                        </tr>
-                        <tr>
-                        <th scope="row">BMW M3</th>
-                        <td>11664</td>
-                        <td>$51,990</td>
-                        <td style="color: red">-$7,755</td>
-                        <td style="color: red">-12.9%</td>
-                        <td></td>
-                        </tr>
-                        <th scope="row">BMW M5</th>
-                        <td>5485</td>
-                        <td>$92,594</td>
-                        <td></td>
-                        <td></td>
-                        </tr>
-                        <tr>
-                        <th scope="row">BMW M5</th>
-                        <td>10341</td>
-                        <td>$79,997</td>
-                        <td style="color: red">-$12,597</td>
-                        <td style="color: red">-13.6%</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div>
-                    By looking at those two data table side by side, we can see that BMW M5 tends to depreciate
-                    more than BMW M3. Despite the depreciation percentage for M3 and M5 might be similar from 5000 miles to 10,000 miles,
-                    M5 loses value more than M3. Consequently, we can conclude that each vehicle has its own depreciation.
-                </div>
-                <div id="chapter_2" class="display-4" style="text-align: center; padding-top: 5%; padding-bottom: 2%;">
-                    Depreciation Line Vs Straight Line</div>
-                <div class="display-6" id="chapter_2" style="padding-top: 2%;">
-                    BMW M3 Price Vs Miles
-                </div>
-                <p>
-                    *Please move the cursor to circles to see more details
-                </p>
-                <div id="bmw_m3_depreciation" style="height: 600px; width: 100%;"></div>
-                <div class="display-6">
-                    BMW M5 Price Vs Miles
-                </div>
-                <p>
-                    *Please move the cursor to circles to see more details
-                </p>
-                <div id="bmw_m5_depreciation" style="height: 600px;"></div>
-                <div style="font-size: 30px;">
-                    What is the straight line in the graph?
-                </div>
-                <div>
-                    The straight line is called a linear regression, or linear model. 
-                    Basically, gathering all the data (dots) in the graph, the linear regression, which is in a straight line, 
-                    will show trend of the graph. This trend is basically demonstrating how much will it cost per one mile. 
-                    However, this line itself is not useful
-                    <mark style="background-color: rgba(255, 145, 0, 0.822)6, 156)">
-                        This is just an ideal market where each mile will have fixed cost.
-                    </mark>
-                    As a consumer, we wish that there is no sudden depreciation and every car has a fixed depreciation rate per each mile.
-                    Life would have been so much easier. But that's not the case as we saw in previous data for BMW M3 and M5 depreciation
-                    data table. Now let's draw another line called depreciation line or logartihmic regression model.
-                </div>
-                <div style="font-size: 30px;">What is the depreciation line?</div>
-                <p>
-                    As mentioned in <a href="#chapter_1">chapter 1</a> about the depreciation, a car's value depreciates faster in 
-                    the beginning of couple thousand miles and slows in depreciation rate as you drive more. Let's draw this depreciation line along with 
-                    the straight line we drawn before in <a href="#chapter_2">chapter 2</a>. If you check the graph above, there are two
-                    lines that's been drawn. <a style="color: red">Red line</a> is the straight line that we mentioned as a linear regression
-                    model. The <a style="color: steelblue">blue line</a> is a depreciation line. If you look at the depreciation line,
-                    we notices that, in the beginning, the line goes straight down. A lot more slope than any other miles. This shows
-                    how the depreciation rate is at highest for brand new cars.
-                </p>
-                <p>
-                    If you go towards 60,000 miles mark on the graph, you notice that the depreication line starts to become linear and less
-                    slope. This tells us that the depreciation rate slows down as the car gets driven in a long term period. So the real question
-                    is how these two lines combined together in one graph can bring insight to us?
-                </p>
-                <div id="chapter_3" class="display-2" style="text-align: center; padding-top: 5%; padding-bottom: 2%;">Insights</div>
-                <div style="font-size: 30px;">
-                    What insights can we learn from these two lines?
-                </div>
-                <p>
-                    <p>
-                        Please remember that these insights are just general theory. There is no evidenence that supports these theories or hypothesis.
-                        These are the below insights that Carconomic believes. We will think two different perspectives, a consumer's perspective and seller's perspective.
-                    </p>
-                    <img src="photos/Graph_two_pointers.png" class="two_pointer_img">
-                    <p style="font-size: 25px;">
-                        Consumer Insights
-                    </p>
-                    <ul>
-                        <li>
-                            <div style="font-size: 20px;">[Consumer] Avoid Early Depreciation</div>
-                            <p>
-                                The <a style="text-decoration: underline; font-weight: 900;">first point</a> is where <a style="color: steelblue">depreciation line</a>
-                                and <a style="color: red">straight line</a> meets. That is when depreciation rate starts to slow down. This meams that the vehicle
-                                passed the huge depreciation rate phase. For example, BMW M5 biggest depreciation rate stops at 9000 miles with price around
-                                88,000 dollars. This tells us that if you are interested in buying pre-owned cars, the best mileage will be to buy BMW M5,
-                                in this case, at 9000 miles.
-                            </p>
-                        </li>
-                        <li>
-                            <div style="font-size: 20px;">[Consumer] Avoid Any Depreciation</div>
-                            <p>
-                                <a style="text-decoration: underline; font-weight: 900;">Second Point</a> is where <a style="color: steelblue">depreciation line</a> draws becomes linear and draws
-                                above the <a style="color: red">straight line</a>, this is where consumer will be interested in buying 
-                                a car that will hold its value well. However, starting at second point, there will be maintenance cost coming in.
-                            </p>
-                        </li>
-                    </ul>
-                    <p style="font-size: 25px;">
-                        Seller Insights
-                    </p>
-                    <ul>
-                        <li>
-                            <div style="font-size: 20px;">[Seller] Big Market at First Point</div>
-                            <p>
-                                Assuming you are the owner of the vehicle, the owner probably lost some money due to early depreciation.
-                                It's too late as a seller to recover the money that it losts from early depreciation. At <a style="text-decoration: underline; font-weight: 900;">first point</a>,
-                                sellers can sell their cars due to high demand from buyers. The demand for a car at first point is the highest compare to other mileage.
-                                It will be easy to sell the car at that first point's price and miles. Also if you already owned the vehicle before the first point,
-                                please try to sell before the first point meets or passes to avoid losing money from depreication as much as possible.
-                            </p>
-                        </li>
-                        <li>
-                            <div style="font-size: 20px;">[Seller] Avoid maintenance cost</div>
-                            <p>
-                                Once the <a style="text-decoration: underline; font-weight: 900;">second point</a> comes across, the vehicle pretty much is considered used and going through a phase where
-                                things are going to break. There is a reason why the depreciation rate slowed down and becomes linear starting
-                                at that the second point due to maintenance cost.
-                            </p>
-                        </li>
-                    </ul>
-                    <p style="font-size: 25px;">
-                        Combined Both Buyer and Seller Insights
-                    </p>
-                    <ul>
-                        <div style="Avoid Depreciation and Maintenance"></div>
-                        <li>
-                            As a buyer, you can buy the vehicle at first point and sell the vehicle at second point. This way, you are 
-                            avoidiing the early sharp depreciation rate and sell the vehicle before maintenance becomes a problem. 
-                        </li>
-                    </ul>
-                    <p>
-                        We see that there are different insights from different perspective from buyers and sellers. But one graph can bring multiple insights
-                        and it's pretty much up to the user to decide which sounds better for him or her.
-                    </p>
-                </p>
-                <script src="js/bmw_price_depreciation.js"></script>
-            </div>
         </div>
     </body>
 </html>
