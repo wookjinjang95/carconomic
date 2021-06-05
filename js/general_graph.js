@@ -93,6 +93,11 @@ function update_model_list(){
             "shelby_gt_350", "shelby_gt_500"
         ]
     }
+    if(make == "lexus"){
+        data = [
+            "rc", "lc"
+        ]
+    }
 
     var dropdown = d3.select("#model");
     dropdown.selectAll("option").remove().exit();
