@@ -124,16 +124,6 @@ class CarFaxScraper:
         #getting vin numbers
         vins = self.carfax.find_elements_by_xpath("//article[contains(@id, 'listing')]")
 
-        #getting location
-        # import pdb; pdb.set_trace()
-        # cities = states = []
-        # locations = self.carfax.find_elements_by_xpath("//div[contains(@class, 'srp-list-item-dealership-location')]")
-        # for location in locations:
-        #     location_text = location.find_element_by_xpath(".//span").text
-        #     location_text = location_text.split(",")
-        #     city = location_text[0]
-        #     state = location_text[1].split(" ")[0]
-
         if len(prices) != len(miles) != len(years) != len(vins):
             #Logging error that the length is not equal
             print("The length of prices: {} and miles: {} and years {}".format(
