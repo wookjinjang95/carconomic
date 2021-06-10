@@ -10,6 +10,7 @@ async function alert_no_data(){
             (async function(){
                 await get_global_regression_for_all(file_location);
                 update_miles_vs_price(file_location);
+                update_side_trim_state_bars(file_location);
                 update_side_trim_bars(file_location);
                 update_cost_analysis(file_location);
                 add_raw_data_table(".raw_data_table_container", file_location);
@@ -185,6 +186,24 @@ function get_total_for_each_trims(data){
     list_format = [];
     for(var trim_key in result){
         tmp = {"trim": trim_key, "value": result[trim_key]};
+        list_format.push(tmp);
+    }
+    return list_format;
+}
+
+function get_total_for_each_trim_with_each_state(data){
+    result = {};
+    for(var i =0; i < data.length; i++){
+        if(data[i].State in result){
+            result[data[i].State] += 1;
+        }else{
+            result[data[i].State] = 1;
+        }
+    }
+
+    list_format = [];
+    for(var each_state in result){
+        tmp = {"state": each_state, "value": result[each_state]};
         list_format.push(tmp);
     }
     return list_format;
@@ -400,7 +419,17 @@ function update_miles_vs_price(file_location, color_mapping, trim, move=false){
             .enter()
             .append("div")
                 .attr("class", "each_trim")
+                .style("color", "black")
+                .style("border-radius", "10px")
+                .style("margin-bottom", "10px")
+                .style("background-color", function(d){
+                    color = color_mapping.get(d);
+                    res = color.split(",")
+                    res[res.length - 1] = res[res.length - 1].split(")")[0] + ",0.3)"
+                    return res.join();
+                })
                 .style("margin-right", "10px")
+                .style("padding-left", "10px")
                 .style("float", "left")
                 .style("display", "inline-block")
                 .style("cursor", "pointer")
@@ -409,23 +438,10 @@ function update_miles_vs_price(file_location, color_mapping, trim, move=false){
                 });
         
         svg_depreciation.selectAll(".legend_text").remove().exit();
-        
-        //rectangle legend
-        d3.selectAll(".each_trim")
-            .append("div")
-            .style("background-color", function(d){
-                return color_mapping.get(d);
-            })
-            .style("height", "15px")
-            .style("width", "15px")
-            .style("float", "left")
-            .style("margin-top", "5px")
-            .style("margin-right", "5px")
 
         //adding legend text
         d3.selectAll(".each_trim")
             .append("text")
-                .style("stroke", "black")
                 .style("margin-right", "10px")
                 .text(function (d) { return d;})
                 .style("text-decoration", function(d){
@@ -435,6 +451,7 @@ function update_miles_vs_price(file_location, color_mapping, trim, move=false){
                         return "line-through";
                     }
                 })
+                .style("text-decoration-color", "red");
             
         //adding linear regression
         new_data = data.map(d => [parseInt(d.Miles), parseInt(d.Price)])
@@ -580,6 +597,7 @@ function add_raw_data_table(id, file_location){
                     }
                     return d.value;
                 })
+
         $(document).ready(function () {
             $("#all_data_table").DataTable({
                 "responsive": true,
@@ -589,46 +607,114 @@ function add_raw_data_table(id, file_location){
     });
 }
 
-function update_maintenance_bar_graph(file_location){
+function update_side_trim_state_bars(file_location){
+    trim_state_svg_container.selectAll("g").remove();
+    trim_state_svg_container.append("g")
+        .attr("transform", "translate(" + h_margin.left + "," + h_margin.top + ")")
+    
     d3.csv(file_location).then(function(data) {
-        var max_x = d3.max(data.map(function (d) { return parseInt(d.mileage)}));
-        var max_y = d3.max(data.map(function(d){ return parseInt(d.average)}));
+        var selected_year = document.getElementById('year').value;
+        if( selected_year != "all"){
+            filtered_data = filter_data_by_year(data, selected_year);
+            data = filtered_data;
+        }
+        trim_state_count_data = get_total_for_each_trim_with_each_state(data);
+        
+        var y = d3.scaleLinear()
+            .range([trim_state_height, 0])
+            .domain([0, d3.max(trim_state_count_data, function(d){
+                return d.value;
+            }) + 10]);
 
-        var sorted_x_axis_values = data.map(function(d) { return parseInt(d.mileage); }).sort(
-                function(a,b) {
-                    if ( a == b ) return 0;
-                    return a < b ? -1 : 1;
-                }
-            )
-        var x = d3.scaleBand().domain(sorted_x_axis_values).range([0, g_width]).padding(0.7);
-        var y = d3.scaleLinear().domain([0, max_y]).range([g_height - margin.top - margin.bottom, 0]);
+        var x = d3.scaleBand()
+            .range([0, hs_width])
+            .padding(0.1)
+            .domain(d3.map(trim_state_count_data, function(d){
+                return d.state;
+            }));
+        
+        // trim_state_svg_container.append("g")
+        //     .attr("transform", "translate(0," + trim_state_height + ")")
+        //     .call(d3.axisBottom(x));
 
-        svg_maintenance_bargraph.append("g")
-            .attr("class", "y-axis")
+        if(trim_state_width <= 425){
+            trim_state_svg_container.append("g")
+                .attr("transform", "translate(0," + trim_state_height + ")")
+                .call(d3.axisBottom(x))
+            .selectAll("text")
+                .attr("y", -2)
+                .attr("x", 15)
+                .attr("transform", "rotate(90)")
+                
+        }else{
+            trim_state_svg_container.append("g")
+            .attr("transform", "translate(0," + trim_state_height + ")")
+            .call(d3.axisBottom(x));
+        }
+
+        trim_state_svg_container.append("g")
             .call(d3.axisLeft(y));
 
-        svg_maintenance_bargraph.append("g")
-            .attr("class", "x-axis")
-            .attr("transform", "translate(0," + (g_height - margin.top - margin.bottom)  + ")")
-            .call(d3.axisBottom(x));
+        var bars = trim_state_svg_container.selectAll(".bar")
+            .data(trim_state_count_data)
+            .enter()
+            .append("g")
 
-        var bars = svg_maintenance_bargraph.selectAll("bar")
-            .data(data);
-        
-        bars.exit().remove();
+        bars.append("rect")
+        .attr("class", "bar")
+        .style("fill", "steelblue")
+        .attr("y", function(d){
+            return y(0);
+        })
+        .attr("x", function(d){
+            return x(d.state);
+        })
+        .attr("width", x.bandwidth())
+        .attr("height", 0);
 
-        bars.enter().append("rect")
-            .style("fill", "steelblue")
-            .attr("x", function(d) { return x(parseInt(d.mileage)); })
-            .attr("y", "0")
+        bars.selectAll("rect")
             .transition()
-            .duration(2000)
-            .attr("y", function(d) { return y(d.average); })
-            .attr("width", x.bandwidth())
-            .attr("height", function(d) { return g_height - margin.top - margin.bottom - y(d.average); })
-    
-    });
-}
+            .duration(4000)
+            .attr("y", function(d){
+                return y(d.value);
+            })
+            .attr("height", function(d){ return trim_state_height - y(d.value); })
+
+        bars.append("text")
+            .attr("class", "label")
+            //y position of the label is halfway down the bar
+            .attr("y", function (d) {
+                return trim_state_height;
+            })
+            //x position is 3 pixels to the right of the bar
+            .attr("x", function (d) {
+                return x(d.state) + x.bandwidth() / 2 - 6;
+            })
+        
+        bars.selectAll("text")
+            .transition()
+            .duration(4000)
+            .attr("y", function(d) {
+                return y(d.value) - 10;
+            })
+            .tween("text", function(d){
+                var i = d3.interpolate(0, d.value)
+                return function(t) {
+                    d3.select(this).text(
+                        parseFloat(i(t)).toFixed(0));
+                };
+            });
+
+        bars.selectAll("rect")
+            .on("mouseover", function(event, d) {
+                console.log(d3.select(this));
+                d3.select(this).style("fill", "rgba(255, 0, 0, 0.8)")
+            })
+            .on("mouseout", function(event, d) {
+                d3.select(this).style("fill", "steelblue")
+            });
+    })
+} 
 
 function update_side_trim_bars(file_location){
     trim_svg_container.selectAll("g").remove();
@@ -925,6 +1011,20 @@ var trim_svg_container = d3.select(".trim_total_info").append("svg")
     .append("g")
     .attr("transform", "translate(" + h_margin.left + "," + h_margin.top + ")");
 
+//starting here is the horizontal bar trim for each state
+var horizontal_state_graph_element = d3.select(".trim_in_states").node();
+var hs_width = horizontal_state_graph_element.getBoundingClientRect().width;
+var hs_height = horizontal_state_graph_element.getBoundingClientRect().height;
+
+var trim_state_width = hs_width - h_margin.right;
+var trim_state_height = hs_height - h_margin.top - h_margin.bottom;
+
+var trim_state_svg_container = d3.select(".trim_in_states")
+    .append('svg')
+        .attr("viewBox", "0 0 " +  (hs_width +  50) + " " + hs_height)
+    .append("g")
+    .attr("transform", "translate(" + 30 + "," + 0 + ")");
+
 //starting here is the cost vs miles graph
 var cost_element = d3.select(".cost_analysis_container").node();
 c_width = cost_element.getBoundingClientRect().width;
@@ -950,18 +1050,19 @@ var costSvgContainer = d3.select("#cost_analysis")
 var cost_svg = costSvgContainer
     .attr("class", "graph")
     .append("svg")
-        .attr("width", c_dep_width)
-        .attr("height", c_dep_height)
+        .attr("viewBox", "0 0 " +  (c_dep_width + 70) + " " + c_dep_height)
+        // .attr("width", c_dep_width)
+        // .attr("height", c_dep_height)
         // .call(d3.zoom().on("zoom", function(event){
         //     svg_depreciation.attr("transform", event.transform);
         // }))
     .append("g")
         .attr("transform", 
-            "translate(" + margin.left + "," + margin.top + ")")
+            "translate(" + (margin.left + 10) + "," + margin.top + ")")
 
 cost_svg.append("text")
     .attr("text-anchor", "end")
-    .attr("x", c_dep_width - 60)
+    .attr("x", c_dep_width - 20)
     .attr("y", function(){
         if(width > 320 && width < 425){
             return c_dep_height - 50;

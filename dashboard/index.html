@@ -46,65 +46,64 @@
                   <li class="nav-item">
                     <a class="nav-link" style="margin-right: 15px; color: white;" href="../about_us.html">About Us</a>
                   </li>
-                  <!-- <li class="nav-item">
-                    <a class="nav-link" style="margin-right: 15px; color: white;" href="#">Blog (Coming Soon)</a>
-                </li> -->
                 </ul>
             </div>
         </nav>
-        <div class="dashboard">
-          <div style="width: 100%; margin: auto;">
-            <div style="color: black;">
-              <label for="make">Choose a brand: </label>
-              <select name="make" id="make" onchange="update_search_selection();">
-                <option value="tesla">Tesla</option>
-                <option value="bmw">BMW</option>
-                <option value="lamborghini">Lamborghini</option>
-                <option value="lexus">Lexus</option>
-                <option value="chevrolet">Chevrolet</option>
-                <option value="mclaren">Mclaren</option>
-                <option value="porsche">Porsche</option>
-                <option value="ford">Ford</option>
-              </select>
-              <label for="model" style="padding-left: 5%;">Choose a model: </label>
-              <select name="model" id="model" onchange="update_year_selection();"></select>
-              <label for="year" style="padding-left: 5%;">Select Year:</label>
-              <select name="year" id="year">
-                <option value="all">all</option>
-              </select>
-              <button onclick="alert_no_data()" class="front_btn">Search</button>
+        <div class="container-lg">
+          <div class="dashboard">
+            <div style="width: 100%; margin: auto;">
+              <div style="color: black;">
+                <label for="make">Choose a brand: </label>
+                <select name="make" id="make" onchange="update_search_selection();">
+                  <option value="tesla">Tesla</option>
+                  <option value="bmw">BMW</option>
+                  <option value="lamborghini">Lamborghini</option>
+                  <option value="lexus">Lexus</option>
+                  <option value="chevrolet">Chevrolet</option>
+                  <option value="mclaren">Mclaren</option>
+                  <option value="porsche">Porsche</option>
+                  <option value="ford">Ford</option>
+                </select>
+                <label for="model" style="padding-left: 5%;">Choose a model: </label>
+                <select name="model" id="model" onchange="update_year_selection();"></select>
+                <label for="year" style="padding-left: 5%;">Select Year:</label>
+                <select name="year" id="year">
+                  <option value="all">all</option>
+                </select>
+                <button onclick="alert_no_data()" class="front_btn">Search</button>
+              </div>
             </div>
-          </div>
-
-          <div style="padding-top: 30px;">
-            <div><i>*Unspecified = Base model or not specified from owner</i></div>
-            <div class="dash_graph">
-                <div style="float: left"><i>Data Updated Lastly: 06-03-2021</i></div>
-                <div class="dash_title">Market Report</div>
-                <div id="trim_list" style="overflow-x: hidden; overflow-y: auto; width: 100%; height: 25px; padding-left: 40px;"></div>
-                <div id="general_depreciation" style="height: 100%; width: 107%;"></div>
-            </div>
-            <div class="coming_up">
-            </div>
-            <div class="mile_display"></div>
-            <div class="trim_total_info">
-              <div class="trim_dash_title">Total Number of Vehicles Per Trim</div>
-            </div>
-            <div class="cost_analysis_container">
-              <div style="margin-left: 10px; margin-top: 10px;"><i>Data Updated Lastly: 06-03-2021</i></div>
-              <div class="warning"><i>*Please refresh the page if the graph is not showing</i></div>
-              <div class="dash_title">Depreciation Cost Analysis</div>
-              <div id="cost_trim_list" style="overflow-x: hidden; overflow-y: auto; width: 100%; height: 25px; padding-left: 40px;"></div>
-              <div id="cost_analysis"></div>
-            </div>
-            <div class="raw_data_table_container">
-              <div style="float: left; display: inline-block;"><i>*Please note that if carfax link is not working, there is a chance that vehicle is out of market.</i></div>
-              <div style="float: right; display: inline-block; margin-right: 10px; display: inline-block;"><i>Data Updated Lastly: 06-03-2021</i></div>
-              <div class="dash_title" id="title_of_raw_table"></div>
+  
+            <div style="padding-top: 30px;">
+              <div><i>*Unspecified = Base model or not specified from owner</i></div>
+              <div class="dash_graph">
+                  <div style="float: left"><i>Data Updated Lastly: 06-03-2021</i></div>
+                  <div class="dash_title">Market Report</div>
+                  <div id="trim_list" style="overflow-x: hidden; overflow-y: auto; width: 100%; height: 25px; padding-left: 40px;"></div>
+                  <div id="general_depreciation" style="height: 100%; width: 107%;"></div>
+              </div>
+              <div class="trim_total_info">
+                <div class="trim_dash_title">Total Number of Vehicles Per Trim</div>
+              </div>
+              <div class="cost_analysis_container">
+                <div style="margin-left: 10px; margin-top: 10px;"><i>Data Updated Lastly: 06-03-2021</i></div>
+                <div class="warning"><i>*Please refresh the page if the graph is not showing</i></div>
+                <div class="dash_title">Depreciation Cost Analysis</div>
+                <div id="cost_trim_list" style="overflow-x: hidden; overflow-y: auto; width: 100%; height: 25px; padding-left: 40px;"></div>
+                <div id="cost_analysis"></div>
+              </div>
+              <div class="trim_in_states">
+                <div class="dash_title">Num of Vehicles in Each State</div>
+              </div>
+              <div class="raw_data_table_container">
+                <div style="float: left; display: inline-block;"><i>*Please note that if carfax link is not working, there is a chance that vehicle is out of market.</i></div>
+                <div style="float: right; display: inline-block; margin-right: 10px; display: inline-block;"><i>Data Updated Lastly: 06-03-2021</i></div>
+                <div class="dash_title" id="title_of_raw_table"></div>
+              </div>
             </div>
           </div>
         </div>
-        <script src="../js/general_graph.js"></script>
+        <script src="../js/general_graph.js?n=1"></script>
         <script>
           window.onload = function(){
             var make = sessionStorage.getItem("make");

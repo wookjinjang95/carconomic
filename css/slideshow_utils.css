@@ -22,6 +22,13 @@
     display: block;
     color: blueviolet;
 }
+.wordCarousel_desc {
+    color: black; 
+    float: left; 
+    padding-left: 10%; 
+    padding-right: 10%; 
+    font-size: calc(7px + 0.7vw);
+}
 
 #navigation_bar {
     background-size: 200%;
@@ -100,6 +107,14 @@
     }
 }
 
+@media only screen and (min-width: 2560px){
+    .wordCarousel{
+        font-size: 1.5vw;
+    }
+    .wordCarousel_desc {
+        font-size: 0.5vw;
+    }
+}
 /* width */
 ::-webkit-scrollbar {
     width: 5px;

@@ -35,3 +35,10 @@ python3 miles_and_price.py -z 91214 -m '2 Series' -ma BMW -f ../dashboard/data/b
 echo "##### MUSTING ######"
 python3 miles_and_price.py -z 91214 -m 'Mustang' -ma Ford -f ../dashboard/data/ford/shelby_gt_350.csv -t "GT350"
 python3 miles_and_price.py -z 91214 -m 'Mustang' -ma Ford -f ../dashboard/data/ford/shelby_gt_500.csv -t "GT500"
+
+# Toyota
+# echo "##### TOYOTA ######"
+# python3 miles_and_price.py -z 91214 -m 'Supra' -ma Toyota -f ../dashboard/data/toyota/supra.csv
+
+python3 miles_and_price.py -z 91214 -m 'LC' -ma 'Lexus' -f ../dashboard/data/lexus/lc.csv
+python3 miles_and_price.py -z 91214 -m 'RC' -ma 'Lexus' -f ../dashboard/data/lexus/rc.csv

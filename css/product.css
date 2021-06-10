@@ -19,40 +19,25 @@
     color: black;
     background-color: white;
     border-radius: 7px;
-    box-shadow: 5px 10px 10px #888888;
 }
 
 .trim_total_info {
     float: left;
     width: 29%;
-    height: 270px;
+    height: 650px;
     background-color: white;
     margin-left: 10px;
     margin-bottom: 10px;
     border-radius: 7px;
-    box-shadow: 5px 10px 10px #888888;
 }
 
-.mile_display {
-    float: left;
-    width: 29%;
-    height: 200px;
-    margin-left: 10px;
-    margin-bottom: 15px;
-    overflow-y: auto;
+.trim_in_states {
+    display: inline-block;
+    width: 100%;
+    height: 600px;
+    margin-top: 15px;
     border-radius: 7px;
-}
-
-.coming_up {
-    float: left;
-    width: 29%;
-    height: 151.50px;
-    padding: 50px;
-    margin-left: 10px;
-    margin-bottom: 15px;
-    color: black;
-    font-size: 30px;
-    border-radius: 7px;
+    background-color: white;
 }
 
 .long_ad_container {
@@ -75,14 +60,12 @@
     color: black;
     background-color: white;
     border-radius: 7px;
-    box-shadow: 5px 10px 10px #888888;
 }
 
 .raw_data_table_container {
     width: 100%;
     display: inline-block;
     background-color: white;
-    box-shadow: 5px 10px 10px #888888;
     border-radius: 7px;
     margin-top: 30px;
 }
