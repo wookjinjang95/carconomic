@@ -334,15 +334,16 @@ function update_miles_vs_price(data, color_mapping, trim, move=false){
         var selected_year = document.getElementById('year').value;
         if( selected_year != "all"){
             filtered_data = filter_data_by_year(data, selected_year);
-            data = filtered_data;
+        }else{
+            filtered_data = data;
         }
 
         if(color_mapping == undefined){
-            color_mapping = map_trim_to_color(data);
+            color_mapping = map_trim_to_color(filtered_data);
         }
-        var trims = get_unique_trims(data);
-        var max_y = get_y_max_value(data);
-        var max_x = get_x_max_value(data);
+        var trims = get_unique_trims(filtered_data);
+        var max_y = get_y_max_value(filtered_data);
+        var max_x = get_x_max_value(filtered_data);
 
         //trim initial setup and toggle
         if(trim == undefined){
@@ -353,8 +354,7 @@ function update_miles_vs_price(data, color_mapping, trim, move=false){
             }else{
                 global_trim_selection[trim] = true;
             }
-            filtered_data = filter_data_by_selected_trim(data);
-            data = filtered_data;
+            filtered_data = filter_data_by_selected_trim(filtered_data);
         }
         var x = d3.scaleLinear().domain([0, max_x]).range([0, dep_width]);
         var y = d3.scaleLinear().domain([0, max_y]).range([dep_height - margin.top - margin.bottom, 0]);
@@ -395,7 +395,7 @@ function update_miles_vs_price(data, color_mapping, trim, move=false){
             .call(d3.axisBottom(x));
         
         var circles = svg_depreciation.selectAll("circle")
-            .data(data);
+            .data(filtered_data);
             
         circles.exit().remove();
 
@@ -521,7 +521,7 @@ function update_miles_vs_price(data, color_mapping, trim, move=false){
                 .style("text-decoration-color", "red");
             
         //adding linear regression
-        new_data = data.map(d => [parseInt(d.Miles), parseInt(d.Price)])
+        new_data = filtered_data.map(d => [parseInt(d.Miles), parseInt(d.Price)])
         var result = regression(new_data);
         var m = result[0];
         var b = result[1];
@@ -900,13 +900,12 @@ function update_cost_analysis(data){
         var selected_year = document.getElementById('year').value;
         if( selected_year != "all"){
             filtered_data = filter_data_by_year(data, selected_year);
-            data = filtered_data;
         }
 
-        var own_mapping = map_trim_to_color(data);
+        var own_mapping = map_trim_to_color(filtered_data);
 
         //add the x-axis and y-axis
-        var max_x = get_x_max_value(data);
+        var max_x = get_x_max_value(filtered_data);
         var x = d3.scaleLinear().domain([0, max_x]).range([0, c_dep_width]);
         (async function(){
             var new_data, cost_max, cost_min = await calculate_cost(global_regression, x);
