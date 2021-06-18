@@ -22,6 +22,9 @@
     .warning {
         font-size: 8px;
     }
+    #select_trim{
+        width: 100%;
+    }
 }
 
 @media only screen and (min-width: 768px){
@@ -47,8 +50,8 @@
     }
     .front_btn {
         float: right;
-        width: 10%;
-        margin-top: 0%;
+        width: 20%;
+        margin-top: 20px;
     }
     .dash_graph{
         width: 70%;
@@ -65,5 +68,8 @@
     }
     .warning {
         font-size: 10px;
+    }
+    #select_trim{
+        width: 40%;
     }
 }

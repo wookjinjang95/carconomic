@@ -8,12 +8,15 @@ async function alert_no_data(){
             alert("No data available for " + make + " " + model);
         }else{
             (async function(){
-                await get_global_regression_for_all(file_location);
-                update_miles_vs_price(file_location);
-                update_side_trim_state_bars(file_location);
-                update_side_trim_bars(file_location);
-                update_cost_analysis(file_location);
-                add_raw_data_table(".raw_data_table_container", file_location);
+                var data = await d3.csv(file_location);
+                await get_global_regression_for_all(data);
+                update_trim_selection_for_get_price(data);
+                update_miles_vs_price(data);
+                update_side_trim_state_bars(data);
+                update_side_trim_bars(data);
+                clear_report();
+                update_cost_analysis(data);
+                add_raw_data_table(".raw_data_table_container", data);
             })();
         }
     });
@@ -42,9 +45,8 @@ function look_for_y_value_from_log(log_equation, x_value){
     }
 }
 
-async function get_global_regression_for_all(file_location){
+async function get_global_regression_for_all(data){
     global_regression = {};
-    var data = await d3.csv(file_location);
     unique_trims = await get_unique_trims(data);
     for(var i = 0; i < unique_trims.length; i++){
         filtered_trim_data = filter_data_by_trim(data, unique_trims[i]);
@@ -54,7 +56,24 @@ async function get_global_regression_for_all(file_location){
     }
 }
 
+async function update_trim_selection_for_get_price(data){
+    // d3.csv(file_location).then(function(data){
+        trims = get_unique_trims(data);
+        dropdown = d3.select("#select_trim");
+        dropdown.selectAll("option").remove().exit();
+        var options = dropdown.selectAll("option").data(trims);
 
+        options.enter()
+            .append("option")
+            .merge(options)
+                .text(function(d){
+                    return (d.charAt(0).toUpperCase() + d.slice(1)).replace("_", " ");
+                })
+                .attr("value", function(d){
+                    return d;
+                });
+    // });
+}
 
 function update_model_list(){
     var make = document.getElementById('make').value;
@@ -66,7 +85,7 @@ function update_model_list(){
     }
     if(make == "bmw"){
         data = [
-            "m235i", "m240i", "m340i", "m3", "m4", "m5"
+            "m235i", "m240i", "m340i", "m2", "m2_competition", "m3", "m4", "m5"
         ]
     }
     if(make == "lamborghini"){
@@ -97,6 +116,11 @@ function update_model_list(){
     if(make == "lexus"){
         data = [
             "rc", "lc"
+        ]
+    }
+    if(make == "ferrari"){
+        data = [
+            "458"
         ]
     }
 
@@ -191,6 +215,48 @@ function get_total_for_each_trims(data){
     return list_format;
 }
 
+function generate_report(){
+    var selected_trim = document.getElementById('select_trim').value;
+    var price = document.getElementById('price_text').value;
+    var mileage = document.getElementById('mileage_text').value;
+    
+    //replace comma with empty string
+    price = price.replace(",", "")
+    mileage = mileage.replace(",", "")
+
+    var report = d3.select("#report");
+    //check if those are empty or not.
+    if(isNaN(mileage) || isNaN(price)){
+        report.append("p")
+            .html("<a style='color:red'>ERROR: Couldn't generate due to incorrect inputs from either price or mileage. Please check inputs again.</a>")
+    }
+    else if(mileage == "" || price == ""){
+        report.append("p")
+            .html("<a style='color:orange'>WARNING: Please fill out both mileage and price to generate accurate report</a>")
+    }
+    else{
+         //Check if price is above or below
+        expected_price = get_certain_points(mileage, global_regression[selected_trim].equation).toFixed(0)
+        price_diff = (price - expected_price).toFixed(0);
+        var color = "green"
+        if(price_diff >= 0){
+            color = "red"
+        }
+        price_diff = numberWIthCommas(price_diff);
+        
+        report.append("p")
+            .html(
+                "The current vehicle you reported has a price of $" + numberWIthCommas(price) +
+                "; however, we expect the price to be estimated $" + numberWIthCommas(expected_price) + "." +
+                " That is the price difference of <a style='color: " + color + "'>$" + numberWIthCommas(price_diff) + "</a>."
+            )
+    }
+}
+
+function clear_report(){
+    d3.select("#report").selectAll("p").remove().exit();
+}
+
 function get_total_for_each_trim_with_each_state(data){
     result = {};
     for(var i =0; i < data.length; i++){
@@ -257,8 +323,9 @@ function filter_data_by_year(data, year){
     return filtered_data;
 }
 
-function update_miles_vs_price(file_location, color_mapping, trim, move=false){
-    d3.csv(file_location).then(function(data){
+function update_miles_vs_price(data, color_mapping, trim, move=false){
+    
+    // d3.csv(file_location).then(function(data){
         var dot_tooltip = d3.select("body").append("div")
             .attr("class", "dot_tooltip")
             .style("position", "absolute");
@@ -434,7 +501,7 @@ function update_miles_vs_price(file_location, color_mapping, trim, move=false){
                 .style("display", "inline-block")
                 .style("cursor", "pointer")
                 .on("click", function (event, d){
-                    update_miles_vs_price(file_location, color_mapping=color_mapping, trim=d, move=true);
+                    update_miles_vs_price(data, color_mapping=color_mapping, trim=d, move=true);
                 });
         
         svg_depreciation.selectAll(".legend_text").remove().exit();
@@ -506,14 +573,14 @@ function update_miles_vs_price(file_location, color_mapping, trim, move=false){
                 .x(function(d) { return x(d[0]);})
                 .y(function(d) { return y(d[1]);})
             )
-    });
+    // });
 }
 
-function add_raw_data_table(id, file_location){
+function add_raw_data_table(id, data){
     if(global_regression == "undefined"){
         console.log("Waiting 3 seconds for the result");
     }
-    d3.csv(file_location).then(function(data){
+    // d3.csv(file_location).then(function(data){
         //adding the title
         var make = document.getElementById('make').value;
         var model = document.getElementById('model').value;
@@ -546,7 +613,16 @@ function add_raw_data_table(id, file_location){
             .attr("class", "display")
 
         var thead = table.append("thead")
+        var tfoot = table.append("tfoot")
         var tbody = table.append("tbody")
+
+        //add tfoot
+        tfoot.append("tr")
+            .selectAll("th")
+            .data(columns)
+            .enter()
+            .append("th")
+                .text(function(d){ return d;})
 
         // add header row
         thead.append("tr")
@@ -599,20 +675,34 @@ function add_raw_data_table(id, file_location){
                 })
 
         $(document).ready(function () {
-            $("#all_data_table").DataTable({
+            $("#all_data_table tfoot th").each(function(){
+                var title = $(this).text();
+                $(this).html( '<input type="text" placeholder="Filter By '+title+'" />' );
+            });
+
+            var data_table = $("#all_data_table").DataTable({
                 "responsive": true,
                 "scrollX": true
             });
+
+            data_table.columns().every( function () {
+                var that = this;
+                $( 'input', this.footer()).on( 'keyup change', function () {
+                    that
+                        .search( this.value )
+                        .draw();
+                });
+            });
         });
-    });
+    // });
 }
 
-function update_side_trim_state_bars(file_location){
+function update_side_trim_state_bars(data){
     trim_state_svg_container.selectAll("g").remove();
     trim_state_svg_container.append("g")
         .attr("transform", "translate(" + h_margin.left + "," + h_margin.top + ")")
     
-    d3.csv(file_location).then(function(data) {
+    // d3.csv(file_location).then(function(data) {
         var selected_year = document.getElementById('year').value;
         if( selected_year != "all"){
             filtered_data = filter_data_by_year(data, selected_year);
@@ -632,10 +722,6 @@ function update_side_trim_state_bars(file_location){
             .domain(d3.map(trim_state_count_data, function(d){
                 return d.state;
             }));
-        
-        // trim_state_svg_container.append("g")
-        //     .attr("transform", "translate(0," + trim_state_height + ")")
-        //     .call(d3.axisBottom(x));
 
         if(trim_state_width <= 425){
             trim_state_svg_container.append("g")
@@ -713,15 +799,15 @@ function update_side_trim_state_bars(file_location){
             .on("mouseout", function(event, d) {
                 d3.select(this).style("fill", "steelblue")
             });
-    })
+    // })
 } 
 
-function update_side_trim_bars(file_location){
+function update_side_trim_bars(data){
     trim_svg_container.selectAll("g").remove();
     trim_svg_container.append("g")
         .attr("transform", "translate(" + h_margin.left + "," + h_margin.top + ")");
 
-    d3.csv(file_location).then(function(data) {
+    // d3.csv(file_location).then(function(data) {
         //data filter with given parameter
         var selected_year = document.getElementById('year').value;
         if( selected_year != "all"){
@@ -801,11 +887,11 @@ function update_side_trim_bars(file_location){
                         parseFloat(i(t)).toFixed(0));
                 };
             });
-    });
+    // });
 }
 
-function update_cost_analysis(file_location){
-    d3.csv(file_location).then(function (data){
+function update_cost_analysis(data){
+    // d3.csv(file_location).then(function (data){
         var cost_tooltip = d3.select("body").append("div")
             .attr("class", "cost_tooltip")
             .style("position", "absolute");
@@ -915,7 +1001,7 @@ function update_cost_analysis(file_location){
                 .on("mouseout", function(event, d) {
                     cost_tooltip.style("display", "none");
                 });
-    });
+    // });
 }
 
 function update_search_selection(){
@@ -1087,10 +1173,3 @@ if(width <= 425){
 var github_url = "data/";
 var file_location = github_url + make + "/" + model + ".csv";
 var maintenance_file_loation = github_url +"maintenance_data/" + make + "_" + model + "/report.csv";
-
-// get_global_regression_for_all(file_location);
-// update_miles_vs_price(file_location);
-// update_side_trim_bars(file_location);
-// update_cost_analysis(file_location);
-// // update_maintenance_bar_graph(maintenance_file_loation);
-// add_raw_data_table(".raw_data_table_container", file_location);
