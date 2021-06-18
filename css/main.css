@@ -43,6 +43,7 @@ th {
     border-radius: 25px;
     text-decoration: none;
     color: white;
+    max-height: 20px;
 }
 
 .front_btn:hover {
@@ -110,6 +111,7 @@ th {
 .two_pointer_img {
     height: 30vh;
     width: 100%;
+    min-height: 500px;
 }
 
 /* width */

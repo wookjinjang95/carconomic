@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
     <head>
         <meta name="viewport" content="width = device-width, initial-scale=1">
@@ -49,12 +50,12 @@
                 </ul>
             </div>
         </nav>
-        <div class="container-lg">
+        <div class="container-lg" id="main_body">
           <div class="dashboard">
-            <div style="width: 100%; margin: auto;">
-              <div style="color: black;">
+            <div class="row">
+              <div class="col">
                 <label for="make">Choose a brand: </label>
-                <select name="make" id="make" onchange="update_search_selection();">
+                <select class="form-select" name="make" id="make" onchange="update_search_selection();">
                   <option value="tesla">Tesla</option>
                   <option value="bmw">BMW</option>
                   <option value="lamborghini">Lamborghini</option>
@@ -63,13 +64,20 @@
                   <option value="mclaren">Mclaren</option>
                   <option value="porsche">Porsche</option>
                   <option value="ford">Ford</option>
+                  <option value="ferrari">Ferrari</option>
                 </select>
-                <label for="model" style="padding-left: 5%;">Choose a model: </label>
-                <select name="model" id="model" onchange="update_year_selection();"></select>
-                <label for="year" style="padding-left: 5%;">Select Year:</label>
-                <select name="year" id="year">
+              </div>
+              <div class="col">
+                <label for="model">Choose a model: </label>
+                <select class="form-select" name="model" id="model" onchange="update_year_selection();"></select>
+              </div>
+              <div class="col">
+                <label for="year">Select Year:</label>
+                <select class="form-select" name="year" id="year">
                   <option value="all">all</option>
                 </select>
+              </div>
+              <div class="d-flex justify-content-center">
                 <button onclick="alert_no_data()" class="front_btn">Search</button>
               </div>
             </div>
@@ -77,32 +85,79 @@
             <div style="padding-top: 30px;">
               <div><i>*Unspecified = Base model or not specified from owner</i></div>
               <div class="dash_graph">
-                  <div style="float: left"><i>Data Updated Lastly: 06-03-2021</i></div>
                   <div class="dash_title">Market Report</div>
+                  <div style="float: left"><i>Data Updated Lastly: 06-14-2021</i></div>
                   <div id="trim_list" style="overflow-x: hidden; overflow-y: auto; width: 100%; height: 25px; padding-left: 40px;"></div>
                   <div id="general_depreciation" style="height: 100%; width: 107%;"></div>
               </div>
               <div class="trim_total_info">
                 <div class="trim_dash_title">Total Number of Vehicles Per Trim</div>
               </div>
+              <div class="analyze_value">
+                <div class="dash_title" style="margin-bottom: 2%;">Check Price</div>
+                <p style="padding: 20px;">
+                  Give us trim of the vehicle, current price that you saw, and finally the mileage.
+                  With these given inputs, Carconomic analyzer can check whether the price you are 
+                  currently looking at is a good price or not. We can also predict how much will it 
+                  cost to own the vehicle.
+                </p>
+                <div class="row">
+                  <div class="col">
+                    <p style="color: red; padding-left: 5%;"><i>Please select trim</i></p>
+                  </div>
+                  <div class="col">
+                    <p style="color: red"><i>What is the current price of the vehicle you are looking into?</i></p>
+                  </div>
+                  <div class="col">
+                    <p style="color: red"><i>What is the current mileage of the vehicle?</i></p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <label for="select_trim" style="padding-left: 5%;">Choose the Trim: </label>
+                    <select class="form-select" style="display: inline-block" name="select_trim" id="select_trim"></select>
+                  </div>
+                  <div class="col">
+                    <label for="Price" style="padding-left: 5%;">Current Price ($): </label>
+                    <input type="text" id="price_text" name="price_text">
+                  </div>
+                  <div class="col">
+                    <label for="Price" style="padding-left: 5%;">Current Mileage (mi): </label>
+                    <input type="text" id="mileage_text" name="mileage_text">
+                  </div>
+                </div>
+                <p id="report" style="padding: 20px;"></p>
+                <div class="row" style="padding-bottom: 3%;">
+                  <div class="col d-flex justify-content-center">
+                    <button onclick="generate_report()" class="btn btn-primary" style="background-color: #33334d">Generate Report</button>
+                  </div>
+                  <div class="col d-flex justify-content-center">
+                    <button onclick="clear_report()" class="btn btn-primary" style="background-color: #33334d">Clear Report</button>
+                  </div>
+                </div>
+              </div>
               <div class="cost_analysis_container">
-                <div style="margin-left: 10px; margin-top: 10px;"><i>Data Updated Lastly: 06-03-2021</i></div>
-                <div class="warning"><i>*Please refresh the page if the graph is not showing</i></div>
+                <div style="margin-left: 10px;"><i>Data Updated Lastly: 06-14-2021</i></div>
                 <div class="dash_title">Depreciation Cost Analysis</div>
                 <div id="cost_trim_list" style="overflow-x: hidden; overflow-y: auto; width: 100%; height: 25px; padding-left: 40px;"></div>
                 <div id="cost_analysis"></div>
               </div>
               <div class="trim_in_states">
+                <div style="margin-left: 10px;"><i>Data Updated Lastly: 06-14-2021</i></div>
                 <div class="dash_title">Num of Vehicles in Each State</div>
               </div>
               <div class="raw_data_table_container">
                 <div style="float: left; display: inline-block;"><i>*Please note that if carfax link is not working, there is a chance that vehicle is out of market.</i></div>
-                <div style="float: right; display: inline-block; margin-right: 10px; display: inline-block;"><i>Data Updated Lastly: 06-03-2021</i></div>
+                <div id="data_date_updated" style="float: right; display: inline-block; margin-right: 10px; display: inline-block;"><i>Data Updated Lastly: 06-14-2021</i></div>
                 <div class="dash_title" id="title_of_raw_table"></div>
               </div>
             </div>
           </div>
         </div>
+        <!-- Vue.js script -->
+        <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+        <!-- <script src="../js/dashboard_vue.js"></script> -->
+        <!-- d3.js script -->
         <script src="../js/general_graph.js?n=1"></script>
         <script>
           window.onload = function(){

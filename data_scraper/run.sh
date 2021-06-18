@@ -5,8 +5,8 @@ python3 miles_and_price.py -z 91214 -m 'Model S' -ma Tesla -f ../dashboard/data/
 
 # # #Porsche Data Scraping
 # echo "##### Porsche ######"
-# python3 miles_and_price.py -z 91214 -m '911' -ma Porsche -f ../dashboard/data/porsche/911.csv
-# python3 miles_and_price.py -z 91214 -m '718 Boxster' -ma Porsche -f ../dashboard/data/porsche/718_boxster.csv
+python3 miles_and_price.py -z 91214 -m '911' -ma Porsche -f ../dashboard/data/porsche/911.csv
+python3 miles_and_price.py -z 91214 -m '718 Boxster' -ma Porsche -f ../dashboard/data/porsche/718_boxster.csv
 
 # #Mclaren Data Scraping
 echo "##### Mclaren ######"
@@ -19,11 +19,13 @@ python3 miles_and_price.py -z 91214 -m 'Aventador' -ma Lamborghini -f ../dashboa
 python3 miles_and_price.py -z 91214 -m 'Huracan' -ma Lamborghini -f ../dashboard/data/lamborghini/huracan.csv
 
 # #chevrolet
-# echo "##### Chevrolet ######"
-# python3 miles_and_price.py -z 91214 -m 'Corvette' -ma Chevrolet -f ../dashboard/data/chevrolet/corvette.csv
+echo "##### Chevrolet ######"
+python3 miles_and_price.py -z 91214 -m 'Corvette' -ma Chevrolet -f ../dashboard/data/chevrolet/corvette.csv
 
 #bmw
 echo "##### BMW ######"
+python3 miles_and_price.py -z 91214 -m 'M2' -ma BMW -f ../dashboard/data/bmw/m2.csv
+python3 miles_and_price.py -z 91214 -m 'M2 Competition' -ma BMW -f ../dashboard/data/bmw/m2_competition.csv
 python3 miles_and_price.py -z 91214 -m 'M3' -ma BMW -f ../dashboard/data/bmw/m3.csv
 python3 miles_and_price.py -z 91214 -m 'M4' -ma BMW -f ../dashboard/data/bmw/m4.csv
 python3 miles_and_price.py -z 91214 -m 'M5' -ma BMW -f ../dashboard/data/bmw/m5.csv
@@ -42,3 +44,7 @@ python3 miles_and_price.py -z 91214 -m 'Mustang' -ma Ford -f ../dashboard/data/f
 
 python3 miles_and_price.py -z 91214 -m 'LC' -ma 'Lexus' -f ../dashboard/data/lexus/lc.csv
 python3 miles_and_price.py -z 91214 -m 'RC' -ma 'Lexus' -f ../dashboard/data/lexus/rc.csv
+
+# Ferrari
+echo '##### FERRARI #####'
+python3 miles_and_price.py -z 91214 -m '458' -ma Ferrari -f ../dashboard/data/ferrari/458.csv

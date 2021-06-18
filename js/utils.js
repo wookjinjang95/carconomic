@@ -126,3 +126,7 @@ function get_unique_trims(data){
     }
     return trims;
 }
+
+function numberWIthCommas(num){
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
