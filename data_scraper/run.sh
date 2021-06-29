@@ -48,3 +48,4 @@ python3 miles_and_price.py -z 91214 -m 'RC' -ma 'Lexus' -f ../dashboard/data/lex
 # Ferrari
 echo '##### FERRARI #####'
 python3 miles_and_price.py -z 91214 -m '458' -ma Ferrari -f ../dashboard/data/ferrari/458.csv
+python3 miles_and_price.py -z 91214 -m '488' -ma Ferrari -f ../dashboard/data/ferrari/488.csv
