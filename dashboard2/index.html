@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width = device-width, initial-scale=1">
+        <!-- Below is the google font-->
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Titillium+Web&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=BioRhyme:wght@200&display=swap" rel="stylesheet">
+        <!-- Below is the bootstrap tool-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+        <!-- End of Bootstrap tool -->
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
+        <link rel="stylesheet" type="text/css" href="css/dashboard.css">
+        <script src="https://d3js.org/d3.v6.min.js"></script>
+        <script type ="text/javascript" src ="../js/jquery.js"></script>
+        <!-- new js script implementation -->
+        <script type="text/javascript" src="js/common/utils.js"></script>
+        <script type="text/javascript" src="js/common/graph_utils.js"></script>
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+        <script data-ad-client="ca-pub-5276442463136491" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <title>Carconomic Dashboard</title>
+        <link rel="icon" href="photos/icon/AIFA_icon.png">
+    </head>
+    <script>
+        var selected_menu = "general";
+    </script>
+    <body style="background-color: rgb(231, 231, 231);">
+        <div class="left-menu">
+            <div class="title d-flex justify-content-center">
+                Carconomic Dashboard
+            </div>
+            <ul>
+                <li class="item justify-content-center" onclick="selected_menu = 'general'; change_dashboard_data(selected_menu);">
+                    GENERAL
+                </li>
+                <li class="item justify-content-center" onclick="selected_menu = 'market'; change_dashboard_data(selected_menu);">
+                    MARKET
+                </li>
+                <li class="item justify-content-center" onclick="selected_menu = 'calculate'; change_dashboard_data(selected_menu);">
+                    CALCULATE
+                </li>
+                <li class="item justify-content-center" onclick="selected_menu = 'table'; change_dashboard_data(selected_menu);">
+                    TABLE
+                </li>
+            </ul>
+        </div>
+        <div class="content">
+            <div class="top-menu">
+                <label for="make">Choose a brand: </label>
+                <select class="form-select" name="make" id="make" onchange="update_search_selection();">
+                  <option value="tesla">Tesla</option>
+                  <option value="bmw">BMW</option>
+                  <option value="lamborghini">Lamborghini</option>
+                  <option value="lexus">Lexus</option>
+                  <option value="chevrolet">Chevrolet</option>
+                  <option value="mclaren">Mclaren</option>
+                  <option value="porsche">Porsche</option>
+                  <option value="ford">Ford</option>
+                  <option value="ferrari">Ferrari</option>
+                </select>
+                <label for="model">Choose a model: </label>
+                <select class="form-select" name="model" id="model" onchange="update_year_selection();"></select>
+                <label for="year">Select Year:</label>
+                <select class="form-select" name="year" id="year">
+                  <option value="all">all</option>
+                </select>
+                <button onclick="change_dashboard_data(selected_menu);" class="search_button">Search</button>
+            </div>
+            <div class="graph_containers" style="height: 100vh;"></div>
+        </div>
+        <script src="js/menu_selection.js"></script>
+        <script src="js/market.js"></script>
+        <script src="js/table.js"></script>
+        <script src="js/calculate.js"></script>
+    </body>
+</html>
