@@ -1,4 +1,5 @@
 async function generate_data_table(){
+    console.log("running table.js")
     d3.select('.graph_containers')
         .style('background-color', 'white')
         .style('position', 'relative')

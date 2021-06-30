@@ -4,4 +4,6 @@ function remove_the_current_dashboard_graph(){
         .append("div")
             .attr("class", "graph_containers")
             .style("float", "left")
+    d3.selectAll(".dot_tooltip").remove().exit();
+    d3.selectAll(".cost_tooltip").remove().exit();
 }

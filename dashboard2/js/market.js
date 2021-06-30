@@ -130,18 +130,23 @@ async function generate_market_report(){
             .style("height", "6.5vh")
             .style("width", "23vw")
             .style("margin-right", "10px")
-            .style("margin-top", "10px");
+            .style("margin-top", "10px")
+            .attr("class", "total_display_container")
+
+    var display_height =  d3.select(".total_display_container").node().getBoundingClientRect().height;
 
     total_vehicle_display.append("div")
         .text("Total " + brand + " " + model + " vehicles on US market")
         .style("padding-left", "10px")
         .style("color", "grey")
+        .attr("class", "total_display_title")
+        .style("font-size", display_height * 0.2 + "px")
 
     total_vehicle_display.append("div")
         .html(
             data.length + " vehicles"
         )
-        .style("font-size", "2vw")
+        .style("font-size", display_height * 0.4 + "px")
         .style("margin-left", "10px")
         .style("padding-left", "10px")
     

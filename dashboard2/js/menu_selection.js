@@ -5,12 +5,13 @@ function change_dashboard_data(selected_menu){
             break;
         case "market":
             generate_market_report();
+            break;
         case "calculate":
             generate_calculator();
-        case "cost":
             break;
         case "table":
             generate_data_table();
+            break;
     }
 }
 
@@ -118,3 +119,4 @@ function update_search_selection(){
 }
 
 update_search_selection();
+change_dashboard_data(selected_menu);

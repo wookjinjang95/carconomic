@@ -112,6 +112,9 @@
     #trim_list {
         font-size: 15px;
     }
+    #select_trim {
+        width: 40%;
+    }
 }
 
 @media screen and (min-width: 2560px){
