@@ -1,7 +1,14 @@
 function change_dashboard_data(selected_menu){
+    if(selected_menu == "general"){
+        d3.select(".top-menu").style("display", "none");
+    }else{
+        d3.select(".top-menu").style("display", "block");
+    }
     remove_the_current_dashboard_graph();
+    get_client_ip_address();
     switch (selected_menu) {
         case "general":
+            display_popularity();
             break;
         case "market":
             generate_market_report();

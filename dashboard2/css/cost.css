@@ -1,0 +1,40 @@
+@media screen and (min-width: 320px){
+    .cost_analyzer {
+        width: 95vw;
+        margin-right: 10px;
+    }
+    .depreciation_graph {
+        width: 95vw;
+    }
+    .price_reporter {
+        width: 95vw;
+        height: 65vh;
+        z-index: -1000;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .cost_analyzer {
+        width: 82vw;
+    }
+    .depreciation_graph {
+        width: 82vw;
+    }
+    .price_reporter {
+        width: 82vw;
+    }
+}
+
+@media screen and (min-width: 800px){
+    .cost_analyzer{
+        width: 30vw;
+        margin-right: 0px;
+    }
+    .depreciation_graph {
+        width: 51vw;
+    }
+    .price_reporter {
+        width: 81.5vw;
+        height: 45vh;
+    }
+}

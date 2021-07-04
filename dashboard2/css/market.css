@@ -1,0 +1,33 @@
+@media screen and (min-width: 320px){
+    #general_depreciation {
+        width: 95vw;
+    }
+    .total_display_container {
+        width: 95vw;
+    }
+    .pie_container {
+        width: 95vw;
+    }
+    .bar_graph {
+        width: 95vw;
+    }
+}
+
+@media screen and (min-width: 500px){
+    .top-menu {
+        position: relative;
+    }
+    #general_depreciation {
+        width: 83.5vw;
+    }
+    .total_display_container {
+        width: 23vw;
+    }
+    .pie_container {
+        width: 23vw;
+    }
+    .bar_graph {
+        width: 59vw;
+    }
+    
+}

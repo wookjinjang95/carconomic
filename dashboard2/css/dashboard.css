@@ -6,9 +6,29 @@
     padding-top: 30px;
     color: white;
     float: left;
-    font-family: 'PT Sans', sans-serif;
+    font-family: 'Poppins', sans-serif;
     position: fixed;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
 }
+
+.graph_containers {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+}
+
+.graph_containers input {
+    font-weight: 700;
+}
+
+.graph_containers select {
+    font-weight: 700;
+}
+
+.graph_containers option {
+    font-weight: 700;
+}
+
 .left-menu .title {
     font-size: 1.5vw;
     font-weight: 900;
@@ -28,24 +48,43 @@
     font-size: 1vw;
     padding-top: 4%;
     padding-bottom: 4%;
-    padding-left: 40%;
+    padding-left: 20%;
     transition: 0.2s;
     border-radius: 0px;
-    background-image: linear-gradient(to left, #9999ff, #3333ff);
-    transition: 0.2s;
 }
 
 .left-menu .item:hover {
-    background-image: linear-gradient(to right, #9999ff, #3333ff);
-    padding-left: 50%;
+    padding-left: 30%;
     transition: 0.2s;
 }
 
 .left-menu .item:focus{
     border-radius: 10px;
-    background-image: linear-gradient(to right, #9999ff, #3333ff);
     margin-left: 2%;
     margin-right: 2%;
+}
+
+.bottom-menu{
+    bottom: 0;
+    background-color: #6666ff;
+    width: 100%;
+    height: 40px;
+    position: absolute;
+    padding-top: 1%;
+    position: fixed;
+}
+
+.bottom-menu img {
+    width: 8%;
+    height: 8%;
+    padding: 1%;
+    margin-right: 5%;
+    margin-left: 5%;
+}
+
+.graph_title {
+    font-size: 1vmax;
+    padding-left: 10px;
 }
 
 .content {
@@ -56,23 +95,27 @@
     height: 10%;
     width: 100%;
     float: left;
-    padding-left: 2%;
     padding-top: 10px;
     padding-bottom: 10px;
-    background-color: white;
     font-family: 'PT Sans', sans-serif;
     font-weight: 700;
     font-size: 1.2vw;
+    font-family: 'Poppins', sans-serif;
 }
 .top-menu select {
     width: 8vw;
     display: inline-block;
     font-size: 1.2vw;
+    font-weight: 700;
 }
 .top-menu label {
     padding-left: 5%;
     padding-right: 1%;
 }
+.top-menu option {
+    font-weight: 700;
+}
+
 .search_button {
     float: right;
     border: 3px solid #6666ff;
@@ -87,7 +130,59 @@
     font-family: 'PT Sans', sans-serif;
     font-weight: 700;
     font-size: 1.2vw;
-    margin-right: 20px;
+    margin-right: 1vw;
+}
+
+@media screen and (min-width: 0px){
+    .left-menu {
+        display: none;
+    }
+    .content {
+        margin-left: 0;
+        overflow-y: auto;
+        margin-bottom: 50px;
+    }
+    .bottom-menu {
+        display: block;
+        z-index: 1;
+    }
+    .top-menu {
+        position: absolute;
+        height: 40px;
+        font-size: 8px;
+    }
+    .top-menu label {
+        padding-left: 2%;
+    }
+    .graph_containers {
+        width: 100vw;
+        margin-top: 10%;
+    }
+}
+
+@media screen and (min-width: 500px){
+    .graph_containers {
+        margin-top: 0;
+        width: 84vw;
+    }
+    .left-menu {
+        display: block;
+    }
+    .content {
+        margin-left: 15vw;
+        overflow-y: none;
+    }
+    .bottom-menu {
+        display: none;
+    }
+    .top-menu {
+        position: relative;
+        height: 10%;
+    }
+    .top-menu label {
+        padding-left: 5%;
+        padding-right: 1%;
+    }
 }
 
 @media screen and (min-width: 1440px){
@@ -107,9 +202,6 @@
         font-size: 30px;
     }
     .left-menu .item {
-        font-size: 15px;
-    }
-    #trim_list {
         font-size: 15px;
     }
     #select_trim {

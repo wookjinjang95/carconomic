@@ -1,10 +1,7 @@
 async function generate_data_table(){
-    console.log("running table.js")
     d3.select('.graph_containers')
         .style('background-color', 'white')
-        .style('position', 'relative')
         .style('z-index', '-1')
-        .style('width', '85vw');
     
     var model = document.getElementById('model').value.replace("_", " ");
     var brand = document.getElementById('make').value;
@@ -34,7 +31,6 @@ function look_for_y_value_from_log(log_equation, x_value){
 }
 
 function add_raw_data_table(id, data, global_regression){
-    console.log(global_regression)
     //adding the title
     var make = document.getElementById('make').value;
     var model = document.getElementById('model').value;
@@ -135,8 +131,7 @@ function add_raw_data_table(id, data, global_regression){
         });
 
         var data_table = $("#all_data_table").DataTable({
-            // "responsive": true,
-            "scrollX": true
+            "scrollX": true,
         });
 
         data_table.columns().every( function () {

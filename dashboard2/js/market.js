@@ -15,15 +15,14 @@ async function generate_market_report(){
         .append("div")
             .attr("id", "general_depreciation")
             .style("height", "60vh")
-            .style("width", "83.5vw")
             .style("background-color", "white")
             .style("margin-left", "10px")
             .style("margin-right", "10px")
             .style("margin-top", "10px")
+            .style("border-radius", "15px")
         .append("div")
-            .text("Market Report for " + brand + " " + model)
-            .style("padding-left", "10px")
-            .style("color", "grey")
+            .text("Market Trend")
+            .attr("class", "graph_title")
         .append("div")
             .attr("id", "trim_list")
             .style("overflow-x", "hidden")
@@ -91,18 +90,18 @@ async function generate_market_report(){
     //adding the total vehicle number in US
     var vehicle_for_each_state_container = d3.select(".graph_containers")
         .append("div")
+            .attr("class", "bar_graph")
             .style("float", "right")
             .style("background-color", "white")
             .style("height", "30vh")
-            .style("width", "60vw")
             .style("margin-right", "10px")
-            .style("margin-top", "10px");
+            .style("margin-top", "10px")
+            .style("border-radius", "15px");
     
     vehicle_for_each_state_container
         .append("div")
-            .text("Number of " + brand + " " + model + " in Each State")
-            .style("padding-left", "10px")
-            .style("color", "grey")
+            .text("Vehicles Per State")
+            .attr("class", "graph_title")
         .append("div")
             .attr("class", "trim_in_states")
             .style("height", "27vh")
@@ -128,27 +127,19 @@ async function generate_market_report(){
             .style("float", "right")
             .style("background-color", "white")
             .style("height", "6.5vh")
-            .style("width", "23vw")
             .style("margin-right", "10px")
             .style("margin-top", "10px")
             .attr("class", "total_display_container")
-
-    var display_height =  d3.select(".total_display_container").node().getBoundingClientRect().height;
-
-    total_vehicle_display.append("div")
-        .text("Total " + brand + " " + model + " vehicles on US market")
-        .style("padding-left", "10px")
-        .style("color", "grey")
-        .attr("class", "total_display_title")
-        .style("font-size", display_height * 0.2 + "px")
+            .style("border-radius", "15px");
 
     total_vehicle_display.append("div")
         .html(
-            data.length + " vehicles"
+            "Total of " + data.length + " vehicles in US"
         )
-        .style("font-size", display_height * 0.4 + "px")
+        .attr("class", "d-flex justify-content-center")
+        .style("font-size", "1.5vmax")
         .style("margin-left", "10px")
-        .style("padding-left", "10px")
+        .style("padding-top", "2%")
     
     var total_trim_display = d3.select(".graph_containers")
         .append("div")
@@ -156,19 +147,18 @@ async function generate_market_report(){
             .style("float", "right")
             .style("background-color", "white")
             .style("height", "22.5vh")
-            .style("width", "23vw")
             .style("margin-right", "10px")
-            .style("margin-top", "10px");
+            .style("margin-top", "10px")
+            .style("border-radius", "15px");
     
     total_trim_display.append("div")
-        .attr("class", "total_trim_pie_title")
-        .text("Each Trim Total Vehicles for " + brand + " " + model)
-        .style("padding-left", "10px")
-        .style("color", "grey")
+        .attr("class", "graph_title")
+        .attr("id", "total_trim_pie_title")
+        .text("Trim Popularity")
 
     var pie_width = d3.select(".pie_container").node().getBoundingClientRect().width;
     var pie_height = d3.select(".pie_container").node().getBoundingClientRect().height -
-        document.getElementsByClassName("total_trim_pie_title")[0].clientHeight;
+        document.getElementById("total_trim_pie_title").clientHeight;
     var radius = Math.min(pie_width, pie_height) / 2;
 
     var pie_svg = total_trim_display
@@ -368,7 +358,9 @@ function update_miles_vs_price(svg_depreciation, margin, data, color_mapping, tr
 
     d3.selectAll(".each_trim").remove().exit();
 
-    var trim_list_containers = d3.select("#trim_list").selectAll("div")
+    var trim_list_containers = d3.select("#trim_list")
+        .style("font-size", "0.9rem")
+        .selectAll("div")
         .data(trims)
         .enter()
         .append("div")
@@ -597,6 +589,6 @@ function draw_pie_chart(svg, data, radius, color_mapping){
         .attr("transform", function(d) {
             return "translate(" + labelArc.centroid(d) + ")";
         })
-        .attr("dy", ".35em")
+        .style("font-size", "1vh")
         .text(function(d) { return d.data.trim; })
 }

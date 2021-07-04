@@ -9,27 +9,26 @@ async function generate_calculator(){
         data = filter_data_by_year(data, selected_year);
     }
     var trims = get_unique_trims(data);
-    create_cost_analyzer(trims, brand, model);
+    create_cost_analyzer(trims, data);
 
     var depreciation_graph_container = d3.select(".graph_containers")
         .append("div")
             .attr("class", "depreciation_graph")
             .style("background-color", "white")
-            .style("width", "52vw")
             .style("height", "45vh")
             .style("margin", "10px")
             .style("float", "left")
             .style("display", "inline-block")
+            .style("border-radius", "15px")
 
     depreciation_graph_container
         .append("div")
-            .attr("class", "depreciation_graph_title")
-            .text(`Depreciation Cost Report for ${brand} ${model}`)
-            .style("color", "grey")
-            .style("padding-left", "10px")
+            .attr("class", "graph_title")
+            .attr("id", "depreciation_graph_title")
+            .text("Depreciation Cost Report")
     
     var container = d3.select(".depreciation_graph").node();
-    var height = container.getBoundingClientRect().height - document.getElementsByClassName("depreciation_graph_title")[0].clientHeight;
+    var height = container.getBoundingClientRect().height - document.getElementById("depreciation_graph_title").clientHeight;
     var width = container.getBoundingClientRect().width;
 
     margin = {
@@ -68,23 +67,22 @@ async function generate_calculator(){
     create_market_price_report(trims, brand, model);
 }
 
-function create_cost_analyzer(trims, brand, model){
+function create_cost_analyzer(trims, data){
     var cost_analyzer = d3.select(".graph_containers")
         .append("div")
             .attr("class", "cost_analyzer")
             .style("background-color", "white")
-            .style("width", "30vw")
             .style("height", "45vh")
             .style("margin", "10px")
             .style("margin-right", "0px")
             .style("float", "left")
+            .style("border-radius", "15px")
 
     cost_analyzer
         .append("div")
             .attr("class", "cost_analyzer_title")
-            .text(`Depreciation Cost Analyzer for ${brand} ${model}`)
-            .style("color",  "grey")
-            .style("padding-left", "10px")
+            .text(`Depreciation Cost Calculator`)
+            .attr("class", "graph_title")
 
     // cost_analyzer
     //     .append("p")
@@ -101,9 +99,8 @@ function create_cost_analyzer(trims, brand, model){
 
     cost_analyze_selector
         .append("div")
-            .attr("class", "col")
             .html('\
-                <label for="select_trim" style="padding-left: 5%">Trim:</label> \
+                <label for="select_trim" style="padding-left: 10%">Trim:</label> \
                 <select class="form-select" style="display: inline-block; width: 70%" name="analyze_trim" id="analyze_trim"></select> \
             ')
 
@@ -118,54 +115,87 @@ function create_cost_analyzer(trims, brand, model){
             .attr("value", function(d) { return d; });
 
     cost_analyze_selector
-        .append("div")
-            .attr("class", "col d-flex justify-content-center")
-            .html('\
-                <label for="start_mileage" style="padding-right: 5%">Starting Mileage </label> \
-                <input type="text" id="starting_mileage" name="starting_mileage" style="width: 80%"> \
-            ')
-
+        .append("label")
+            .attr("for", "amount")
+            .style("margin-left", "10%")
+            .style("margin-top", "2%")
+            .style("float", "left")
+            .text("Mile Range")
+            .style("width", "40%")
+        
+    cost_analyze_selector.append("input")
+            .attr("type", "text")
+            .attr("id", "amount")
+            .style("width", "40%")
+            .style("float", "left")
+            .style("margin-top", "2%")
+            .attr("readonly", "true")
+        
     cost_analyze_selector
         .append("div")
-            .attr("class", "col d-flex justify-content-center")
-            .html('\
-                <label for="ending_mileage">Ending Mileage </label> \
-                <input type="text" id="ending_mileage" name="ending_mileage" style="margin-right: 5%; width: 80%"> \
-            ')
+            .attr("id", "slider-range")
+            .style("margin-top", "2%")
+            .style("width", "80%")
+            .style("margin-left", "10%")
 
-    cost_analyzer
-        .append("div")
-            .attr("class", "analyze_report")
-            .style("margin-left", "5%")
-            .style("margin-right", "5%")
-            .style("margin-top", "3%")
-            .style("width", "90%")
-            .style("height", "50%")
-            .style("overflow-y", "auto")
-            .style("border-radius", "10px")
-            .style("border-style", "solid")
-            .style("border-color", "grey")
-            .style("border-width", "thin")
+    $( "#slider-range" ).slider({
+        range: true,
+        min: 0,
+        max: 100000,
+        values: [ 10000, 50000 ],
+        slide: function( event, ui ) {
+            $( "#amount" ).val(ui.values[ 0 ] + " mi - " + ui.values[ 1 ] + " mi");
+        }
+    });
+    $( "#amount" ).val($( "#slider-range" ).slider( "values", 0 ) + " mi - " + $( "#slider-range" ).slider( "values", 1 ) + " mi");
 
-    //generate cost analyzer buttons
-    var cost_analyzer_btns = cost_analyzer.append("div")
-        .attr("class", "row")
-        .style("margin-top", "5%")
-
-    cost_analyzer_btns.append("div")
-        .attr("class", "col d-flex justify-content-center")
-        .html('<button onclick="calculate_depreciation_cost()" class="btn btn-primary" style="background-color: #33334d">Calculate</button>')
-
-    cost_analyzer_btns.append("div")
-        .attr("class", "col d-flex justify-content-center")
-        .html('<button onclick="clear_cost_calculation()" class="btn btn-primary" style="background-color: #33334d">Clear Result</button>')
 }
 
 function calculate_depreciation_cost(){
+    //TODO:
     //select the trim, starting mileage, and ending mileage.
+    var starting_mileage = document.getElementById('starting_mileage').value;
+    var ending_mileage = document.getElementById('ending_mileage').value;
+    var selected_trim = document.getElementById('analyze_trim').value;
     //Calculate the car worth value for starting mileage and ending mileage for that trim.
     //Calculate the difference and show the result.
     var report = d3.select(".analyze_report")
+
+    //replace comma with empty string
+    starting_mileage = starting_mileage.replace(",", "")
+    ending_mileage = ending_mileage.replace(",", "")
+ 
+    var report = d3.select(".analyze_report");
+    //check if those are empty or not.
+    if(isNaN(starting_mileage) || isNaN(ending_mileage)){
+         report.append("p")
+            .style("margin", 0)
+            .style("background-color", "rgb(255, 0, 0, 0.5)")
+            .text("Please only put numbers and remove alphabet or special characters")
+    }
+    else if(starting_mileage == "" || ending_mileage == ""){
+        report.append("p")
+            .style("margin", 0)
+            .style("background-color", "rgb(255, 0, 0, 0.5)")
+            .text("Please put numbers for starting mileage and ending mileage")
+    }
+    else if(parseInt(starting_mileage) > parseInt(ending_mileage)){
+        report.append("p")
+            .style("margin", 0)
+            .style("background-color", "rgb(255, 153, 0, 0.5)")
+            .text("Starting mileage cannot be bigger than ending mileage.")
+    }
+    else{
+        var first_price = get_certain_points(starting_mileage, global_regression[selected_trim].equation).toFixed(0);
+        var second_price = get_certain_points(ending_mileage, global_regression[selected_trim].equation).toFixed(0);
+        var depreciated_cost = first_price - second_price;
+        if(depreciated_cost >= 0){
+            report.append("p")
+                .style("margin", 0)
+                .style("background-color", "rgb(0, 204, 0, 0.5)")
+                .text(`For current mileage is at ${starting_mileage} and the ending mileage at ${ending_mileage}, you are estimated to see value loss of $${depreciated_cost}`)
+        }
+    }
 }
 
 function clear_cost_calculation(){
@@ -176,18 +206,16 @@ function create_market_price_report(trims, brand, model){
     var price_report = d3.select(".graph_containers")
         .append("div")
             .attr("class", "price_reporter")
-            .style("width", "83.5vw")
             .style("margin", "10px")
             .style("margin-top", 0)
-            .style("height", "45vh")
             .style("background-color", "white")
-            .style("float", "left");
+            .style("float", "left")
+            .style("border-radius", "15px")
 
     price_report.append("div")
         .attr("class", "depreciation_graph_title")
-        .text(`Check Market Price for ${brand} ${model}`)
-        .style("color", "grey")
-        .style("padding-left", "10px")
+        .text("Check Market/Offer Price")
+        .attr("class", "graph_title")
 
     var price_report_desc = price_report.append("div")
         .attr("class", "row")
@@ -259,11 +287,11 @@ function create_market_price_report(trims, brand, model){
 
     price_report_buttons.append("div")
         .attr("class", "col d-flex justify-content-center")
-            .html('<button onclick="generate_report()" class="btn btn-primary" style="background-color: #33334d">Generate Report</button>')
+            .html('<button onclick="generate_report()" class="btn btn-primary" style="background-color: #6666ff">Generate Report</button>')
     
     price_report_buttons.append("div")
         .attr("class", "col d-flex justify-content-center")
-            .html('<button onclick="clear_report()" class="btn btn-primary" style="background-color: #33334d">Clear Report</button>')
+            .html('<button onclick="clear_report()" class="btn btn-primary" style="background-color: #6666ff">Clear Report</button>')
     
 }
 
@@ -361,8 +389,10 @@ async function update_cost_analysis(cost_svg, data){
                     .style("left", xPosition + "px")
                     .style("top", yPosition + "px")
                     .style("padding", "10px")
-                    .style("background-color", "lightsteelblue")
+                    .style("background-color", "#6666ff")
                     .style("border-radius", "7px")
+                    .style("color", "white")
+                    .style("font-weight", 500)
                     .style("position", "absolute")
             })
             .on("mouseout", function(event, d) {
