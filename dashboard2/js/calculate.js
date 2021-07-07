@@ -4,10 +4,10 @@ async function generate_calculator(){
     var selected_year = document.getElementById('year').value;
     var file_location = retrieve_data_location();
     var data = await d3.csv(file_location);
-    global_regression = await get_global_regression_for_all(data);
     if( selected_year != "all"){
         data = filter_data_by_year(data, selected_year);
     }
+    global_regression = await get_global_regression_for_all(data);
     var trims = get_unique_trims(data);
     create_cost_analyzer(trims, data);
 
@@ -20,6 +20,7 @@ async function generate_calculator(){
             .style("float", "left")
             .style("display", "inline-block")
             .style("border-radius", "15px")
+            .style("min-height", "400px")
 
     depreciation_graph_container
         .append("div")
@@ -77,6 +78,7 @@ function create_cost_analyzer(trims, data){
             .style("margin-right", "0px")
             .style("float", "left")
             .style("border-radius", "15px")
+            .style("min-height", "400px")
 
     cost_analyzer
         .append("div")
@@ -145,9 +147,12 @@ function create_cost_analyzer(trims, data){
             .style("width", "80%")
             .style("margin-left", "10%")
 
+    //get the mileage min from the global_regression data
+    var selected_trim = document.getElementById("analyze_trim").value;
+
     $( "#slider-range" ).slider({
         range: true,
-        min: 50,
+        min: global_regression[selected_trim].points[0][0],
         max: 100000,
         values: [ 10000, 50000 ],
         slide: function( event, ui ) {
@@ -158,7 +163,6 @@ function create_cost_analyzer(trims, data){
     $('#slider-range').on("slidestop", function(event){
         update_depreciation_cost(data, cost_analyzer);
     });
-    //TODO: Add MSRP as part of the parameter.
     update_depreciation_cost(data, cost_analyzer)
 }
 
@@ -166,13 +170,14 @@ function update_depreciation_cost(data, cost_analyzer){
     var miles = $("#slider-range").slider("option", "values");
     var selected_trim = document.getElementById("analyze_trim").value;
     var msrp =  document.getElementById("msrp").value.replace(",", "")
+
     if(!isNaN(msrp)){
         new_data = filter_data_by_given_trim(selected_trim, data);
         new_data.push({
             "Price": parseInt(msrp),
             "Miles": 1
         })
-        new_data = data.map(d => [parseInt(d.Miles), parseInt(d.Price)])
+        new_data = new_data.map(d => [parseInt(d.Miles), parseInt(d.Price)])
         var log_result = logarithmic(new_data);
         first_price = parseInt(msrp).toFixed(0)
         second_price = get_certain_points(miles[1], log_result.equation).toFixed(0)
@@ -231,6 +236,7 @@ function create_market_price_report(trims, brand, model){
             .style("background-color", "white")
             .style("float", "left")
             .style("border-radius", "15px")
+            .style("min-height", "500px")
 
     price_report.append("div")
         .attr("class", "depreciation_graph_title")

@@ -17,17 +17,25 @@
     .top-menu {
         position: relative;
     }
-    #general_depreciation {
-        width: 83.5vw;
+    .pie_container {
+        width: 23vw;
     }
     .total_display_container {
         width: 23vw;
     }
-    .pie_container {
-        width: 23vw;
+}
+
+@media screen and (min-width: 768px){
+    .bar_graph {
+        width: 70vw;
     }
+}
+
+@media screen and (min-width: 1200px){
     .bar_graph {
         width: 59vw;
     }
-    
+    #general_depreciation {
+        width: 83.5vw;
+    }
 }

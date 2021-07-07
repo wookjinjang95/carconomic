@@ -73,7 +73,7 @@
 }
 
 .bottom-menu img {
-    width: 10%;
+    width: 40px;
     height: 10%;
     padding: 1%;
     margin-right: 6%;
@@ -150,7 +150,14 @@
     }
 }
 
-@media screen and (min-width: 500px){
+@media screen and (min-width: 760px){
+    .bottom-menu img {
+        margin-right: 8%;
+        margin-left: 9%;
+    }
+}
+
+@media screen and (min-width: 1200px){
     .graph_containers {
         margin-top: 0;
         width: 84vw;
