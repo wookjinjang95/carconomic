@@ -554,7 +554,6 @@ function update_side_trim_state_bars(trim_state_svg_container, h_margin, data){
 
         bars.selectAll("rect")
             .on("mouseover", function(event, d) {
-                console.log(d3.select(this));
                 d3.select(this).style("fill", "rgba(255, 0, 0, 0.8)")
             })
             .on("mouseout", function(event, d) {

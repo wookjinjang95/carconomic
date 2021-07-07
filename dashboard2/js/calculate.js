@@ -83,16 +83,6 @@ function create_cost_analyzer(trims, data){
             .attr("class", "cost_analyzer_title")
             .text(`Depreciation Cost Calculator`)
             .attr("class", "graph_title")
-
-    // cost_analyzer
-    //     .append("p")
-    //         .attr("class", "justify-content-center")
-    //         .style("color", "grey")
-    //         .text("*Starting mileage is a mileage you had when you first purchased the car.")
-    //     .append("p")
-    //         .attr("class", "justify-content-center")
-    //         .style("color", "grey")
-    //         .text("*Ending mileage is a mileage you think you will stop driving the vehicle.")
     
     var cost_analyze_selector = cost_analyzer.append("div")
         .attr("class", "row")
@@ -130,6 +120,23 @@ function create_cost_analyzer(trims, data){
             .style("float", "left")
             .style("margin-top", "2%")
             .attr("readonly", "true")
+
+    cost_analyze_selector.append("label")
+            .attr("for", "msrp")
+            .style("margin-left", "10%")
+            .style("margin-top", "2%")
+            .style("float", "left")
+            .text("MSRP")
+            .style("width", "40%")
+
+    cost_analyze_selector.append("input")
+            .attr("type", "text")
+            .attr("id", "msrp")
+            .attr("value", "Please type in MSRP")
+            .style("width", "40%")
+            .style("float", "left")
+            .style("margin-top", "2%")
+            .text("Please type in MSRP")
         
     cost_analyze_selector
         .append("div")
@@ -140,7 +147,7 @@ function create_cost_analyzer(trims, data){
 
     $( "#slider-range" ).slider({
         range: true,
-        min: 0,
+        min: 50,
         max: 100000,
         values: [ 10000, 50000 ],
         slide: function( event, ui ) {
@@ -148,54 +155,67 @@ function create_cost_analyzer(trims, data){
         }
     });
     $( "#amount" ).val($( "#slider-range" ).slider( "values", 0 ) + " mi - " + $( "#slider-range" ).slider( "values", 1 ) + " mi");
+    $('#slider-range').on("slidestop", function(event){
+        update_depreciation_cost(data, cost_analyzer);
+    });
+    //TODO: Add MSRP as part of the parameter.
+    update_depreciation_cost(data, cost_analyzer)
+}
 
+function update_depreciation_cost(data, cost_analyzer){
+    var miles = $("#slider-range").slider("option", "values");
+    var selected_trim = document.getElementById("analyze_trim").value;
+    var msrp =  document.getElementById("msrp").value.replace(",", "")
+    if(!isNaN(msrp)){
+        new_data = filter_data_by_given_trim(selected_trim, data);
+        new_data.push({
+            "Price": parseInt(msrp),
+            "Miles": 1
+        })
+        new_data = data.map(d => [parseInt(d.Miles), parseInt(d.Price)])
+        var log_result = logarithmic(new_data);
+        first_price = parseInt(msrp).toFixed(0)
+        second_price = get_certain_points(miles[1], log_result.equation).toFixed(0)
+        miles[0] = 0;
+    }else{
+        first_price = get_certain_points(miles[0], global_regression[selected_trim].equation).toFixed(0)
+        second_price = get_certain_points(miles[1], global_regression[selected_trim].equation).toFixed(0)
+    }
+    var cost = second_price - first_price;
+    cost_analyzer.select(".loss_cost_container").remove()
+
+    var loss_cost_container = cost_analyzer.append("div")
+        .attr("class", "loss_cost_container")
+        .style("padding", "1rem")
+        .style("font-size", "1rem")
+
+    loss_cost_container.append("div")
+        .text("Estimated Car Loss")
+
+    if(cost >= 0){
+        loss_cost_container.append("div")
+            .style("font-size", "4rem")
+            .attr("class", "d-flex justify-content-center")
+            .html(`<p>${cost} <a style='font-size: 2rem'> gained </a></p>`)
+    }else{
+        loss_cost_container.append("div")
+            .style("font-size", "4rem")
+            .attr("class", "d-flex justify-content-center")
+            .html(`<p>${cost} <a style='font-size: 2rem'> lossed </a></p>`)
+    }
+
+    loss_cost_container.append("div")
+        .style("font-size", "1.5vh")
+        .text(`Expected Car Price at ${miles[0]}mi: $${first_price}`)
+
+    loss_cost_container.append("div")
+        .style("font-size", "1.5vh")
+        .text(`Expected Price at ${miles[1]}mi: $${second_price}`)
 }
 
 function calculate_depreciation_cost(){
-    //TODO:
-    //select the trim, starting mileage, and ending mileage.
-    var starting_mileage = document.getElementById('starting_mileage').value;
-    var ending_mileage = document.getElementById('ending_mileage').value;
-    var selected_trim = document.getElementById('analyze_trim').value;
-    //Calculate the car worth value for starting mileage and ending mileage for that trim.
-    //Calculate the difference and show the result.
-    var report = d3.select(".analyze_report")
-
-    //replace comma with empty string
-    starting_mileage = starting_mileage.replace(",", "")
-    ending_mileage = ending_mileage.replace(",", "")
- 
-    var report = d3.select(".analyze_report");
-    //check if those are empty or not.
-    if(isNaN(starting_mileage) || isNaN(ending_mileage)){
-         report.append("p")
-            .style("margin", 0)
-            .style("background-color", "rgb(255, 0, 0, 0.5)")
-            .text("Please only put numbers and remove alphabet or special characters")
-    }
-    else if(starting_mileage == "" || ending_mileage == ""){
-        report.append("p")
-            .style("margin", 0)
-            .style("background-color", "rgb(255, 0, 0, 0.5)")
-            .text("Please put numbers for starting mileage and ending mileage")
-    }
-    else if(parseInt(starting_mileage) > parseInt(ending_mileage)){
-        report.append("p")
-            .style("margin", 0)
-            .style("background-color", "rgb(255, 153, 0, 0.5)")
-            .text("Starting mileage cannot be bigger than ending mileage.")
-    }
-    else{
-        var first_price = get_certain_points(starting_mileage, global_regression[selected_trim].equation).toFixed(0);
-        var second_price = get_certain_points(ending_mileage, global_regression[selected_trim].equation).toFixed(0);
-        var depreciated_cost = first_price - second_price;
-        if(depreciated_cost >= 0){
-            report.append("p")
-                .style("margin", 0)
-                .style("background-color", "rgb(0, 204, 0, 0.5)")
-                .text(`For current mileage is at ${starting_mileage} and the ending mileage at ${ending_mileage}, you are estimated to see value loss of $${depreciated_cost}`)
-        }
-    }
+    var values = $("#slider-range").slider("option", "values");
+    return values[1] - values[0]
 }
 
 function clear_cost_calculation(){
