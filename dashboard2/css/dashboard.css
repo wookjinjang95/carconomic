@@ -8,8 +8,6 @@
     float: left;
     font-family: 'Poppins', sans-serif;
     position: fixed;
-    border-top-right-radius: 30px;
-    border-bottom-right-radius: 30px;
 }
 
 .graph_containers {
@@ -68,18 +66,18 @@
     bottom: 0;
     background-color: #6666ff;
     width: 100%;
-    height: 40px;
+    height: 50px;
     position: absolute;
     padding-top: 1%;
     position: fixed;
 }
 
 .bottom-menu img {
-    width: 8%;
-    height: 8%;
+    width: 10%;
+    height: 10%;
     padding: 1%;
-    margin-right: 5%;
-    margin-left: 5%;
+    margin-right: 6%;
+    margin-left: 6%;
 }
 
 .graph_title {
@@ -92,26 +90,18 @@
 }
 
 .top-menu {
-    height: 10%;
     width: 100%;
     float: left;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    font-family: 'PT Sans', sans-serif;
+    /* padding-top: 10px;
+    padding-bottom: 10px; */
     font-weight: 700;
     font-size: 1.2vw;
     font-family: 'Poppins', sans-serif;
 }
-.top-menu select {
-    width: 8vw;
-    display: inline-block;
-    font-size: 1.2vw;
-    font-weight: 700;
+.top-menu .label  {
+    float: left;
 }
-.top-menu label {
-    padding-left: 5%;
-    padding-right: 1%;
-}
+
 .top-menu option {
     font-weight: 700;
 }
@@ -146,17 +136,17 @@
         display: block;
         z-index: 1;
     }
-    .top-menu {
+    /* .top-menu {
         position: absolute;
         height: 40px;
         font-size: 8px;
     }
     .top-menu label {
         padding-left: 2%;
-    }
+    } */
     .graph_containers {
         width: 100vw;
-        margin-top: 10%;
+        margin-top: 0px;
     }
 }
 
@@ -175,26 +165,26 @@
     .bottom-menu {
         display: none;
     }
-    .top-menu {
+    /* .top-menu {
         position: relative;
         height: 10%;
     }
     .top-menu label {
         padding-left: 5%;
         padding-right: 1%;
-    }
+    } */
 }
 
 @media screen and (min-width: 1440px){
     .left-menu {
         font-size: 30px;
     }
-    .top-menu select {
+    /* .top-menu select {
         font-size: 13px;
     }
     .top-menu {
         font-size: 13px;
-    }
+    } */
     .search_button {
         font-size: 13px;
     }
@@ -210,12 +200,12 @@
 }
 
 @media screen and (min-width: 2560px){
-    .top-menu select {
+    /* .top-menu select {
         font-size: 20px;
     }
     .top-menu {
         font-size: 20px;
-    }
+    } */
     .search_button {
         font-size: 20px;
     }

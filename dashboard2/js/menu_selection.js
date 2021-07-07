@@ -11,14 +11,25 @@ function change_dashboard_data(selected_menu){
             display_popularity();
             break;
         case "market":
+            d3.select(".navbar-brand").text("DASHBOARD > MARKET")
             generate_market_report();
             break;
         case "calculate":
+            d3.select(".navbar-brand").text("DASHBOARD > CALCULATE")
             generate_calculator();
             break;
         case "table":
+            d3.select(".navbar-brand").text("DASHBOARD > DATA TABLE")
             generate_data_table();
             break;
+    }
+}
+
+function change_title_and_change_select_value(){
+    if(selected_menu == "general"){
+        d3.select(".top-menu").style("display", "none");
+    }else{
+        d3.select(".top-menu").style("display", "block");
     }
 }
 

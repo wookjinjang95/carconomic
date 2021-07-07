@@ -151,6 +151,17 @@ function filter_data_by_selected_trim(data){
     return filtered_data;
 }
 
+function filter_data_by_given_trim(trim, data){
+    filtered_data = [];
+    for(var i = 0; i < data.length; i++){
+        console.log()
+        if(trim == data[i]['Trim']){
+            filtered_data.push(data[i]);
+        }
+    }
+    return filtered_data;
+}
+
 function filter_data_by_year(data, year){
     filtered_data = [];
     for(var i = 0; i < data.length; i++){
