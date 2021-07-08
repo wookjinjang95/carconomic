@@ -7,6 +7,9 @@ from tqdm import tqdm
 import time, os, json
 import csv
 import argparse
+import requests
+import concurrent.futures
+from urllib.request import Request, urlopen
 from data_cleaner import DataCleanerUtils
 
 
@@ -273,6 +276,23 @@ class CarFaxScraper:
                 dict_writer = csv.DictWriter(fp, keys)
                 dict_writer.writeheader()
                 dict_writer.writerows(filtered_data)
+
+    def get_rc_code(self, data, http_link):
+        req = Request(http_link, headers={'User-Agent': 'Mozilla/5.0'})
+        webpage = urlopen(req)
+        if webpage.getcode() != 200:
+            data['Link Status'] = "Not Working"
+        else:
+            data['Link Status'] = "Working"
+
+    def add_carfax_vin_link_status(self):
+        print("Running carfax vin link check")
+        with tqdm(total=len(self.data)) as pbar:
+            for each_data in self.data:
+                vin = each_data['Vin']
+                http_link = "http://www.carfax.com/vehicle/{}".format(vin)
+                self.get_rc_code(each_data, http_link)
+                pbar.update(1)
   
     def apply_filters(self, no_accident, service_history):
         """

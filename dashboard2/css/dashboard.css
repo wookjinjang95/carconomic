@@ -54,6 +54,7 @@
 .left-menu .item:hover {
     padding-left: 30%;
     transition: 0.2s;
+    cursor: pointer;
 }
 
 .left-menu .item:focus{

@@ -48,7 +48,7 @@ async function generate_calculator(){
             .attr("height", height)
         .append("g")
             .attr("transform", 
-                "translate(" + (margin.left + margin.right) + "," + margin.top + ")")
+                "translate(" + (margin.left) + "," + margin.top + ")")
         
     cost_svg.append("text")
         .attr("text-anchor", "end")
@@ -59,7 +59,7 @@ async function generate_calculator(){
         
     cost_svg.append("text")
         .attr("text-anchor", "end")
-        .attr("x", margin.right)
+        .attr("x", margin.left)
         .attr("y", margin.top - 50)
         .style("stroke", "black")
         .text("Cost ($)");
@@ -342,12 +342,30 @@ async function update_cost_analysis(cost_svg, data){
 
     cost_svg.append("g")
         .attr("class", "y-axis")
-        .call(d3.axisLeft(y));
+        .call(d3.axisLeft(y)
+            .tickFormat(function (d) {
+                console.log(d / 1000)
+                if ((d / 1000) >= 1) {
+                d = d / 1000 + "K";
+                }
+                console.log(d)
+                return d;
+            })
+        );
 
     cost_svg.append("g")
         .attr("class", "x-axis")
         .attr("transform", "translate(0," + (c_dep_height - margin.top)  + ")")
-        .call(d3.axisBottom(x));
+        .call(d3.axisBottom(x)
+            .tickFormat(function (d) {
+                console.log(d / 1000)
+                if ((d / 1000) >= 1) {
+                d = d / 1000 + "K";
+                }
+                console.log(d)
+                return d;
+            })
+        );
 
     d3.selectAll(".curve-line").remove();
     d3.selectAll(".cost-label").remove();

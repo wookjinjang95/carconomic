@@ -32,6 +32,7 @@ if __name__ == "__main__":
         search_range_miles=options['miles'],
         trim=options['trim']
     )
+    # carfax_obj.add_carfax_vin_link_status()
     carfax_obj.produce_data(
         filename=options['outputfile'], 
         output_type="csv"
