@@ -99,10 +99,13 @@ function logarithmic(data) {
         var coordinate = [data[i][0], A + B * Math.log(data[i][0])];
         results.push(coordinate);
     }
+    var sorted_results  = results.sort(function(a,b) {
+        return a[0] -  b[0];
+    })
 
     var string = 'y = ' + Math.round(A*100) / 100 + ' + ' + Math.round(B*100) / 100 + ' ln(x)';
 
-    return {equation: [A, B], points: results, string: string};
+    return {equation: [A, B], points: sorted_results, string: string};
 }
 
 function map_trim_to_color(data){

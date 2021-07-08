@@ -248,8 +248,7 @@ function update_miles_vs_price(svg_depreciation, margin, data, color_mapping, tr
         .style("stroke-opacity", "0.2")
         .call(make_x_gridlines(x)
             .tickSize(-dep_height)
-            .tickFormat("")
-    )
+        )   
 
     svg_depreciation.append("g")			
         .attr("class", "grid")
@@ -263,13 +262,31 @@ function update_miles_vs_price(svg_depreciation, margin, data, color_mapping, tr
     svg_depreciation.append("g")
         .attr("class", "y-axis")
         .style("font-size", "10px")
-        .call(d3.axisLeft(y));
+        .call(d3.axisLeft(y)
+            .tickFormat(function (d) {
+                console.log(d / 1000)
+                if ((d / 1000) >= 1) {
+                d = d / 1000 + "K";
+                }
+                console.log(d)
+                return d;
+            })
+        );
 
     svg_depreciation.append("g")
         .attr("class", "x-axis")
         .style("font-size", "10px")
         .attr("transform", "translate(0," + (dep_height - margin.top - margin.bottom)  + ")")
-        .call(d3.axisBottom(x));
+        .call(d3.axisBottom(x)
+            .tickFormat(function (d) {
+                console.log(d / 1000)
+                if ((d / 1000) >= 1) {
+                d = d / 1000 + "K";
+                }
+                console.log(d)
+                return d;
+            })
+        );
     
     var circles = svg_depreciation.selectAll("circle")
         .data(filtered_data);

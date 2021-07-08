@@ -105,6 +105,12 @@ function add_raw_data_table(id, data, global_regression){
             .style("padding-bottom", "3px")
             .style("padding-left", "10px")
             .html(function(d) { 
+                // if(d.column == "Link Status"){
+                //     if(d.value == "Working"){
+                //         return `<span class='green_circle'></span>${d.value}`
+                //     }
+                //     return `<span class='red_circle'>${d.value}</span>`
+                // }
                 if(d.column == "Carfax Link"){
                     return "<a target='_blank' href=" + d.value + ">" + d.value + "</a>";
                 }

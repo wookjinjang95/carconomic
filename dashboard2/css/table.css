@@ -1,0 +1,23 @@
+.red_circle {
+    background-color: red;
+    display: block;
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    margin: auto;
+    float: left;
+    margin-top: 5px;
+    margin-right: 5px;
+}
+
+.green_circle {
+    background-color: green;
+    display: block;
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    margin: auto;
+    float: left;
+    margin-top: 5px;
+    margin-right: 5px;
+}
